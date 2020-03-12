@@ -43,7 +43,7 @@
     "lodash": "4.17.15",
     "nanoid": "2.1.11",
     "prop-types": "15.7.2",
-    "react-emotion": "9.1.2"
+    "react-emotion": "10.0.0"
   },
   "devDependencies": {
     "@babel/core": "7.8.7",
