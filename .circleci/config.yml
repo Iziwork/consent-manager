@@ -28,6 +28,7 @@ jobs:
             - run:
                 name: bump package version
                 command: |
+                  git config user.email "$GITHUB_PUBLISH_USERNAME"
                   npm version patch -m "Bumped version number to %s [ci skip]"
                   git push origin master
                   git push --tags
