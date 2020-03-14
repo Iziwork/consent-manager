@@ -1,4 +1,6 @@
-> Drop-in consent management plugin for analytics.js
+# consent-manager [![Iziwork](https://circleci.com/gh/Iziwork/consent-manager/tree/master.svg?style=shield)](https://circleci.com/gh/Iziwork/consent-manager/tree/master)
+
+>> Drop-in consent management plugin for analytics.js
 
 [StoryBook](https://Iziwork.github.io/consent-manager/index.html)
 
