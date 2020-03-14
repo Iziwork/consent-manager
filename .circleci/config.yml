@@ -23,12 +23,12 @@ jobs:
       - node/with-cache:
           steps:
             - run:
-                name: set git user
-                command: git config user.email "$GITHUB_PUBLISH_USERNAME"
+                name: git config
+                command: git config user.name $CIRCLE_USERNAME
             - run:
                 name: bump package version
                 command: |
-                  git config user.email "$GITHUB_PUBLISH_USERNAME"
+                  git config user.name $CIRCLE_USERNAME
                   npm version patch -m "Bumped version number to %s [ci skip]"
                   git push origin master
                   git push --tags
