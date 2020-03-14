@@ -144,6 +144,6 @@
   "storybook-deployer": {
     "gitUsername": "GitHub Pages Bot",
     "gitEmail": "friends@iziwork.com",
-    "commitMessage": "Deploy Storybook to GitHub Pages"
+    "commitMessage": "Deploy Storybook to GitHub Pages [ci skip]"
   }
 }

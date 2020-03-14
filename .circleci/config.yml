@@ -26,7 +26,7 @@ jobs:
                 name: bump package version
                 command: |
                   git config user.name $CIRCLE_USERNAME
-                  npm version patch -m "Bumped version number to %s"
+                  npm version patch -m "Bumped version number to %s [ci skip]"
                   git push origin master
                   git push --tags
             - run:

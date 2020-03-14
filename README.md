@@ -1,4 +1,4 @@
-# consent-manager [![Iziwork](https://circleci.com/gh/Iziwork/consent-manager/tree/master.svg?style=shield)](https://circleci.com/gh/Iziwork/consent-manager/tree/master)
+# consent-manager
 
 >> Drop-in consent management plugin for analytics.js
 
@@ -128,7 +128,7 @@ All the options are supported. The callback function also receives these exports
 </script>
 
 <script
-  src="https://unpkg.com/@segment/consent-manager@4.0.0/standalone/consent-manager.js"
+  src="https://iziwork.github.io/consent-manager/standalone/consent-manager.js"
   defer
 ></script>
 ```
@@ -273,7 +273,7 @@ The values for `integrations` should be an integration's creationName (`integrat
 
 ```javascript
 import React from 'react'
-import { ConsentManager, openConsentManager } from '@segment/consent-manager'
+import { ConsentManager, openConsentManager } from '@iziwork/consent-manager'
 import inEU from '@segment/in-eu'
 
 export default function() {
@@ -433,7 +433,7 @@ For a more detailed/advanced example, checkout the [ConsentManager implementatio
 
 ```javascript
 import React from 'react'
-import { ConsentManagerBuilder } from '@segment/consent-manager'
+import { ConsentManagerBuilder } from '@iziwork/consent-manager'
 
 export default function() {
   return (
