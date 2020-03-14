@@ -24,7 +24,7 @@ jobs:
           steps:
             - run:
                 name: set git user
-                command: git config --global user.email $GITHUB_PUBLISH_USERNAME
+                command: git config user.email "$GITHUB_PUBLISH_USERNAME"
             - run:
                 name: bump package version
                 command: |
