@@ -15,7 +15,27 @@ jobs:
             - run: npm run lint
             - run: npm run test
             - run: npm run size-limit
+  build-test-and-publish:
+    branches:
+      only:
+        - master
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/with-cache:
+          steps:
+            - run: npm config set '//npm.pkg.github.com/:_authToken' $GITHUB_PUBLISH_AUTH_TOKEN
+            - run: npm install
+            - run: npm run build
+            - run: npm run lint
+            - run: npm run test
+            - run: npm run size-limit
+            - run: npm publish
 workflows:
     build-and-test:
       jobs:
         - build-and-test
+    build-test-and-publish:
+      jobs:
+        - build-test-and-publish
