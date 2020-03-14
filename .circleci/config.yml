@@ -22,6 +22,12 @@ jobs:
       - checkout
       - node/with-cache:
           steps:
+            - run:
+                name: bump package version
+                command: |
+                  npm version patch -m "Bumped version number to %s [ci skip]"
+                  git push origin master
+                  git push --tags
             - run: npm config set '//npm.pkg.github.com/:_authToken' $GITHUB_PUBLISH_AUTH_TOKEN
             - run: npm install
             - run: npm run build
