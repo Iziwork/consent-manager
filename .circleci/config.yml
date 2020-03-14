@@ -32,10 +32,13 @@ jobs:
 workflows:
     build-and-test:
       jobs:
-        - build-and-test
+        - build-and-test:
+            filters:
+              branches:
+                ignore: master
     build-test-and-publish:
       jobs:
         - build-test-and-publish:
-          filters:
-            branches:
-              only: master
+            filters:
+              branches:
+                only: master
