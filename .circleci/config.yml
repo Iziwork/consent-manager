@@ -23,12 +23,17 @@ jobs:
       - node/with-cache:
           steps:
             - run:
+                name: set git user
+                command: git config --global user.email $GITHUB_PUBLISH_USERNAME
+            - run:
                 name: bump package version
                 command: |
                   npm version patch -m "Bumped version number to %s [ci skip]"
                   git push origin master
                   git push --tags
-            - run: npm config set '//npm.pkg.github.com/:_authToken' $GITHUB_PUBLISH_AUTH_TOKEN
+            - run:
+                name: set registry token
+                command: npm config set '//npm.pkg.github.com/:_authToken' $GITHUB_PUBLISH_AUTH_TOKEN
             - run: npm install
             - run: npm run build
             - run: npm run lint
@@ -41,7 +46,9 @@ workflows:
         - build-and-test:
             filters:
               branches:
-                ignore: master
+                ignore:
+                  - master
+                  - gh-pages
     build-test-and-publish:
       jobs:
         - build-test-and-publish:
