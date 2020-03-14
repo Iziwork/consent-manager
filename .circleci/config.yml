@@ -35,8 +35,7 @@ workflows:
         - build-and-test
     build-test-and-publish:
       jobs:
-        - build-test-and-publish
+        - build-test-and-publish:
           filters:
             branches:
-              only:
-                - master
+              only: master
