@@ -16,9 +16,6 @@ jobs:
             - run: npm run test
             - run: npm run size-limit
   build-test-and-publish:
-    branches:
-      only:
-        - master
     executor:
       name: node/default
     steps:
@@ -39,3 +36,7 @@ workflows:
     build-test-and-publish:
       jobs:
         - build-test-and-publish
+          filters:
+            branches:
+              only:
+                - master
