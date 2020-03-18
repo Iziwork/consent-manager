@@ -1,27 +1,27 @@
 export const MARKETING_AND_ANALYTICS_CATEGORIES = [
-  'A/B Testing',
-  'Analytics',
+  'Tests',
+  'Analyse',
   'Attribution',
   'Email',
-  'Enrichment',
-  'Heatmaps & Recordings',
-  'Raw Data',
-  'Realtime Dashboards',
-  'Referrals',
-  'Surveys',
-  'Video'
+  'Enrichissement',
+  'Carte de chaleur',
+  'Données brutes',
+  'Tableaux de bord',
+  'Référents',
+  'Sondages',
+  'Vidéo'
 ]
 
-export const ADVERTISING_CATEGORIES = ['Advertising', 'Tag Managers']
+export const ADVERTISING_CATEGORIES = ['Publicité', 'Gestionnaires de tag']
 
 export const FUNCTIONAL_CATEGORIES = [
-  'CRM',
-  'Customer Success',
-  'Deep Linking',
-  'Helpdesk',
-  'Livechat',
-  'Performance Monitoring',
-  'Personalization',
-  'SMS & Push Notifications',
-  'Security & Fraud'
+  'Gestion de la relation client',
+  'Fidélisation de la clientèle',
+  'Liens profonds',
+  'Support',
+  'Chat en direct',
+  'Surveillance de la performance',
+  'Personnalisation',
+  'Notifications Push & SMS',
+  'Sécurité & fraude'
 ]
