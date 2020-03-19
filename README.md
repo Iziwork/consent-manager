@@ -1,8 +1,16 @@
-# consent-manager
+# consent-manager in French
 
 >> Drop-in consent management plugin for analytics.js
 
 [StoryBook](https://Iziwork.github.io/consent-manager/index.html)
+
+## Installation
+
+1. Generate a GitHub Personnal access token (Settings > Developer settings > Personal access tokens) with `read:packages` scope
+2. Clone this repo
+3. Run `npm config set '//npm.pkg.github.com/:_authToken' $GITHUB_AUTH_TOKEN`
+4. Run `npm run setup`
+5. Run `npm run storybook`
 
 ## Segment Consent Manager
 
