@@ -32,6 +32,7 @@ const ColumnHeading = styled('th')`
 const RowHeading = styled('th')`
   font-weight: normal;
   text-align: left;
+  word-break: normal;
 `
 
 const Row = styled('tr')`
