@@ -28,10 +28,12 @@
     "build-standalone": "webpack",
     "build": "concurrently --names 'commonjs,esm,standalone' 'npm run build-commonjs' 'npm run build-esm' 'npm run build-standalone'",
     "clean": "rm -rf commonjs esm standalone storybook-static",
+    "clean:all": "rm -rf node_modules/ package-lock.json .eslintcache && npm run clean",
     "deploy-storybook": "storybook-to-ghpages",
     "standalone-hash": "shasum -b -a 256 standalone/consent-manager.js | xxd -r -p | base64",
     "build-storybook": "npm run build-standalone && build-storybook && cp -r ./standalone ./storybook-static/standalone",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "setup": "npm run clean:all && npm install",
     "storybook": "start-storybook",
     "size-limit": "size-limit"
   },

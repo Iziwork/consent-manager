@@ -11,8 +11,8 @@ import CookieView from './components/CookieView'
 
 const bannerContent = (
   <span>
-    We use cookies (and other similar technologies) to collect data to improve your experience on
-    our site. By using our website, you’re agreeing to the collection of data as described in our{' '}
+    Notre site internet utilise des cookies. Certains de ces cookies sont nécessaires au bon fonctionnement du site et ne
+    peuvent être refusés lorsque vous visitez ce site. Pour les autres, vous pouvez choisir de les paramétrer en cliquant ici.
     <a
       href="https://segment.com/docs/legal/website-data-collection-policy/"
       target="_blank"
@@ -24,43 +24,19 @@ const bannerContent = (
   </span>
 )
 const bannerSubContent = 'You can manage your preferences here!'
-const preferencesDialogTitle = 'Website Data Collection Preferences'
+const preferencesDialogTitle = 'Gérer mes préférences'
 const preferencesDialogContent = (
   <div>
     <p>
-      Segment uses data collected by cookies and JavaScript libraries to improve your browsing
-      experience, analyze site traffic, deliver personalized advertisements, and increase the
-      overall performance of our site.
-    </p>
-    <p>
-      By using our website, you’re agreeing to our{' '}
-      <a
-        href="https://segment.com/docs/legal/website-data-collection-policy/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Website Data Collection Policy
-      </a>
-      .
-    </p>
-    <p>
-      The table below outlines how we use this data by category. To opt out of a category of data
-      collection, select “No” and save your preferences.
+      Nous utilisons l’information collectée par des cookies et des librairies JavaScript pour améliorer votre expérience
+      de navigation, analyser le trafic sur notre site, afficher des publicités personnalisées et augmenter la performance de notre site.
     </p>
   </div>
 )
-const cancelDialogTitle = 'Are you sure you want to cancel?'
+const cancelDialogTitle = 'Êtes-vous sûr de vouloir annuler ?'
 const cancelDialogContent = (
   <div>
-    Your preferences have not been saved. By continuing to use our website, you’re agreeing to our{' '}
-    <a
-      href="https://segment.com/docs/legal/website-data-collection-policy/"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Website Data Collection Policy
-    </a>
-    .
+    Vos préférences n’ont pas été sauvegardées.
   </div>
 )
 

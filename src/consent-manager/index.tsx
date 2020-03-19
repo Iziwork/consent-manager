@@ -21,10 +21,10 @@ export default class ConsentManager extends PureComponent<ConsentManagerProps, {
     cookieDomain: undefined,
     customCategories: undefined,
     bannerTextColor: '#fff',
-    bannerSubContent: 'You can change your preferences at any time.',
+    bannerSubContent: 'Vous pouvez modifier vos préférences à tout moment.',
     bannerBackgroundColor: '#1f4160',
-    preferencesDialogTitle: 'Website Data Collection Preferences',
-    cancelDialogTitle: 'Are you sure you want to cancel?'
+    preferencesDialogTitle: 'Gérer mes préférences',
+    cancelDialogTitle: 'Etes-vous sûr de vouloir annuler ?'
   }
 
   render() {
