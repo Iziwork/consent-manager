@@ -36,17 +36,11 @@ const P = styled('p')`
 `
 
 const CloseButton = styled('button')`
-  position: absolute;
-  right: 8px;
-  top: 50%;
-  transform: translateY(-50%);
   padding: 8px;
   border: none;
   background: none;
   color: inherit;
   font: inherit;
-  font-size: 14px;
-  line-height: 1;
   cursor: pointer;
 `
 
@@ -68,8 +62,6 @@ export default class Banner extends PureComponent<Props> {
       innerRef,
       onClose,
       onChangePreferences,
-      content,
-      subContent,
       backgroundColor,
       textColor
     } = this.props
@@ -77,17 +69,18 @@ export default class Banner extends PureComponent<Props> {
     return (
       <Root innerRef={innerRef} backgroundColor={backgroundColor} textColor={textColor}>
         <Content>
-          <P>{content}</P>
+          <P>Notre site internet utilise des cookies. Certains de ces cookies sont nécessaires au bon fonctionnement du
+            site et ne peuvent être refusés lorsque vous visitez ce site. Pour les autres, vous pouvez choisir de les
+            paramétrer en <button type="button" onClick={onChangePreferences}>cliquant ici</button>.
+          </P>
           <P>
-            <button type="button" onClick={onChangePreferences}>
-              {subContent}
-            </button>
+            [<a href="https://s3.eu-central-1.amazonaws.com/iziwork/legals/mentions_legales.pdf" target="_blank" rel="noopener noreferrer">
+              Plus d’informations
+            </a>] | [<CloseButton type="button" onClick={onClose}>
+              Accepter
+            </CloseButton>]
           </P>
         </Content>
-
-        <CloseButton type="button" title="Close" aria-label="Close" onClick={onClose}>
-          ✕
-        </CloseButton>
       </Root>
     )
   }
