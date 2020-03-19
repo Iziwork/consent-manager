@@ -72,7 +72,7 @@
     "@types/segment-analytics": "0.0.32",
     "@types/sinon": "7.5.2",
     "@types/storybook__react": "5.2.1",
-    "@typescript-eslint/eslint-plugin": "2.23.0",
+    "@typescript-eslint/eslint-plugin": "2.24.0",
     "@typescript-eslint/parser": "2.23.0",
     "babel-loader": "8.0.6",
     "concurrently": "5.1.0",
