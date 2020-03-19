@@ -26,6 +26,7 @@ const ColumnHeading = styled('th')`
   font-weight: 600;
   text-align: left;
   border-width: 2px;
+  word-break: normal;
 `
 
 const RowHeading = styled('th')`
