@@ -74,7 +74,7 @@ export default class Banner extends PureComponent<Props> {
             paramétrer en <button type="button" onClick={onChangePreferences}>cliquant ici</button>.
           </P>
           <P>
-            [<a href="https://www.iziwork.com/cookies" target="_blank" rel="noopener noreferrer">
+            [<a href="/cookies" target="_blank" rel="noopener noreferrer">
               Plus d’informations
             </a>] | [<CloseButton type="button" onClick={onClose}>
               Accepter
