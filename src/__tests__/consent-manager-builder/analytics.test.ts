@@ -79,7 +79,10 @@ describe('analytics', () => {
         this.initialized = true
       }
     }
-    jest.spyOn(window.location, 'reload')
+    Object.defineProperty(window, 'location', {
+      writable: true,
+      value: { reload: jest.fn() }
+    })
 
     const writeKey = '123'
     const destinations = [{ id: 'Amplitude' } as Destination]

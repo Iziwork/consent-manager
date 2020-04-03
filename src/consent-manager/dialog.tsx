@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
 import styled, { keyframes } from 'react-emotion'
-import nanoid from 'nanoid'
+import { nanoid } from 'nanoid'
 import fontStyles from './font-styles'
 
 const ANIMATION_DURATION = '200ms'
