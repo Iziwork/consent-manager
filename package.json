@@ -40,7 +40,7 @@
   "dependencies": {
     "@segment/in-regions": "1.2.2",
     "@segment/top-domain": "3.0.0",
-    "emotion": "9.2.12",
+    "emotion": "10.0.27",
     "isomorphic-fetch": "2.2.1",
     "js-cookie": "2.2.1",
     "lodash": "4.17.15",
