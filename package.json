@@ -49,7 +49,7 @@
     "react-emotion": "9.2.12"
   },
   "devDependencies": {
-    "@babel/core": "7.9.0",
+    "@babel/core": "7.10.3",
     "@segment/in-eu": "0.3.0",
     "@size-limit/preset-small-lib": "4.4.5",
     "@storybook/addon-actions": "5.3.18",
