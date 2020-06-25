@@ -156,12 +156,12 @@ export default class ConsentManagerBuilder extends Component<Props, State> {
     if (mapCustomPreferences) {
       preferences = customPreferences || initialPreferences || {}
 
-      const hasInitialPreferenceToTrue = Object.values(initialPreferences || {}).some(Boolean)
-      const emptyCustomPreferecences = Object.values(customPreferences || {}).every(
+      const hasInitialPreferenceToTrue = Object.keys(initialPreferences || {}).map(k => (initialPreferences || {})[k]).some(Boolean)
+      const emptyCustomPreferences = Object.keys(customPreferences || {}).map(k => (customPreferences || {})[k]).every(
         v => v === null || v === undefined
       )
 
-      if (hasInitialPreferenceToTrue && emptyCustomPreferecences) {
+      if (hasInitialPreferenceToTrue && emptyCustomPreferences) {
         const mapped = mapCustomPreferences(destinations, preferences)
         destinationPreferences = mapped.destinationPreferences
         customPreferences = mapped.customPreferences
