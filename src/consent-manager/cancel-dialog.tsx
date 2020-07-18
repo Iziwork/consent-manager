@@ -31,7 +31,7 @@ export default class CancelDialog extends PureComponent<Props> {
         title={title}
         buttons={buttons}
         onSubmit={this.handleSubmit}
-        width="500px"
+        width="960px"
       >
         {content}
       </Dialog>
@@ -46,7 +46,7 @@ export default class CancelDialog extends PureComponent<Props> {
     document.body.removeEventListener('keydown', this.handleEsc, false)
   }
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     const { onConfirm } = this.props
 
     e.preventDefault()
