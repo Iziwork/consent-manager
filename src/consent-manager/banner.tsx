@@ -5,18 +5,22 @@ import fontStyles from './font-styles'
 const Root = styled('div')<{ backgroundColor: string; textColor: string }>`
   ${fontStyles};
   position: relative;
+  float: left;
   padding: 8px;
   padding-right: 40px;
   background: white;
   color: #031b4a;
-  text-align: center;
+  text-align: left;
   font-size: 12px;
   line-height: 1.3;
 `
 
 const Content = styled('div')`
-  a,
-  button {
+  p {
+    float: left;
+    width: calc(100% - 60px);
+  }
+  .link {
     display: inline;
     padding: 0;
     border: none;
@@ -26,6 +30,32 @@ const Content = styled('div')`
     font-size: 12px;
     text-decoration: underline;
     cursor: pointer;
+  }
+  .button {
+    float: right;
+    min-width: 50px;
+    padding: 0 14px;
+    border: none;
+    background: #4fb767;
+    color: white;
+    border-radius: 8px;
+    color: white;
+    font: inherit;
+    height: 48px;
+    line-height: 48px;
+    font-weight: 700;
+    text-align: center;
+    display: inline-block;
+    outline: 0;
+    user-select: none;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    &:hover {
+      color: white;
+      background: #068c5a;
+      text-decoration: none;
+    }
   }
 `
 
@@ -38,11 +68,13 @@ const P = styled('p')`
 
 const CloseButton = styled('button')`
   float: right;
-  padding: 14px;
+  padding: 0 14px;
   border: none;
   background: #4fb767;
   border-radius: 8px;
-  color: inherit;
+  height: 48px;
+  line-height: 48px;
+  color: white;
   font: inherit;
   font-weight: 700;
   text-align: center;
@@ -81,16 +113,14 @@ export default class Banner extends PureComponent<Props> {
           <P>
             Notre site internet utilise des cookies 🍪. Certains ne peuvent être refusés pour le bon
             fonctionnement du site. Pour les autres, vous pouvez choisir de les paramétrer{' '}
-            <button type="button" onClick={onChangePreferences}>
+            <p className="link" onClick={onChangePreferences}>
               en cliquant ici
-            </button>
+            </p>
             .
           </P>
-          <P>
-            <CloseButton type="button" onClick={onClose}>
-              Ok
-            </CloseButton>
-          </P>
+          <CloseButton type="button" className="button" onClick={onClose}>
+            Ok
+          </CloseButton>
         </Content>
       </Root>
     )
