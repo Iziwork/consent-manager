@@ -109,21 +109,19 @@ export default class Banner extends PureComponent<Props> {
 
     return (
       <Root innerRef={innerRef} backgroundColor={backgroundColor} textColor={textColor}>
-        <P>
-          <Content>
-            <P>
-              Notre site internet utilise des cookies 🍪. Certains ne peuvent être refusés pour le
-              bon fonctionnement du site. Pour les autres, vous pouvez choisir de les paramétrer{' '}
-              <p className="link" onClick={onChangePreferences}>
-                en cliquant ici
-              </p>
-              .
-            </P>
-            <CloseButton type="button" className="button" onClick={onClose}>
-              Ok
-            </CloseButton>
-          </Content>
-        </P>
+        <Content>
+          <P>
+            Notre site internet utilise des cookies 🍪. Certains ne peuvent être refusés pour le bon
+            fonctionnement du site. Pour les autres, vous pouvez choisir de les paramétrer{' '}
+            <p className="link" onClick={onChangePreferences}>
+              en cliquant ici
+            </p>
+            .
+          </P>
+          <CloseButton type="button" className="button" onClick={onClose}>
+            Ok
+          </CloseButton>
+        </Content>
       </Root>
     )
   }
