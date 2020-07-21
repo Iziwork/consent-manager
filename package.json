@@ -1,6 +1,6 @@
 {
   "name": "@iziwork/consent-manager",
-  "version": "4.3.8",
+  "version": "4.3.16",
   "description": "Drop-in consent management plugin for analytics.js",
   "keywords": [
     "gdpr",

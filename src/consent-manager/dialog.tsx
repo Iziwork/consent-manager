@@ -85,6 +85,7 @@ const HeaderCancelButton = styled('button')`
 `
 
 const Content = styled('div')`
+  -ms-overflow-style: none;
   overflow-y: auto;
   padding: 20px 16px 16px;
   padding-bottom: 0;
@@ -134,6 +135,7 @@ export default class Dialog extends PureComponent<DialogProps, {}> {
   static defaultProps = {
     onCancel: undefined,
     width: '960px',
+    width: '750px',
   }
 
   constructor(props: DialogProps) {
