@@ -5,9 +5,7 @@ import fontStyles from './font-styles'
 const Root = styled('div')<{ backgroundColor: string; textColor: string }>`
   ${fontStyles};
   position: relative;
-  float: left;
-  padding: 8px;
-  padding-right: 40px;
+  padding: 24px;
   background: white;
   color: #031b4a;
   text-align: left;
@@ -21,7 +19,6 @@ const Content = styled('div')`
     width: calc(100% - 60px);
   }
   .link {
-    display: inline;
     padding: 0;
     border: none;
     background: none;
@@ -113,9 +110,10 @@ export default class Banner extends PureComponent<Props> {
           <P>
             Notre site internet utilise des cookies 🍪. Certains ne peuvent être refusés pour le bon
             fonctionnement du site. Pour les autres, vous pouvez choisir de les paramétrer{' '}
-            <p className="link" onClick={onChangePreferences}>
+            <span className="link" onClick={onChangePreferences}>
+              {' '}
               en cliquant ici
-            </p>
+            </span>
             .
           </P>
           <CloseButton type="button" className="button" onClick={onClose}>
