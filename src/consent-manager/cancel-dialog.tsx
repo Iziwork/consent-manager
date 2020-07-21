@@ -31,7 +31,7 @@ export default class CancelDialog extends PureComponent<Props> {
         title={title}
         buttons={buttons}
         onSubmit={this.handleSubmit}
-        width="500px"
+        width="960px"
       >
         {content}
       </Dialog>

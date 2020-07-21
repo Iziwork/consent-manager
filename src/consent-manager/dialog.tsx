@@ -35,6 +35,7 @@ const Root = styled('section')<{ width: number | string | undefined }>`
   ${fontStyles};
   display: flex;
   flex-direction: column;
+  padding: 8px 0;
   max-width: calc(100vw - 16px);
   max-height: calc(100vh - 16px);
   width: ${(props) => props.width};
@@ -45,9 +46,11 @@ const Root = styled('section')<{ width: number | string | undefined }>`
 `
 
 const Form = styled('form')`
+  margin-top: -20px;
   display: flex;
   flex-direction: column;
   min-height: 0;
+  padding: 5px 10px;
 `
 
 const Header = styled('div')`
@@ -55,36 +58,39 @@ const Header = styled('div')`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
-  border-bottom: 1px solid rgba(67, 90, 111, 0.079);
+  padding: 12px 24px;
+  border-bottom: 0;
 `
 
 const Title = styled('h2')`
+  position: relative;
   margin: 0;
-  color: #1f4160;
-  font-size: 16px;
-  font-weight: 600;
+  color: #031b4a;
+  font-size: 20px;
+  font-weight: 800;
   line-height: 1.3;
 `
 
 const HeaderCancelButton = styled('button')`
-  padding: 8px;
+  padding: 8px 0 8px;
   border: none;
   background: none;
   color: inherit;
   font: inherit;
-  font-size: 14px;
+  font-size: 12px;
+  font-weight: 900;
   line-height: 1;
   cursor: pointer;
+  color: #031b4a;
 `
 
 const Content = styled('div')`
   -ms-overflow-style: none;
   overflow-y: auto;
-  padding: 16px;
+  padding: 20px 16px 16px;
   padding-bottom: 0;
   min-height: 0;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 1.2;
 
   p {
@@ -128,7 +134,7 @@ export default class Dialog extends PureComponent<DialogProps, {}> {
 
   static defaultProps = {
     onCancel: undefined,
-    width: '750px',
+    width: '960px'
   }
 
   constructor(props: DialogProps) {
