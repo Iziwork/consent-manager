@@ -66,13 +66,13 @@ const Title = styled('h2')`
   position: relative;
   margin: 0;
   color: #031b4a;
-  font-size: 20px;
-  font-weight: 800;
-  line-height: 1.3;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
 `
 
 const HeaderCancelButton = styled('button')`
-  padding: 8px 0 8px;
+  padding: 8px 0;
   border: none;
   background: none;
   color: inherit;
