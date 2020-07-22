@@ -39,15 +39,15 @@ export default class CancelDialog extends PureComponent<Props> {
   }
 
   componentDidMount() {
-    document.body.addEventListener('keydown', this.handleEsc, false)
     const { onConfirm } = this.props
     onConfirm()
+    document.body.addEventListener('keydown', this.handleEsc, false)
   }
 
   componentWillUnmount() {
-    document.body.removeEventListener('keydown', this.handleEsc, false)
     const { onConfirm } = this.props
     onConfirm()
+    document.body.removeEventListener('keydown', this.handleEsc, false)
   }
 
   handleSubmit = (e) => {
