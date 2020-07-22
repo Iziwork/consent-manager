@@ -59,7 +59,7 @@ const Content = styled('div')`
 const P = styled('p')`
   margin: 0;
   &:not(:last-child) {
-    margin-bottom: 16px;
+    margin-bottom: 10px;
   }
 `
 

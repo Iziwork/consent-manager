@@ -17,7 +17,7 @@ const baseStyles = css`
 
 export const DefaultButton = styled('button')`
   ${baseStyles};
-  margin-right: 8px;
+  margin-right: 16px;
   background-color: #f7f9fa;
   &:hover {
     background-color: #f2f4f6;
