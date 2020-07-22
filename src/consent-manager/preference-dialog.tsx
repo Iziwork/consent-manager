@@ -407,14 +407,7 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
               <Row className="last-row">
                 <InputCell>
                   <label>
-                    <input
-                      className="essential"
-                      type="radio"
-                      name=""
-                      value="true"
-                      aria-label=""
-                      required
-                    />
+                    <input className="essential" />
                     <span className="checkmark" />
                   </label>
                 </InputCell>
