@@ -10,7 +10,7 @@ const Root = styled('div')<{ backgroundColor: string; textColor: string }>`
   color: #031b4a;
   text-align: left;
   font-size: 12px;
-  line-height: 1.3;
+  line-height: 1.6;
 `
 
 const Content = styled('div')`
@@ -59,7 +59,7 @@ const Content = styled('div')`
 const P = styled('p')`
   margin: 0;
   &:not(:last-child) {
-    margin-bottom: 6px;
+    margin-bottom: 16px;
   }
 `
 
