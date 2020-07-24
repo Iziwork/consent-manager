@@ -11,11 +11,12 @@ const Root = styled('div')<{ backgroundColor: string; textColor: string }>`
   text-align: left;
   font-size: 12px;
   line-height: 1.6;
+  border-radius: 8px;
+  box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.1);
 `
 
 const Content = styled('div')`
   p {
-    float: left;
     width: calc(100% - 60px);
   }
   .link {
@@ -29,7 +30,9 @@ const Content = styled('div')`
     cursor: pointer;
   }
   .button {
-    float: right;
+    position: absolute;
+    top: 24px;
+    right: 24px;
     min-width: 50px;
     padding: 0 14px;
     border: none;
@@ -58,9 +61,6 @@ const Content = styled('div')`
 
 const P = styled('p')`
   margin: 0;
-  &:not(:last-child) {
-    margin-bottom: 10px;
-  }
 `
 
 const CloseButton = styled('button')`
