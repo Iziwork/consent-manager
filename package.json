@@ -65,7 +65,7 @@
     "@types/isomorphic-fetch": "0.0.35",
     "@types/jest": "26.0.3",
     "@types/js-cookie": "2.2.6",
-    "@types/lodash": "4.14.157",
+    "@types/lodash": "4.14.159",
     "@types/nanoid": "2.1.0",
     "@types/nock": "11.1.0",
     "@types/node": "12.12.47",
