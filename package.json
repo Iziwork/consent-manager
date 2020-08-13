@@ -88,7 +88,7 @@
     "evergreen-ui": "4.28.0",
     "file-loader": "6.0.0",
     "husky": "4.2.5",
-    "jest": "26.1.0",
+    "jest": "26.4.0",
     "lint-staged": "10.2.11",
     "lodash-es": "4.17.15",
     "nock": "12.0.3",
