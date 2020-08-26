@@ -101,16 +101,24 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
       preferences
     } = this.props
 
+    let location;
+    if (typeof window !== 'undefined') {
+      location = location
+    }
+
     const buttons = (
       <div>
-        <DefaultButton type="button" onClick={onCancel}>
-          {window.location.pathname.indexOf('/fr') === 0 ? 'Annuler' : null}
-          {window.location.pathname.indexOf('/it') === 0 ? 'Per cancellare' : null}
-        </DefaultButton>
-        <GreenButton type="submit">
-          {window.location.pathname.indexOf('/fr') === 0 ? 'Sauvegarder' : null}
-          {window.location.pathname.indexOf('/it') === 0 ? 'Salva' : null}
-        </GreenButton>
+        {typeof window !== 'undefined' &&
+          <div>
+            <DefaultButton type="button" onClick={onCancel}>
+              {location.startsWith('/fr') === 0 ? 'Annuler' : null}
+              {location.startsWith('/it') === 0 ? 'Per cancellare' : null}
+            </DefaultButton>
+            <GreenButton type="submit">
+              {location.startsWith('/fr') === 0 ? 'Sauvegarder' : null}
+              {location.startsWith('/it') === 0 ? 'Salva' : null}
+            </GreenButton>
+          </div>}
       </div>
     )
     return (
@@ -127,14 +135,14 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
           <TableScroll>
             <Table>
               <thead>
-              {window.location.pathname.indexOf('/fr') === 0 ?
+              {location.startsWith('/fr') === 0 ?
                 <Row>
                   <ColumnHeading scope="col">Autoriser</ColumnHeading>
                   <ColumnHeading scope="col">Catégorie</ColumnHeading>
                   <ColumnHeading scope="col">But</ColumnHeading>
                   <ColumnHeading scope="col" className={hideOnMobile}>Outils</ColumnHeading>
                 </Row>
-              : window.location.pathname.indexOf('/it') === 0 ?
+              : location.startsWith('/it') === 0 ?
                 <Row>
                   <ColumnHeading scope="col">Permettere</ColumnHeading>
                   <ColumnHeading scope="col">Categoria</ColumnHeading>
@@ -158,8 +166,8 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                             aria-label={'Activer le suivi fonctionnel'}
                             required
                           />{' '}
-                          {window.location.pathname.indexOf('/fr') === 0 ? 'Oui' : null}
-                          {window.location.pathname.indexOf('/it') === 0 ? 'Si' : null}
+                          {location.startsWith('/fr') === 0 ? 'Oui' : null}
+                          {location.startsWith('/it') === 0 ? 'Si' : null}
                         </label>
                         <label>
                           <input
@@ -171,13 +179,13 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                             aria-label={'Désactiver le suivi fonctionnel'}
                             required
                           />{' '}
-                          {window.location.pathname.indexOf('/fr') === 0 ? 'Non' : null}
-                          {window.location.pathname.indexOf('/it') === 0 ? 'No' : null}
+                          {location.startsWith('/fr') === 0 ? 'Non' : null}
+                          {location.startsWith('/it') === 0 ? 'No' : null}
                         </label>
                       </InputCell>
-                      {window.location.pathname.indexOf('/fr') === 0 ? <RowHeading scope="row">Fonctionnel</RowHeading> : null}
-                      {window.location.pathname.indexOf('/it') === 0 ? <RowHeading scope="row">Funzionale</RowHeading> : null}
-                      {window.location.pathname.indexOf('/fr') === 0 ?
+                      {location.startsWith('/fr') === 0 ? <RowHeading scope="row">Fonctionnel</RowHeading> : null}
+                      {location.startsWith('/it') === 0 ? <RowHeading scope="row">Funzionale</RowHeading> : null}
+                      {location.startsWith('/fr') === 0 ?
                         <td>
                           <p>
                             Pour surveilleer la performance de notre site et améliorer
@@ -187,7 +195,7 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                             Par exemple, pour communiquer avec vous via un chat.
                           </p>
                         </td>
-                        : window.location.pathname.indexOf('/it') === 0 ?
+                        : location.startsWith('/it') === 0 ?
                         <td>
                           <p>Per monitorare le prestazioni del nostro sito e migliorare
                             la tua esperienza di navigazione.</p>
@@ -212,8 +220,8 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                             aria-label={"Activer le suivi marketing et d'analyse"}
                             required
                           />{' '}
-                          {window.location.pathname.indexOf('/fr') === 0 ? 'Oui' : null}
-                          {window.location.pathname.indexOf('/it') === 0 ? 'Si' : null}
+                          {location.startsWith('/fr') === 0 ? 'Oui' : null}
+                          {location.startsWith('/it') === 0 ? 'Si' : null}
                         </label>
                         <label>
                           <input
@@ -225,13 +233,13 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                             aria-label={"Désactiver le suvi marketing et d'analyse"}
                             required
                           />{' '}
-                          {window.location.pathname.indexOf('/fr') === 0 ? 'Non' : null}
-                          {window.location.pathname.indexOf('/it') === 0 ? 'No' : null}
+                          {location.startsWith('/fr') === 0 ? 'Non' : null}
+                          {location.startsWith('/it') === 0 ? 'No' : null}
                         </label>
                       </InputCell>
-                      {window.location.pathname.indexOf('/fr') === 0 ? <RowHeading scope="row">Marketing et analyse</RowHeading> : null}
-                      {window.location.pathname.indexOf('/it') === 0 ? <RowHeading scope="row">Marketing e analisi</RowHeading> : null}
-                      {window.location.pathname.indexOf('/fr') === 0 ?
+                      {location.startsWith('/fr') === 0 ? <RowHeading scope="row">Marketing et analyse</RowHeading> : null}
+                      {location.startsWith('/it') === 0 ? <RowHeading scope="row">Marketing e analisi</RowHeading> : null}
+                      {location.startsWith('/fr') === 0 ?
                         <td>
                           <p>
                             Pour mieux comprendre le comportement de nos utilisateur et fournir
@@ -242,7 +250,7 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                             que vous visitez pour vous fournir du contenu plus pertinent.
                           </p>
                         </td>
-                        : window.location.pathname.indexOf('/it') === 0 ?
+                        : location.startsWith('/it') === 0 ?
                         <td>
                           <p>
                             Per comprendere meglio il comportamento dei nostri utenti e fornire
@@ -269,8 +277,8 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                             aria-label={"Activer le suivi publicitaire"}
                             required
                           />{' '}
-                          {window.location.pathname.indexOf('/fr') === 0 ? 'Oui' : null}
-                          {window.location.pathname.indexOf('/it') === 0 ? 'Si' : null}
+                          {location.startsWith('/fr') === 0 ? 'Oui' : null}
+                          {location.startsWith('/it') === 0 ? 'Si' : null}
                         </label>
                         <label>
                           <input
@@ -282,13 +290,13 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                             aria-label={"Désactiver le suivi publicitaire"}
                             required
                           />{' '}
-                          {window.location.pathname.indexOf('/fr') === 0 ? 'Non' : null}
-                          {window.location.pathname.indexOf('/it') === 0 ? 'No' : null}
+                          {location.startsWith('/fr') === 0 ? 'Non' : null}
+                          {location.startsWith('/it') === 0 ? 'No' : null}
                         </label>
                       </InputCell>
-                      {window.location.pathname.indexOf('/fr') === 0 ? <RowHeading scope="row">Publicité</RowHeading> : null}
-                      {window.location.pathname.indexOf('/it') === 0 ? <RowHeading scope="row">Pubblicità</RowHeading> : null}
-                      {window.location.pathname.indexOf('/fr') === 0 ?
+                      {location.startsWith('/fr') === 0 ? <RowHeading scope="row">Publicité</RowHeading> : null}
+                      {location.startsWith('/it') === 0 ? <RowHeading scope="row">Pubblicità</RowHeading> : null}
+                      {location.startsWith('/fr') === 0 ?
                         <td>
                           <p>
                             Pour personnaliser et mesurer l'efficacité de la publicité sur notre site
@@ -299,7 +307,7 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                             que vous avez visitées sur notre site.
                           </p>
                         </td>
-                      : window.location.pathname.indexOf('/it') === 0 ?
+                      : location.startsWith('/it') === 0 ?
                         <td>
                           <p>
                             Per personalizzare e misurare l'efficacia della pubblicità sul nostro sito
@@ -331,8 +339,8 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                               aria-label={`Autoriser le suivi "${categoryName}"`}
                               required
                             />{' '}
-                            {window.location.pathname.indexOf('/fr') === 0 ? 'Oui' : null}
-                            {window.location.pathname.indexOf('/it') === 0 ? 'Si' : null}
+                            {location.startsWith('/fr') === 0 ? 'Oui' : null}
+                            {location.startsWith('/it') === 0 ? 'Si' : null}
                           </label>
                           <label>
                             <input
@@ -344,8 +352,8 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                               aria-label={`Désactiver le suivi "${categoryName}"`}
                               required
                             />{' '}
-                            {window.location.pathname.indexOf('/fr') === 0 ? 'Non' : null}
-                            {window.location.pathname.indexOf('/it') === 0 ? 'No' : null}
+                            {location.startsWith('/fr') === 0 ? 'Non' : null}
+                            {location.startsWith('/it') === 0 ? 'No' : null}
                           </label>
                         </InputCell>
                         <RowHeading scope="row">{categoryName}</RowHeading>
@@ -364,9 +372,9 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
 
                 <Row>
                   <td>N/A</td>
-                  {window.location.pathname.indexOf('/fr') === 0 ? <RowHeading scope="row">Essentiel</RowHeading> : null}
-                  {window.location.pathname.indexOf('/it') === 0 ? <RowHeading scope="row">Essenziale</RowHeading> : null}
-                  {window.location.pathname.indexOf('/fr') === 0 ?
+                  {location.startsWith('/fr') === 0 ? <RowHeading scope="row">Essentiel</RowHeading> : null}
+                  {location.startsWith('/it') === 0 ? <RowHeading scope="row">Essenziale</RowHeading> : null}
+                  {location.startsWith('/fr') === 0 ?
                     <td>
                       <p>Nous utilisons des cookies essentiels pour le fonctionnement de notre site.</p>
                       <p>
@@ -376,7 +384,7 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                         mais le site pourrait ne pas fonctionner correctement.
                       </p>
                     </td>
-                    : window.location.pathname.indexOf('/it') === 0 ?
+                    : location.startsWith('/it') === 0 ?
                     <td>
                       <p>Utilizziamo cookie essenziali per il funzionamento del nostro sito.</p>
                       <p>
