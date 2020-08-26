@@ -103,8 +103,8 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
 
     let location;
     if (typeof window !== 'undefined') {
-      location = location
-    }
+      location = window.location.pathname;
+    };
 
     const buttons = (
       <div>
