@@ -100,12 +100,19 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
       content,
       preferences
     } = this.props
+
+    const locale = window.navigator.userLanguage || window.navigator.language;
+
     const buttons = (
       <div>
         <DefaultButton type="button" onClick={onCancel}>
-          Annuler
+          {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Annuler' : null}
+          {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'Per cancellare' : null}
         </DefaultButton>
-        <GreenButton type="submit">Sauvegarder</GreenButton>
+        <GreenButton type="submit">
+          {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Sauvegarder' : null}
+          {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'Salva' : null}
+        </GreenButton>
       </div>
     )
     return (
@@ -121,14 +128,20 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
         <TableScroll>
           <Table>
             <thead>
+            {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ?
               <Row>
                 <ColumnHeading scope="col">Autoriser</ColumnHeading>
                 <ColumnHeading scope="col">Catégorie</ColumnHeading>
                 <ColumnHeading scope="col">But</ColumnHeading>
-                <ColumnHeading scope="col" className={hideOnMobile}>
-                  Outils
-                </ColumnHeading>
+                <ColumnHeading scope="col" className={hideOnMobile}>Outils</ColumnHeading>
               </Row>
+            : window.location.pathname.indexOf('/it') === 0 || locale === 'it' ?
+              <Row>
+                <ColumnHeading scope="col">Permettere</ColumnHeading>
+                <ColumnHeading scope="col">Categoria</ColumnHeading>
+                <ColumnHeading scope="col">Obbiettivo</ColumnHeading>
+                <ColumnHeading scope="col" className={hideOnMobile}>Utensili</ColumnHeading>
+              </Row> : null}
             </thead>
 
             <tbody>
@@ -143,10 +156,12 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                           value="true"
                           checked={functional === true}
                           onChange={this.handleChange}
-                          aria-label="Activer le suivi fonctionnel"
+                          aria-label={window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Activer le suivi fonctionnel' :
+                          window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'Attiva il monitoraggio funzionale' : null}
                           required
                         />{' '}
-                        Oui
+                        {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Oui' : null}
+                        {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'Si' : null}
                       </label>
                       <label>
                         <input
@@ -155,22 +170,34 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                           value="false"
                           checked={functional === false}
                           onChange={this.handleChange}
-                          aria-label="Désactiver le suivi fonctionnel"
+                          aria-label={window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Désactiver le suivi fonctionnel' :
+                          window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'Disabilita il monitoraggio funzionale' : null}
                           required
                         />{' '}
-                        Non
+                        {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Non' : null}
+                        {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'No' : null}
                       </label>
                     </InputCell>
-                    <RowHeading scope="row">Fonctionnel</RowHeading>
-                    <td>
-                      <p>
-                        Pour surveilleer la performance de notre site et améliorer
-                        votre expérience de navigation.
-                      </p>
-                      <p className={hideOnMobile}>
-                        Par exemple, pour communiquer avec vous via un chat.
-                      </p>
-                    </td>
+                    {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? <RowHeading scope="row">Fonctionnel</RowHeading> : null}
+                    {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? <RowHeading scope="row">Funzionale</RowHeading> : null}
+                    {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ?
+                      <td>
+                        <p>
+                          Pour surveilleer la performance de notre site et améliorer
+                          votre expérience de navigation.
+                        </p>
+                        <p className={hideOnMobile}>
+                          Par exemple, pour communiquer avec vous via un chat.
+                        </p>
+                      </td>
+                      : window.location.pathname.indexOf('/it') === 0 || locale === 'it' ?
+                      <td>
+                        <p>Per monitorare le prestazioni del nostro sito e migliorare
+                          la tua esperienza di navigazione.</p>
+                        <p className={hideOnMobile}>
+                          Ad esempio, per comunicare con te tramite una chat.
+                        </p>
+                      </td> : null}
                     <td className={hideOnMobile}>
                       {functionalDestinations.map(d => d.name).join(', ')}
                     </td>
@@ -185,10 +212,12 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                           value="true"
                           checked={marketingAndAnalytics === true}
                           onChange={this.handleChange}
-                          aria-label="Activer le suivi marketing et d'analyse"
+                          aria-label={window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? "Activer le suivi marketing et d'analyse" :
+                          window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'Attiva il monitoraggio del marketing e delle analisi' : null}
                           required
                         />{' '}
-                        Oui
+                        {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Oui' : null}
+                        {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'Si' : null}
                       </label>
                       <label>
                         <input
@@ -197,23 +226,37 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                           value="false"
                           checked={marketingAndAnalytics === false}
                           onChange={this.handleChange}
-                          aria-label="Désactiver le suvi marketing et d'analyse"
+                          aria-label={window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? "Désactiver le suvi marketing et d'analyse" :
+                          window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? "Disattiva il monitoraggio del marketing e dell'analisi" : null}
                           required
                         />{' '}
-                        Non
+                        {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Non' : null}
+                        {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'No' : null}
                       </label>
                     </InputCell>
-                    <RowHeading scope="row">Marketing et analyse</RowHeading>
-                    <td>
-                      <p>
-                        Pour mieux comprendre le comportement de nos utilisateur et fournir
-                        une expérience personnalisée.
-                      </p>
-                      <p className={hideOnMobile}>
-                        Par exemple, nous collectons des informations sur les pages
-                        que vous visitez pour vous fournir du contenu plus pertinent.
-                      </p>
-                    </td>
+                    {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? <RowHeading scope="row">Marketing et analyse</RowHeading> : null}
+                    {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? <RowHeading scope="row">Marketing e analisi</RowHeading> : null}
+                    {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ?
+                      <td>
+                        <p>
+                          Pour mieux comprendre le comportement de nos utilisateur et fournir
+                          une expérience personnalisée.
+                        </p>
+                        <p className={hideOnMobile}>
+                          Par exemple, nous collectons des informations sur les pages
+                          que vous visitez pour vous fournir du contenu plus pertinent.
+                        </p>
+                      </td>
+                      : window.location.pathname.indexOf('/it') === 0 || locale === 'it' ?
+                      <td>
+                        <p>
+                          Per comprendere meglio il comportamento dei nostri utenti e fornire
+                          un'esperienza personalizzata.
+                        </p>
+                        <p className={hideOnMobile}>
+                          Ad esempio, raccogliamo informazioni sulle pagine che visiti per fornirti contenuti più pertinenti.
+                        </p>
+                      </td> : null}
                     <td className={hideOnMobile}>
                       {marketingDestinations.map(d => d.name).join(', ')}
                     </td>
@@ -228,10 +271,12 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                           value="true"
                           checked={advertising === true}
                           onChange={this.handleChange}
-                          aria-label="Activer le suivi publicitaire"
+                          aria-label={window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? "Activer le suivi publicitaire" :
+                          window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? "Attiva il monitoraggio degli annunci" : null}
                           required
                         />{' '}
-                        Oui
+                        {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Oui' : null}
+                        {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'Si' : null}
                       </label>
                       <label>
                         <input
@@ -240,23 +285,37 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                           value="false"
                           checked={advertising === false}
                           onChange={this.handleChange}
-                          aria-label="Désactiver le suivi publicitaire"
+                          aria-label={window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? "Désactiver le suivi publicitaire" :
+                          window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? "Disattiva il monitoraggio degli annunci" : null}
                           required
                         />{' '}
-                        Non
+                        {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Non' : null}
+                        {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'No' : null}
                       </label>
                     </InputCell>
-                    <RowHeading scope="row">Publicité</RowHeading>
-                    <td>
-                      <p>
-                        Pour personnaliser et mesurer l'efficacité de la publicité sur notre site
-                        et des sites tiers.
-                      </p>
-                      <p className={hideOnMobile}>
-                        Par exemple, nous pouvons afficher une publicité basée sur les pages
-                        que vous avez visitées sur notre site.
-                      </p>
-                    </td>
+                    {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? <RowHeading scope="row">Publicité</RowHeading> : null}
+                    {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? <RowHeading scope="row">Pubblicità</RowHeading> : null}
+                    {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ?
+                      <td>
+                        <p>
+                          Pour personnaliser et mesurer l'efficacité de la publicité sur notre site
+                          et des sites tiers.
+                        </p>
+                        <p className={hideOnMobile}>
+                          Par exemple, nous pouvons afficher une publicité basée sur les pages
+                          que vous avez visitées sur notre site.
+                        </p>
+                      </td>
+                    : window.location.pathname.indexOf('/it') === 0 || locale === 'it' ?
+                      <td>
+                        <p>
+                          Per personalizzare e misurare l'efficacia della pubblicità sul nostro sito
+                          e siti di terze parti.
+                        </p>
+                        <p className={hideOnMobile}>
+                          Ad esempio, potremmo visualizzare un annuncio pubblicitario basato sulle pagine che hai visitato sul nostro sito.
+                        </p>
+                      </td> : null}
                     <td className={hideOnMobile}>
                       {advertisingDestinations.map(d => d.name).join(', ')}
                     </td>
@@ -279,7 +338,8 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                             aria-label={`Autoriser le suivi "${categoryName}"`}
                             required
                           />{' '}
-                          Oui
+                          {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Oui' : null}
+                          {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'Si' : null}
                         </label>
                         <label>
                           <input
@@ -291,7 +351,8 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                             aria-label={`Désactiver le suivi "${categoryName}"`}
                             required
                           />{' '}
-                          Non
+                          {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Non' : null}
+                          {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'No' : null}
                         </label>
                       </InputCell>
                       <RowHeading scope="row">{categoryName}</RowHeading>
@@ -310,16 +371,28 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
 
               <Row>
                 <td>N/A</td>
-                <RowHeading scope="row">Essentiel</RowHeading>
-                <td>
-                  <p>Nous utilisons des cookies essentiels pour le fonctionnement de notre site.</p>
-                  <p>
-                    Par exemple, nous sauvegardons vos préférences de collecte de données
-                    personnelles afin de les respecter pour vos visites futures.
-                    Vous pouvez désactiver les cookies dans les préférences de votre navigateur
-                    mais le site pourrait ne pas fonctionner correctement.
-                  </p>
-                </td>
+                {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? <RowHeading scope="row">Essentiel</RowHeading> : null}
+                {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? <RowHeading scope="row">Essenziale</RowHeading> : null}
+                {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ?
+                  <td>
+                    <p>Nous utilisons des cookies essentiels pour le fonctionnement de notre site.</p>
+                    <p>
+                      Par exemple, nous sauvegardons vos préférences de collecte de données
+                      personnelles afin de les respecter pour vos visites futures.
+                      Vous pouvez désactiver les cookies dans les préférences de votre navigateur
+                      mais le site pourrait ne pas fonctionner correctement.
+                    </p>
+                  </td>
+                  : window.location.pathname.indexOf('/it') === 0 || locale === 'it' ?
+                  <td>
+                    <p>Utilizziamo cookie essenziali per il funzionamento del nostro sito.</p>
+                    <p>
+                      Ad esempio, salviamo le tue preferenze di raccolta dati
+                      dati personali al fine di rispettarli per le vostre future visite.
+                      Puoi disabilitare i cookie nelle preferenze del tuo browser
+                      ma il sito potrebbe non funzionare correttamente.
+                    </p>
+                  </td> : null}
                 <td className={hideOnMobile} />
               </Row>
             </tbody>
