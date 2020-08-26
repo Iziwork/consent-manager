@@ -125,217 +125,40 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
       >
         {content}
 
-        <TableScroll>
-          <Table>
-            <thead>
-            {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ?
-              <Row>
-                <ColumnHeading scope="col">Autoriser</ColumnHeading>
-                <ColumnHeading scope="col">Catégorie</ColumnHeading>
-                <ColumnHeading scope="col">But</ColumnHeading>
-                <ColumnHeading scope="col" className={hideOnMobile}>Outils</ColumnHeading>
-              </Row>
-            : window.location.pathname.indexOf('/it') === 0 || locale === 'it' ?
-              <Row>
-                <ColumnHeading scope="col">Permettere</ColumnHeading>
-                <ColumnHeading scope="col">Categoria</ColumnHeading>
-                <ColumnHeading scope="col">Obbiettivo</ColumnHeading>
-                <ColumnHeading scope="col" className={hideOnMobile}>Utensili</ColumnHeading>
-              </Row> : null}
-            </thead>
+        {typeof window !== 'undefined' &&
+          <TableScroll>
+            <Table>
+              <thead>
+              {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ?
+                <Row>
+                  <ColumnHeading scope="col">Autoriser</ColumnHeading>
+                  <ColumnHeading scope="col">Catégorie</ColumnHeading>
+                  <ColumnHeading scope="col">But</ColumnHeading>
+                  <ColumnHeading scope="col" className={hideOnMobile}>Outils</ColumnHeading>
+                </Row>
+              : window.location.pathname.indexOf('/it') === 0 || locale === 'it' ?
+                <Row>
+                  <ColumnHeading scope="col">Permettere</ColumnHeading>
+                  <ColumnHeading scope="col">Categoria</ColumnHeading>
+                  <ColumnHeading scope="col">Obbiettivo</ColumnHeading>
+                  <ColumnHeading scope="col" className={hideOnMobile}>Utensili</ColumnHeading>
+                </Row> : null}
+              </thead>
 
-            <tbody>
-              {!customCategories && (
-                <>
-                  <Row>
-                    <InputCell>
-                      <label>
-                        <input
-                          type="radio"
-                          name="functional"
-                          value="true"
-                          checked={functional === true}
-                          onChange={this.handleChange}
-                          aria-label={window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Activer le suivi fonctionnel' :
-                          window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'Attiva il monitoraggio funzionale' : null}
-                          required
-                        />{' '}
-                        {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Oui' : null}
-                        {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'Si' : null}
-                      </label>
-                      <label>
-                        <input
-                          type="radio"
-                          name="functional"
-                          value="false"
-                          checked={functional === false}
-                          onChange={this.handleChange}
-                          aria-label={window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Désactiver le suivi fonctionnel' :
-                          window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'Disabilita il monitoraggio funzionale' : null}
-                          required
-                        />{' '}
-                        {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Non' : null}
-                        {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'No' : null}
-                      </label>
-                    </InputCell>
-                    {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? <RowHeading scope="row">Fonctionnel</RowHeading> : null}
-                    {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? <RowHeading scope="row">Funzionale</RowHeading> : null}
-                    {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ?
-                      <td>
-                        <p>
-                          Pour surveilleer la performance de notre site et améliorer
-                          votre expérience de navigation.
-                        </p>
-                        <p className={hideOnMobile}>
-                          Par exemple, pour communiquer avec vous via un chat.
-                        </p>
-                      </td>
-                      : window.location.pathname.indexOf('/it') === 0 || locale === 'it' ?
-                      <td>
-                        <p>Per monitorare le prestazioni del nostro sito e migliorare
-                          la tua esperienza di navigazione.</p>
-                        <p className={hideOnMobile}>
-                          Ad esempio, per comunicare con te tramite una chat.
-                        </p>
-                      </td> : null}
-                    <td className={hideOnMobile}>
-                      {functionalDestinations.map(d => d.name).join(', ')}
-                    </td>
-                  </Row>
-
-                  <Row>
-                    <InputCell>
-                      <label>
-                        <input
-                          type="radio"
-                          name="marketingAndAnalytics"
-                          value="true"
-                          checked={marketingAndAnalytics === true}
-                          onChange={this.handleChange}
-                          aria-label={window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? "Activer le suivi marketing et d'analyse" :
-                          window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'Attiva il monitoraggio del marketing e delle analisi' : null}
-                          required
-                        />{' '}
-                        {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Oui' : null}
-                        {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'Si' : null}
-                      </label>
-                      <label>
-                        <input
-                          type="radio"
-                          name="marketingAndAnalytics"
-                          value="false"
-                          checked={marketingAndAnalytics === false}
-                          onChange={this.handleChange}
-                          aria-label={window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? "Désactiver le suvi marketing et d'analyse" :
-                          window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? "Disattiva il monitoraggio del marketing e dell'analisi" : null}
-                          required
-                        />{' '}
-                        {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Non' : null}
-                        {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'No' : null}
-                      </label>
-                    </InputCell>
-                    {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? <RowHeading scope="row">Marketing et analyse</RowHeading> : null}
-                    {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? <RowHeading scope="row">Marketing e analisi</RowHeading> : null}
-                    {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ?
-                      <td>
-                        <p>
-                          Pour mieux comprendre le comportement de nos utilisateur et fournir
-                          une expérience personnalisée.
-                        </p>
-                        <p className={hideOnMobile}>
-                          Par exemple, nous collectons des informations sur les pages
-                          que vous visitez pour vous fournir du contenu plus pertinent.
-                        </p>
-                      </td>
-                      : window.location.pathname.indexOf('/it') === 0 || locale === 'it' ?
-                      <td>
-                        <p>
-                          Per comprendere meglio il comportamento dei nostri utenti e fornire
-                          un'esperienza personalizzata.
-                        </p>
-                        <p className={hideOnMobile}>
-                          Ad esempio, raccogliamo informazioni sulle pagine che visiti per fornirti contenuti più pertinenti.
-                        </p>
-                      </td> : null}
-                    <td className={hideOnMobile}>
-                      {marketingDestinations.map(d => d.name).join(', ')}
-                    </td>
-                  </Row>
-
-                  <Row>
-                    <InputCell>
-                      <label>
-                        <input
-                          type="radio"
-                          name="advertising"
-                          value="true"
-                          checked={advertising === true}
-                          onChange={this.handleChange}
-                          aria-label={window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? "Activer le suivi publicitaire" :
-                          window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? "Attiva il monitoraggio degli annunci" : null}
-                          required
-                        />{' '}
-                        {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Oui' : null}
-                        {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'Si' : null}
-                      </label>
-                      <label>
-                        <input
-                          type="radio"
-                          name="advertising"
-                          value="false"
-                          checked={advertising === false}
-                          onChange={this.handleChange}
-                          aria-label={window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? "Désactiver le suivi publicitaire" :
-                          window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? "Disattiva il monitoraggio degli annunci" : null}
-                          required
-                        />{' '}
-                        {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Non' : null}
-                        {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'No' : null}
-                      </label>
-                    </InputCell>
-                    {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? <RowHeading scope="row">Publicité</RowHeading> : null}
-                    {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? <RowHeading scope="row">Pubblicità</RowHeading> : null}
-                    {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ?
-                      <td>
-                        <p>
-                          Pour personnaliser et mesurer l'efficacité de la publicité sur notre site
-                          et des sites tiers.
-                        </p>
-                        <p className={hideOnMobile}>
-                          Par exemple, nous pouvons afficher une publicité basée sur les pages
-                          que vous avez visitées sur notre site.
-                        </p>
-                      </td>
-                    : window.location.pathname.indexOf('/it') === 0 || locale === 'it' ?
-                      <td>
-                        <p>
-                          Per personalizzare e misurare l'efficacia della pubblicità sul nostro sito
-                          e siti di terze parti.
-                        </p>
-                        <p className={hideOnMobile}>
-                          Ad esempio, potremmo visualizzare un annuncio pubblicitario basato sulle pagine che hai visitato sul nostro sito.
-                        </p>
-                      </td> : null}
-                    <td className={hideOnMobile}>
-                      {advertisingDestinations.map(d => d.name).join(', ')}
-                    </td>
-                  </Row>
-                </>
-              )}
-
-              {customCategories &&
-                Object.entries(customCategories).map(
-                  ([categoryName, { integrations, purpose }]) => (
-                    <Row key={categoryName}>
+              <tbody>
+                {!customCategories && (
+                  <>
+                    <Row>
                       <InputCell>
                         <label>
                           <input
                             type="radio"
-                            name={categoryName}
+                            name="functional"
                             value="true"
-                            checked={preferences[categoryName] === true}
+                            checked={functional === true}
                             onChange={this.handleChange}
-                            aria-label={`Autoriser le suivi "${categoryName}"`}
+                            aria-label={window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Activer le suivi fonctionnel' :
+                            window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'Attiva il monitoraggio funzionale' : null}
                             required
                           />{' '}
                           {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Oui' : null}
@@ -344,60 +167,238 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                         <label>
                           <input
                             type="radio"
-                            name={categoryName}
+                            name="functional"
                             value="false"
-                            checked={preferences[categoryName] === false}
+                            checked={functional === false}
                             onChange={this.handleChange}
-                            aria-label={`Désactiver le suivi "${categoryName}"`}
+                            aria-label={window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Désactiver le suivi fonctionnel' :
+                            window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'Disabilita il monitoraggio funzionale' : null}
                             required
                           />{' '}
                           {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Non' : null}
                           {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'No' : null}
                         </label>
                       </InputCell>
-                      <RowHeading scope="row">{categoryName}</RowHeading>
-                      <td>
-                        <p>{purpose}</p>
-                      </td>
+                      {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? <RowHeading scope="row">Fonctionnel</RowHeading> : null}
+                      {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? <RowHeading scope="row">Funzionale</RowHeading> : null}
+                      {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ?
+                        <td>
+                          <p>
+                            Pour surveilleer la performance de notre site et améliorer
+                            votre expérience de navigation.
+                          </p>
+                          <p className={hideOnMobile}>
+                            Par exemple, pour communiquer avec vous via un chat.
+                          </p>
+                        </td>
+                        : window.location.pathname.indexOf('/it') === 0 || locale === 'it' ?
+                        <td>
+                          <p>Per monitorare le prestazioni del nostro sito e migliorare
+                            la tua esperienza di navigazione.</p>
+                          <p className={hideOnMobile}>
+                            Ad esempio, per comunicare con te tramite una chat.
+                          </p>
+                        </td> : null}
                       <td className={hideOnMobile}>
-                        {destinations
-                          .filter(d => integrations.includes(d.id))
-                          .map(d => d.name)
-                          .join(', ')}
+                        {functionalDestinations.map(d => d.name).join(', ')}
                       </td>
                     </Row>
-                  )
+
+                    <Row>
+                      <InputCell>
+                        <label>
+                          <input
+                            type="radio"
+                            name="marketingAndAnalytics"
+                            value="true"
+                            checked={marketingAndAnalytics === true}
+                            onChange={this.handleChange}
+                            aria-label={window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? "Activer le suivi marketing et d'analyse" :
+                            window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'Attiva il monitoraggio del marketing e delle analisi' : null}
+                            required
+                          />{' '}
+                          {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Oui' : null}
+                          {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'Si' : null}
+                        </label>
+                        <label>
+                          <input
+                            type="radio"
+                            name="marketingAndAnalytics"
+                            value="false"
+                            checked={marketingAndAnalytics === false}
+                            onChange={this.handleChange}
+                            aria-label={window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? "Désactiver le suvi marketing et d'analyse" :
+                            window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? "Disattiva il monitoraggio del marketing e dell'analisi" : null}
+                            required
+                          />{' '}
+                          {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Non' : null}
+                          {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'No' : null}
+                        </label>
+                      </InputCell>
+                      {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? <RowHeading scope="row">Marketing et analyse</RowHeading> : null}
+                      {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? <RowHeading scope="row">Marketing e analisi</RowHeading> : null}
+                      {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ?
+                        <td>
+                          <p>
+                            Pour mieux comprendre le comportement de nos utilisateur et fournir
+                            une expérience personnalisée.
+                          </p>
+                          <p className={hideOnMobile}>
+                            Par exemple, nous collectons des informations sur les pages
+                            que vous visitez pour vous fournir du contenu plus pertinent.
+                          </p>
+                        </td>
+                        : window.location.pathname.indexOf('/it') === 0 || locale === 'it' ?
+                        <td>
+                          <p>
+                            Per comprendere meglio il comportamento dei nostri utenti e fornire
+                            un'esperienza personalizzata.
+                          </p>
+                          <p className={hideOnMobile}>
+                            Ad esempio, raccogliamo informazioni sulle pagine che visiti per fornirti contenuti più pertinenti.
+                          </p>
+                        </td> : null}
+                      <td className={hideOnMobile}>
+                        {marketingDestinations.map(d => d.name).join(', ')}
+                      </td>
+                    </Row>
+
+                    <Row>
+                      <InputCell>
+                        <label>
+                          <input
+                            type="radio"
+                            name="advertising"
+                            value="true"
+                            checked={advertising === true}
+                            onChange={this.handleChange}
+                            aria-label={window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? "Activer le suivi publicitaire" :
+                            window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? "Attiva il monitoraggio degli annunci" : null}
+                            required
+                          />{' '}
+                          {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Oui' : null}
+                          {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'Si' : null}
+                        </label>
+                        <label>
+                          <input
+                            type="radio"
+                            name="advertising"
+                            value="false"
+                            checked={advertising === false}
+                            onChange={this.handleChange}
+                            aria-label={window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? "Désactiver le suivi publicitaire" :
+                            window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? "Disattiva il monitoraggio degli annunci" : null}
+                            required
+                          />{' '}
+                          {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Non' : null}
+                          {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'No' : null}
+                        </label>
+                      </InputCell>
+                      {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? <RowHeading scope="row">Publicité</RowHeading> : null}
+                      {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? <RowHeading scope="row">Pubblicità</RowHeading> : null}
+                      {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ?
+                        <td>
+                          <p>
+                            Pour personnaliser et mesurer l'efficacité de la publicité sur notre site
+                            et des sites tiers.
+                          </p>
+                          <p className={hideOnMobile}>
+                            Par exemple, nous pouvons afficher une publicité basée sur les pages
+                            que vous avez visitées sur notre site.
+                          </p>
+                        </td>
+                      : window.location.pathname.indexOf('/it') === 0 || locale === 'it' ?
+                        <td>
+                          <p>
+                            Per personalizzare e misurare l'efficacia della pubblicità sul nostro sito
+                            e siti di terze parti.
+                          </p>
+                          <p className={hideOnMobile}>
+                            Ad esempio, potremmo visualizzare un annuncio pubblicitario basato sulle pagine che hai visitato sul nostro sito.
+                          </p>
+                        </td> : null}
+                      <td className={hideOnMobile}>
+                        {advertisingDestinations.map(d => d.name).join(', ')}
+                      </td>
+                    </Row>
+                  </>
                 )}
 
-              <Row>
-                <td>N/A</td>
-                {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? <RowHeading scope="row">Essentiel</RowHeading> : null}
-                {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? <RowHeading scope="row">Essenziale</RowHeading> : null}
-                {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ?
-                  <td>
-                    <p>Nous utilisons des cookies essentiels pour le fonctionnement de notre site.</p>
-                    <p>
-                      Par exemple, nous sauvegardons vos préférences de collecte de données
-                      personnelles afin de les respecter pour vos visites futures.
-                      Vous pouvez désactiver les cookies dans les préférences de votre navigateur
-                      mais le site pourrait ne pas fonctionner correctement.
-                    </p>
-                  </td>
-                  : window.location.pathname.indexOf('/it') === 0 || locale === 'it' ?
-                  <td>
-                    <p>Utilizziamo cookie essenziali per il funzionamento del nostro sito.</p>
-                    <p>
-                      Ad esempio, salviamo le tue preferenze di raccolta dati
-                      dati personali al fine di rispettarli per le vostre future visite.
-                      Puoi disabilitare i cookie nelle preferenze del tuo browser
-                      ma il sito potrebbe non funzionare correttamente.
-                    </p>
-                  </td> : null}
-                <td className={hideOnMobile} />
-              </Row>
-            </tbody>
-          </Table>
-        </TableScroll>
+                {customCategories &&
+                  Object.entries(customCategories).map(
+                    ([categoryName, { integrations, purpose }]) => (
+                      <Row key={categoryName}>
+                        <InputCell>
+                          <label>
+                            <input
+                              type="radio"
+                              name={categoryName}
+                              value="true"
+                              checked={preferences[categoryName] === true}
+                              onChange={this.handleChange}
+                              aria-label={`Autoriser le suivi "${categoryName}"`}
+                              required
+                            />{' '}
+                            {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Oui' : null}
+                            {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'Si' : null}
+                          </label>
+                          <label>
+                            <input
+                              type="radio"
+                              name={categoryName}
+                              value="false"
+                              checked={preferences[categoryName] === false}
+                              onChange={this.handleChange}
+                              aria-label={`Désactiver le suivi "${categoryName}"`}
+                              required
+                            />{' '}
+                            {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? 'Non' : null}
+                            {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? 'No' : null}
+                          </label>
+                        </InputCell>
+                        <RowHeading scope="row">{categoryName}</RowHeading>
+                        <td>
+                          <p>{purpose}</p>
+                        </td>
+                        <td className={hideOnMobile}>
+                          {destinations
+                            .filter(d => integrations.includes(d.id))
+                            .map(d => d.name)
+                            .join(', ')}
+                        </td>
+                      </Row>
+                    )
+                  )}
+
+                <Row>
+                  <td>N/A</td>
+                  {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ? <RowHeading scope="row">Essentiel</RowHeading> : null}
+                  {window.location.pathname.indexOf('/it') === 0 || locale === 'it' ? <RowHeading scope="row">Essenziale</RowHeading> : null}
+                  {window.location.pathname.indexOf('/fr') === 0 || locale === 'fr' ?
+                    <td>
+                      <p>Nous utilisons des cookies essentiels pour le fonctionnement de notre site.</p>
+                      <p>
+                        Par exemple, nous sauvegardons vos préférences de collecte de données
+                        personnelles afin de les respecter pour vos visites futures.
+                        Vous pouvez désactiver les cookies dans les préférences de votre navigateur
+                        mais le site pourrait ne pas fonctionner correctement.
+                      </p>
+                    </td>
+                    : window.location.pathname.indexOf('/it') === 0 || locale === 'it' ?
+                    <td>
+                      <p>Utilizziamo cookie essenziali per il funzionamento del nostro sito.</p>
+                      <p>
+                        Ad esempio, salviamo le tue preferenze di raccolta dati
+                        dati personali al fine di rispettarli per le vostre future visite.
+                        Puoi disabilitare i cookie nelle preferenze del tuo browser
+                        ma il sito potrebbe non funzionare correttamente.
+                      </p>
+                    </td> : null}
+                  <td className={hideOnMobile} />
+                </Row>
+              </tbody>
+            </Table>
+          </TableScroll>}
       </Dialog>
     )
   }

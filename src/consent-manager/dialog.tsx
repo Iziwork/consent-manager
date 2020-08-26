@@ -163,7 +163,6 @@ export default class Dialog extends PureComponent<DialogProps, {}> {
 
           <Form innerRef={this.handleFormRef} onSubmit={onSubmit}>
             <Content>{children}</Content>
-
             <Buttons>{buttons}</Buttons>
           </Form>
         </Root>
