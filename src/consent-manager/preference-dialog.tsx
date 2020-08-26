@@ -155,8 +155,7 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                             value="true"
                             checked={functional === true}
                             onChange={this.handleChange}
-                            aria-label={window.location.pathname.indexOf('/fr') === 0 ? 'Activer le suivi fonctionnel' :
-                            window.location.pathname.indexOf('/it') === 0 ? 'Attiva il monitoraggio funzionale' : null}
+                            aria-label={'Activer le suivi fonctionnel'}
                             required
                           />{' '}
                           {window.location.pathname.indexOf('/fr') === 0 ? 'Oui' : null}
@@ -169,12 +168,11 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                             value="false"
                             checked={functional === false}
                             onChange={this.handleChange}
-                            aria-label={window.location.pathname.indexOf('/fr') === 0 ? 'Désactiver le suivi fonctionnel' :
-                            window.location.pathname.indexOf('/it') === 0 ? 'Disabilita il monitoraggio funzionale' : null}
+                            aria-label={'Désactiver le suivi fonctionnel'}
                             required
                           />{' '}
-                          {window.location.pathname.indexOf('/fr') === 0 || ? 'Non' : null}
-                          {window.location.pathname.indexOf('/it') === 0 || ? 'No' : null}
+                          {window.location.pathname.indexOf('/fr') === 0 ? 'Non' : null}
+                          {window.location.pathname.indexOf('/it') === 0 ? 'No' : null}
                         </label>
                       </InputCell>
                       {window.location.pathname.indexOf('/fr') === 0 ? <RowHeading scope="row">Fonctionnel</RowHeading> : null}
@@ -211,8 +209,7 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                             value="true"
                             checked={marketingAndAnalytics === true}
                             onChange={this.handleChange}
-                            aria-label={window.location.pathname.indexOf('/fr') === 0 ? "Activer le suivi marketing et d'analyse" :
-                            window.location.pathname.indexOf('/it') === 0 ? 'Attiva il monitoraggio del marketing e delle analisi' : null}
+                            aria-label={"Activer le suivi marketing et d'analyse"}
                             required
                           />{' '}
                           {window.location.pathname.indexOf('/fr') === 0 ? 'Oui' : null}
@@ -225,8 +222,7 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                             value="false"
                             checked={marketingAndAnalytics === false}
                             onChange={this.handleChange}
-                            aria-label={window.location.pathname.indexOf('/fr') === 0 ? "Désactiver le suvi marketing et d'analyse" :
-                            window.location.pathname.indexOf('/it') === 0 ? "Disattiva il monitoraggio del marketing e dell'analisi" : null}
+                            aria-label={"Désactiver le suvi marketing et d'analyse"}
                             required
                           />{' '}
                           {window.location.pathname.indexOf('/fr') === 0 ? 'Non' : null}
@@ -270,8 +266,7 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                             value="true"
                             checked={advertising === true}
                             onChange={this.handleChange}
-                            aria-label={window.location.pathname.indexOf('/fr') === 0 ? "Activer le suivi publicitaire" :
-                            window.location.pathname.indexOf('/it') === 0 ? "Attiva il monitoraggio degli annunci" : null}
+                            aria-label={"Activer le suivi publicitaire"}
                             required
                           />{' '}
                           {window.location.pathname.indexOf('/fr') === 0 ? 'Oui' : null}
@@ -284,8 +279,7 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                             value="false"
                             checked={advertising === false}
                             onChange={this.handleChange}
-                            aria-label={window.location.pathname.indexOf('/fr') === 0 ? "Désactiver le suivi publicitaire" :
-                            window.location.pathname.indexOf('/it') === 0 ? "Disattiva il monitoraggio degli annunci" : null}
+                            aria-label={"Désactiver le suivi publicitaire"}
                             required
                           />{' '}
                           {window.location.pathname.indexOf('/fr') === 0 ? 'Non' : null}
