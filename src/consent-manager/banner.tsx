@@ -131,7 +131,6 @@ export default class Banner extends PureComponent<Props> {
                 <button type="button" onClick={onChangePreferences}>
                   cliccando qui
                 </button>
-                .
               </P>
             ) : (
               <P>
@@ -141,7 +140,6 @@ export default class Banner extends PureComponent<Props> {
                 <button type="button" onClick={onChangePreferences}>
                   paramètres
                 </button>
-                .
               </P>
             )}
           </SmallContent>

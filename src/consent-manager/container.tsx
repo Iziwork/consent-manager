@@ -110,7 +110,8 @@ const Container: React.FC<ContainerProps> = (props) => {
 
   const onClose = () => {
     if (props.closeBehavior === undefined || props.closeBehavior === CloseBehavior.DISMISS) {
-      return null
+      toggleBanner(false)
+      return props.saveConsent()
     }
 
     if (props.closeBehavior === CloseBehavior.ACCEPT) {
