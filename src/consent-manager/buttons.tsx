@@ -1,58 +1,47 @@
 import styled, { css } from 'react-emotion'
 
 const baseStyles = css`
-  height: 32px;
-  padding: 0 16px;
+  height: 48px;
+  padding: 0 14px;
   border: none;
-  border-radius: 4px;
-  color: inherit;
-  font: inherit;
-  font-size: 12px;
+  border-radius: 8px;
+  color: #031b4a;
+  font: Montserrat, inherit;
+  font-size: 14px;
+  font-weight: 700;
   line-height: 1;
   cursor: pointer;
   outline: none;
-  transition: box-shadow 80ms ease-in-out;
+  transition: all 0.5s ease-in-out;
 `
 
 export const DefaultButton = styled('button')`
   ${baseStyles};
-  margin-right: 8px;
-  background-color: #fff;
-  background-image: linear-gradient(to top, rgba(67, 90, 111, 0.041), rgba(255, 255, 255, 0.041));
-  box-shadow: inset 0 0 0 1px rgba(67, 90, 111, 0.146), inset 0 -1px 1px 0 rgba(67, 90, 111, 0.079);
+  margin-right: 16px;
+  background-color: #f7f9fa;
   &:hover {
-    background-image: linear-gradient(to top, rgba(67, 90, 111, 0.057), rgba(67, 90, 111, 0.025));
-    box-shadow: inset 0 0 0 1px rgba(67, 90, 111, 0.255),
-      inset 0 -1px 1px 0 rgba(67, 90, 111, 0.114);
+    background-color: #f2f4f6;
   }
   &:focus {
-    box-shadow: 0 0 0 3px rgba(1, 108, 209, 0.146), inset 0 0 0 1px rgba(67, 90, 111, 0.38),
-      inset 0 -1px 1px 0 rgba(67, 90, 111, 0.079);
+    background-color: #f2f4f6;
   }
   &:active {
-    background: rgba(1, 108, 209, 0.079);
-    box-shadow: inset 0 0 0 1px rgba(67, 90, 111, 0.146),
-      inset 0 -1px 1px 0 rgba(67, 90, 111, 0.079);
+    background-color: #f2f4f6;
   }
 `
 
 export const GreenButton = styled('button')`
   ${baseStyles};
-  background-color: #47b881;
-  background-image: linear-gradient(to top, #3faf77, #47b881);
-  box-shadow: inset 0 0 0 1px rgba(67, 90, 111, 0.204), inset 0 -1px 1px 0 rgba(67, 90, 111, 0.204);
+  background-color: #4fb767;
   color: #fff;
   &:hover {
-    background-image: linear-gradient(to top, #37a56d, #3faf77);
+    background-color: #068c5a;
   }
   &:focus {
-    box-shadow: 0 0 0 3px rgba(71, 184, 129, 0.477), inset 0 0 0 1px rgba(71, 184, 129, 0.204),
-      inset 0 -1px 1px 0 rgba(71, 184, 129, 0.204);
+    background-color: #068c5a;
   }
   &:active {
-    background-image: linear-gradient(to top, #2d9760, #248953);
-    box-shadow: inset 0 0 0 1px rgba(71, 184, 129, 0.204),
-      inset 0 -1px 1px 0 rgba(71, 184, 129, 0.204);
+    background-color: #068c5a;
   }
 `
 

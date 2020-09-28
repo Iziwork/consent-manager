@@ -1,6 +1,6 @@
 {
   "name": "@iziwork/consent-manager",
-  "version": "4.3.8",
+  "version": "4.3.21",
   "description": "Drop-in consent management plugin for analytics.js",
   "keywords": [
     "gdpr",
@@ -125,11 +125,11 @@
   "size-limit": [
     {
       "path": "esm/index.js",
-      "limit": "50 KB"
+      "limit": "55 KB"
     },
     {
       "path": "standalone/consent-manager.js",
-      "limit": "45 KB"
+      "limit": "50 KB"
     }
   ],
   "husky": {

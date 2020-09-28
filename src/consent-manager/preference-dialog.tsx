@@ -21,39 +21,141 @@ const Table = styled('table')`
 `
 
 const ColumnHeading = styled('th')`
-  background: #f7f8fa;
-  color: #1f4160;
-  font-weight: 600;
+  color: #031b4a;
+  font-weight: 700;
   text-align: left;
-  border-width: 2px;
+  border-width: 0;
   word-break: normal;
 `
 
 const RowHeading = styled('th')`
   font-weight: normal;
   text-align: left;
+  word-break: normal;
 `
 
 const Row = styled('tr')`
   th,
   td {
     vertical-align: top;
-    padding: 8px 12px;
-    border: 1px solid rgba(67, 90, 111, 0.114);
-  }
-  td {
+    padding: 20px 32px;
     border-top: none;
+    border-bottom: 1px solid rgba(67, 90, 111, 0.114);
+    &:first-child {
+      padding: 20px 0;
+    }
+    &:nth-child(2) {
+      padding: 20px 0 20px 32px;
+    }
+    &:nth-child(3) {
+      padding: 20px 0 20px 32px;
+    }
+    &:last-child {
+      padding-right: 0;
+    }
+  }
+  &.last-row {
+    td,
+    th {
+      border-bottom: 0;
+    }
   }
 `
 
+// Simulate of a checkbox : reverse of radio button styles, display: block one, when the other is display: none
 const InputCell = styled('td')`
-  input {
-    vertical-align: middle;
-  }
   label {
+    position: relative;
+    top 50%;
     display: block;
     margin-bottom: 4px;
     white-space: nowrap;
+    background: transparent
+    cursor: pointer;
+  }
+  label input {
+    position: absolute;
+    top: 0; left: 0;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  label input.essential ~ .checkmark {
+    position: absolute;
+    top: 0; left: 0;
+    height: 13px; width: 13px;
+    border-radius: 2px;
+    background-color: #c9d1df;
+    border: 1px solid #c9d1df;
+    cursor: auto;
+    z-index: 2;
+  }
+  label input.essential ~ .checkmark:after {
+    position: absolute;
+    left: 4px; top: 1px;
+    width: 3px; height: 7px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    content: '';
+    display: block;
+  }
+  label input.true:checked ~ .checkmark {
+    background-color: #4fb767;
+    border: 1px solid #4fb767;
+  }
+  label input.true ~ .checkmark {
+    position: absolute;
+    top: 0; left: 0;
+    height: 13px; width: 13px;
+    border-radius: 2px;
+    background-color: white;
+    border: 1px solid #56709c;
+    cursor: pointer;
+    z-index: 2;
+  }
+  label input.true ~ .checkmark:after {
+    position: absolute;
+    left: 4px; top: 1px;
+    width: 3px; height: 7px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    content: '';
+    display: block;
+  }
+  label input.true ~ .checkmark:after {display: block}
+  label input.false:checked ~ .checkmark {
+    background-color: white;
+    border-color: #56709c;
+  }
+  label input.false ~ .checkmark {
+    position: absolute;
+    top: -4px; left: 0;
+    height: 13px; width: 13px;
+    border-radius: 2px;
+    background-color: #4fb767;
+    border: 1px solid #4fb767;
+    cursor: pointer;
+    z-index: 1;
+  }
+  label input.false ~ .checkmark:after {
+    position: absolute;
+    left: 4px; top: 1px;
+    width: 3px; height: 7px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    content: '';
+    display: block;
+  }
+  label input.false:checked ~ .checkmark:after {display: block}
+  label input.true:checked ~ .checkmark {
+    display: none;
+  }
+  label input.false:checked ~ .checkmark {
+    display: none;
   }
 `
 
@@ -79,9 +181,9 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
   static displayName = 'PreferenceDialog'
 
   static defaultProps = {
-    marketingAndAnalytics: null,
-    advertising: null,
-    functional: null
+    marketingAndAnalytics: false,
+    advertising: false,
+    functional: false,
   }
 
   render() {
@@ -98,7 +200,7 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
       destinations,
       title,
       content,
-      preferences
+      preferences,
     } = this.props
     const buttons = (
       <div>
@@ -138,6 +240,7 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                     <InputCell>
                       <label>
                         <input
+                          className="true"
                           type="radio"
                           name="functional"
                           value="true"
@@ -145,11 +248,12 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                           onChange={this.handleChange}
                           aria-label="Activer le suivi fonctionnel"
                           required
-                        />{' '}
-                        Oui
+                        />
+                        <span className="checkmark" />
                       </label>
                       <label>
                         <input
+                          className="false"
                           type="radio"
                           name="functional"
                           value="false"
@@ -157,22 +261,22 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                           onChange={this.handleChange}
                           aria-label="Désactiver le suivi fonctionnel"
                           required
-                        />{' '}
-                        Non
+                        />
+                        <span className="checkmark" />
                       </label>
                     </InputCell>
                     <RowHeading scope="row">Fonctionnel</RowHeading>
                     <td>
                       <p>
-                        Pour surveilleer la performance de notre site et améliorer
-                        votre expérience de navigation.
+                        Pour surveilleer la performance de notre site et améliorer votre expérience
+                        de navigation.
                       </p>
                       <p className={hideOnMobile}>
                         Par exemple, pour communiquer avec vous via un chat.
                       </p>
                     </td>
                     <td className={hideOnMobile}>
-                      {functionalDestinations.map(d => d.name).join(', ')}
+                      {functionalDestinations.map((d) => d.name).join(', ')}
                     </td>
                   </Row>
 
@@ -180,42 +284,44 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                     <InputCell>
                       <label>
                         <input
+                          className="true"
                           type="radio"
                           name="marketingAndAnalytics"
                           value="true"
                           checked={marketingAndAnalytics === true}
                           onChange={this.handleChange}
-                          aria-label="Activer le suivi marketing et d'analyse"
+                          aria-label="Activer le suivi fonctionnel"
                           required
-                        />{' '}
-                        Oui
+                        />
+                        <span className="checkmark" />
                       </label>
                       <label>
                         <input
+                          className="false"
                           type="radio"
                           name="marketingAndAnalytics"
                           value="false"
                           checked={marketingAndAnalytics === false}
                           onChange={this.handleChange}
-                          aria-label="Désactiver le suvi marketing et d'analyse"
+                          aria-label="Désactiver le suivi fonctionnel"
                           required
-                        />{' '}
-                        Non
+                        />
+                        <span className="checkmark" />
                       </label>
                     </InputCell>
                     <RowHeading scope="row">Marketing et analyse</RowHeading>
                     <td>
                       <p>
-                        Pour mieux comprendre le comportement de nos utilisateur et fournir
-                        une expérience personnalisée.
+                        Pour mieux comprendre le comportement de nos utilisateur et fournir une
+                        expérience personnalisée.
                       </p>
                       <p className={hideOnMobile}>
-                        Par exemple, nous collectons des informations sur les pages
-                        que vous visitez pour vous fournir du contenu plus pertinent.
+                        Par exemple, nous collectons des informations sur les pages que vous visitez
+                        pour vous fournir du contenu plus pertinent.
                       </p>
                     </td>
                     <td className={hideOnMobile}>
-                      {marketingDestinations.map(d => d.name).join(', ')}
+                      {marketingDestinations.map((d) => d.name).join(', ')}
                     </td>
                   </Row>
 
@@ -223,42 +329,44 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                     <InputCell>
                       <label>
                         <input
+                          className="true"
                           type="radio"
                           name="advertising"
                           value="true"
                           checked={advertising === true}
                           onChange={this.handleChange}
-                          aria-label="Activer le suivi publicitaire"
+                          aria-label="Activer le suivi fonctionnel"
                           required
-                        />{' '}
-                        Oui
+                        />
+                        <span className="checkmark" />
                       </label>
                       <label>
                         <input
+                          className="false"
                           type="radio"
                           name="advertising"
                           value="false"
                           checked={advertising === false}
                           onChange={this.handleChange}
-                          aria-label="Désactiver le suivi publicitaire"
+                          aria-label="Désactiver le suivi fonctionnel"
                           required
-                        />{' '}
-                        Non
+                        />
+                        <span className="checkmark" />
                       </label>
                     </InputCell>
                     <RowHeading scope="row">Publicité</RowHeading>
                     <td>
                       <p>
-                        Pour personnaliser et mesurer l'efficacité de la publicité sur notre site
-                        et des sites tiers.
+                        Pour personnaliser et mesurer l'efficacité de la publicité sur notre site et
+                        des sites tiers.
                       </p>
                       <p className={hideOnMobile}>
-                        Par exemple, nous pouvons afficher une publicité basée sur les pages
-                        que vous avez visitées sur notre site.
+                        Par exemple, nous pouvons afficher une publicité basée sur les pages que
+                        vous avez visitées sur notre site.
                       </p>
                     </td>
                     <td className={hideOnMobile}>
-                      {advertisingDestinations.map(d => d.name).join(', ')}
+                      {advertisingDestinations.map((d) => d.name).join(', ')}
                     </td>
                   </Row>
                 </>
@@ -278,20 +386,8 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                             onChange={this.handleChange}
                             aria-label={`Autoriser le suivi "${categoryName}"`}
                             required
-                          />{' '}
-                          Oui
-                        </label>
-                        <label>
-                          <input
-                            type="radio"
-                            name={categoryName}
-                            value="false"
-                            checked={preferences[categoryName] === false}
-                            onChange={this.handleChange}
-                            aria-label={`Désactiver le suivi "${categoryName}"`}
-                            required
-                          />{' '}
-                          Non
+                          />
+                          <span className="checkmark" />
                         </label>
                       </InputCell>
                       <RowHeading scope="row">{categoryName}</RowHeading>
@@ -300,24 +396,29 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                       </td>
                       <td className={hideOnMobile}>
                         {destinations
-                          .filter(d => integrations.includes(d.id))
-                          .map(d => d.name)
+                          .filter((d) => integrations.includes(d.id))
+                          .map((d) => d.name)
                           .join(', ')}
                       </td>
                     </Row>
                   )
                 )}
 
-              <Row>
-                <td>N/A</td>
-                <RowHeading scope="row">Essentiel</RowHeading>
+              <Row className="last-row">
+                <InputCell>
+                  <label>
+                    <input className="essential" />
+                    <span className="checkmark" />
+                  </label>
+                </InputCell>
+                <RowHeading>Essentiel</RowHeading>
                 <td>
                   <p>Nous utilisons des cookies essentiels pour le fonctionnement de notre site.</p>
                   <p>
                     Par exemple, nous sauvegardons vos préférences de collecte de données
-                    personnelles afin de les respecter pour vos visites futures.
-                    Vous pouvez désactiver les cookies dans les préférences de votre navigateur
-                    mais le site pourrait ne pas fonctionner correctement.
+                    personnelles afin de les respecter pour vos visites futures. Vous pouvez
+                    désactiver les cookies dans les préférences de votre navigateur mais le site
+                    pourrait ne pas fonctionner correctement.
                   </p>
                 </td>
                 <td className={hideOnMobile} />
@@ -329,7 +430,7 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
     )
   }
 
-  handleChange = e => {
+  handleChange = (e) => {
     const { onChange } = this.props
     onChange(e.target.name, e.target.value === 'true')
   }
@@ -341,7 +442,7 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
       marketingAndAnalytics,
       advertising,
       functional,
-      customCategories
+      customCategories,
     } = this.props
     e.preventDefault()
     // Safe guard against browsers that don't prevent the
@@ -356,7 +457,7 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
     // Safe guard against custom categories being null
     if (
       customCategories &&
-      Object.keys(customCategories).some(category => preferences[category] === null)
+      Object.keys(customCategories).some((category) => preferences[category] === null)
     ) {
       return
     }
