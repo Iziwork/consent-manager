@@ -39,6 +39,7 @@ interface ContainerProps {
   preferencesDialogContent: React.ReactNode
   showBanner: boolean
   lang: string
+  allowSmallBannerOnClose: boolean
 }
 
 function normalizeDestinations(destinations: Destination[]) {
@@ -111,7 +112,7 @@ const Container: React.FC<ContainerProps> = (props) => {
   const onClose = () => {
     if (props.closeBehavior === undefined || props.closeBehavior === CloseBehavior.DISMISS) {
       toggleBanner(false)
-      return props.saveConsent()
+      return null
     }
 
     if (props.closeBehavior === CloseBehavior.ACCEPT) {
@@ -167,6 +168,7 @@ const Container: React.FC<ContainerProps> = (props) => {
         backgroundColor={props.bannerBackgroundColor}
         showBanner={showBanner}
         lang={props.lang}
+        allowSmallBannerOnClose={props.allowSmallBannerOnClose}
       />
 
       {isDialogOpen && (

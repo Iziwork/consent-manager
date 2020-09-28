@@ -56,6 +56,7 @@ interface Props {
   textColor: string
   showBanner: boolean
   lang: string
+  allowSmallBannerOnClose: boolean
 }
 
 export default class Banner extends PureComponent<Props> {
@@ -67,84 +68,87 @@ export default class Banner extends PureComponent<Props> {
       onClose,
       lang,
       showBanner,
+      allowSmallBannerOnClose,
       onChangePreferences,
       backgroundColor,
       textColor,
     } = this.props
 
-    return (
+    return showBanner === true ? (
       <Root innerRef={innerRef} backgroundColor={backgroundColor} textColor={textColor}>
-        {showBanner === true ? (
-          <Content>
-            {lang === 'it' ? (
-              <P>
-                Questo sito utilizza i cookies{' '}
-                <span role="img" aria-label="cookie">
-                  🍪
-                </span>
-                . I cookie di questo tipo sono necessari per il corretto funzionamento di alcune
-                aree del sito e non possono essere rimossi durante la navigazione. Altri invece,
-                possono essere impostati e gestiti secondo le proprie preferenze{' '}
-                <button type="button" onClick={onChangePreferences}>
-                  cliccando qui
-                </button>
-                . [
-                <a href="/cookies" target="_blank" rel="noopener noreferrer">
-                  Maggiori informazioni
-                </a>
-                ] | [
-                <CloseButton type="button" onClick={onClose}>
-                  Accettare
-                </CloseButton>
-                ]
-              </P>
-            ) : (
-              <P>
-                Notre site internet utilise des cookies{' '}
-                <span role="img" aria-label="cookie">
-                  🍪
-                </span>
-                . Certains ne peuvent être refusés pour le bon fonctionnement du site. Pour les
-                autres, vous pouvez choisir de les paramétrer{' '}
-                <button type="button" onClick={onChangePreferences}>
-                  en cliquant ici
-                </button>
-                . [
-                <a href="/cookies" target="_blank" rel="noopener noreferrer">
-                  Plus d’informations
-                </a>
-                ] | [
-                <CloseButton type="button" onClick={onClose}>
-                  Accepter
-                </CloseButton>
-                ]
-              </P>
-            )}
-          </Content>
-        ) : (
+        <Content>
+          {lang === 'it' ? (
+            <P>
+              Questo sito utilizza i cookies{' '}
+              <span role="img" aria-label="cookie">
+                🍪
+              </span>
+              . I cookie di questo tipo sono necessari per il corretto funzionamento di alcune aree
+              del sito e non possono essere rimossi durante la navigazione. Altri invece, possono
+              essere impostati e gestiti secondo le proprie preferenze{' '}
+              <button type="button" onClick={onChangePreferences}>
+                cliccando qui
+              </button>
+              . [
+              <a href="/cookies" target="_blank" rel="noopener noreferrer">
+                Maggiori informazioni
+              </a>
+              ] | [
+              <CloseButton type="button" onClick={onClose}>
+                Accettare
+              </CloseButton>
+              ]
+            </P>
+          ) : (
+            <P>
+              Notre site internet utilise des cookies{' '}
+              <span role="img" aria-label="cookie">
+                🍪
+              </span>
+              . Certains ne peuvent être refusés pour le bon fonctionnement du site. Pour les
+              autres, vous pouvez choisir de les paramétrer{' '}
+              <button type="button" onClick={onChangePreferences}>
+                en cliquant ici
+              </button>
+              . [
+              <a href="/cookies" target="_blank" rel="noopener noreferrer">
+                Plus d’informations
+              </a>
+              ] | [
+              <CloseButton type="button" onClick={onClose}>
+                Accepter
+              </CloseButton>
+              ]
+            </P>
+          )}
+        </Content>
+      </Root>
+    ) : (
+      showBanner === false && allowSmallBannerOnClose === true && (
+        <Root innerRef={innerRef} backgroundColor={backgroundColor} textColor={textColor}>
           <SmallContent>
             {lang === 'it' ? (
               <P>
                 <span role="img" aria-label="cookie">
                   🍪
-                </span>{' '}
+                </span>
                 <button type="button" onClick={onChangePreferences}>
-                  cliccando qui
+                  preferenze
                 </button>
               </P>
             ) : (
               <P>
                 <span role="img" aria-label="cookie">
                   🍪
-                </span>{' '}
+                </span>
                 <button type="button" onClick={onChangePreferences}>
                   paramètres
                 </button>
               </P>
             )}
           </SmallContent>
-        )}
-      </Root>
+        </Root>
+      )
     )
   }
 }

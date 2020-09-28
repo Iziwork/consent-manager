@@ -66,6 +66,7 @@ export interface ConsentManagerProps {
   otherWriteKeys?: string[]
   lang: string
   showBanner: boolean
+  allowSmallBannerOnClose: boolean
   shouldRequireConsent?: () => Promise<boolean> | boolean
   implyConsentOnInteraction?: boolean
   cookieDomain?: string

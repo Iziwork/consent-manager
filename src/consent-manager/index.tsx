@@ -17,7 +17,8 @@ export default class ConsentManager extends PureComponent<ConsentManagerProps, {
     otherWriteKeys: [],
     shouldRequireConsent: () => true,
     implyConsentOnInteraction: false,
-    lang: 'it',
+    lang: 'fr',
+    allowSmallBannerOnClose: false,
     onError: undefined,
     cookieDomain: undefined,
     customCategories: undefined,
@@ -31,6 +32,7 @@ export default class ConsentManager extends PureComponent<ConsentManagerProps, {
     const {
       writeKey,
       lang,
+      allowSmallBannerOnClose,
       showBanner,
       otherWriteKeys,
       shouldRequireConsent,
@@ -90,6 +92,7 @@ export default class ConsentManager extends PureComponent<ConsentManagerProps, {
               preferencesDialogTitle={preferencesDialogTitle}
               preferencesDialogContent={preferencesDialogContent}
               lang={lang}
+              allowSmallBannerOnClose={allowSmallBannerOnClose}
               showBanner={showBanner}
             />
           )
