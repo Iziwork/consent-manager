@@ -6,7 +6,6 @@ const Root = styled('div')<{ backgroundColor: string; textColor: string }>`
   ${fontStyles};
   position: relative;
   padding: 8px;
-  padding-right: 40px;
   background: ${(props) => props.backgroundColor};
   color: ${(props) => props.textColor};
   text-align: center;
@@ -14,19 +13,52 @@ const Root = styled('div')<{ backgroundColor: string; textColor: string }>`
   line-height: 1.3;
 `
 
-const SmallContent = styled('div')``
-
-const Content = styled('div')`
-  a,
-  button {
-    display: inline;
+const SmallContent = styled('div')`
+  .link {
+    background: transparent;
+    border: 0;
     padding: 0;
-    border: none;
-    background: none;
-    color: inherit;
-    font: inherit;
+    color: white;
+    font-size: 12px;
     text-decoration: underline;
     cursor: pointer;
+  }
+`
+
+const Content = styled('div')`
+  .link {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    color: white;
+    font-size: 12px;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .button {
+    position: relative;
+    margin-left: 15px;
+    padding: 0 14px;
+    border: none;
+    background: #4fb767;
+    color: white;
+    border-radius: 8px;
+    font: inherit;
+    height: 30px;
+    line-height: 30px;
+    font-weight: 700;
+    text-align: center;
+    display: inline-block;
+    outline: 0;
+    user-select: none;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    &:hover {
+      color: white;
+      background: #068c5a;
+      text-decoration: none;
+    }
   }
 `
 
@@ -79,46 +111,29 @@ export default class Banner extends PureComponent<Props> {
         <Content>
           {lang === 'it' ? (
             <P>
-              Questo sito utilizza i cookies{' '}
-              <span role="img" aria-label="cookie">
-                🍪
-              </span>
-              . I cookie di questo tipo sono necessari per il corretto funzionamento di alcune aree
-              del sito e non possono essere rimossi durante la navigazione. Altri invece, possono
-              essere impostati e gestiti secondo le proprie preferenze{' '}
-              <button type="button" onClick={onChangePreferences}>
+              Questo sito utilizza i cookies 🍪. I cookie di questo tipo sono necessari per il
+              corretto funzionamento di alcune aree del sito e non possono essere rimossi durante la
+              navigazione. Altri invece, possono essere impostati e gestiti secondo le proprie
+              preferenze{' '}
+              <button type="button" className="link" onClick={onChangePreferences}>
                 cliccando qui
               </button>
-              . [
-              <a href="/cookies" target="_blank" rel="noopener noreferrer">
-                Maggiori informazioni
-              </a>
-              ] | [
-              <CloseButton type="button" onClick={onClose}>
-                Accettare
+              .
+              <CloseButton type="button" className="button" onClick={onClose}>
+                Ok
               </CloseButton>
-              ]
             </P>
           ) : (
             <P>
-              Notre site internet utilise des cookies{' '}
-              <span role="img" aria-label="cookie">
-                🍪
-              </span>
-              . Certains ne peuvent être refusés pour le bon fonctionnement du site. Pour les
-              autres, vous pouvez choisir de les paramétrer{' '}
-              <button type="button" onClick={onChangePreferences}>
+              Notre site internet utilise des cookies 🍪. Certains ne peuvent être refusés pour le
+              bon fonctionnement du site. Pour les autres, vous pouvez choisir de les paramétrer{' '}
+              <button type="button" className="link" onClick={onChangePreferences}>
                 en cliquant ici
               </button>
-              . [
-              <a href="/cookies" target="_blank" rel="noopener noreferrer">
-                Plus d’informations
-              </a>
-              ] | [
-              <CloseButton type="button" onClick={onClose}>
-                Accepter
+              .
+              <CloseButton type="button" className="button" onClick={onClose}>
+                Ok
               </CloseButton>
-              ]
             </P>
           )}
         </Content>
@@ -129,19 +144,15 @@ export default class Banner extends PureComponent<Props> {
           <SmallContent>
             {lang === 'it' ? (
               <P>
-                <span role="img" aria-label="cookie">
-                  🍪
-                </span>
-                <button type="button" onClick={onChangePreferences}>
+                Questo sito utilizza i cookies 🍪.{' '}
+                <button type="button" className="link" onClick={onChangePreferences}>
                   preferenze
                 </button>
               </P>
             ) : (
               <P>
-                <span role="img" aria-label="cookie">
-                  🍪
-                </span>
-                <button type="button" onClick={onChangePreferences}>
+                Notre site internet utilise des cookies 🍪.{' '}
+                <button type="button" className="link" onClick={onChangePreferences}>
                   paramètres
                 </button>
               </P>

@@ -1,4 +1,5 @@
 import EventEmitter from 'events'
+import cookies from 'js-cookie'
 import React from 'react'
 import Banner from './banner'
 import PreferenceDialog from './preference-dialog'
@@ -98,6 +99,12 @@ const Container: React.FC<ContainerProps> = (props) => {
   const showDialog = () => toggleDialog(true)
 
   React.useEffect(() => {
+    // If get cookie Tracking preferences, and allowSmallBannerOnClose = true, so show the small banner
+    const COOKIE_KEY = 'tracking-preferences'
+    if (cookies.getJSON(COOKIE_KEY)) {
+      toggleBanner(false)
+    }
+
     emitter.on('openDialog', showDialog)
     if (props.isConsentRequired && props.implyConsentOnInteraction) {
       document.body.addEventListener('click', handleBodyClick, false)
@@ -111,8 +118,8 @@ const Container: React.FC<ContainerProps> = (props) => {
 
   const onClose = () => {
     if (props.closeBehavior === undefined || props.closeBehavior === CloseBehavior.DISMISS) {
-      toggleBanner(false)
-      return null
+      props.saveConsent(undefined, false)
+      return toggleBanner(false)
     }
 
     if (props.closeBehavior === CloseBehavior.ACCEPT) {
@@ -134,7 +141,7 @@ const Container: React.FC<ContainerProps> = (props) => {
     const customClosePreferences = props.closeBehavior(props.preferences)
     props.setPreferences(customClosePreferences)
     props.saveConsent()
-    toggleBanner(false)
+    return toggleBanner(false)
   }
 
   const handleCategoryChange = (category: string, value: boolean) => {
