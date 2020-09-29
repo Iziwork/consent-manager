@@ -132,7 +132,7 @@ export default class Dialog extends PureComponent<DialogProps, {}> {
 
   static defaultProps = {
     onCancel: undefined,
-    width: '960px',
+    width: '960px'
   }
 
   constructor(props: DialogProps) {

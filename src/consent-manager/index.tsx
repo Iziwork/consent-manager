@@ -22,10 +22,11 @@ export default class ConsentManager extends PureComponent<ConsentManagerProps, {
     onError: undefined,
     cookieDomain: undefined,
     customCategories: undefined,
-    bannerTextColor: '#fff',
+    bannerTextColor: '#031b4a',
     bannerSubContent: 'Vous pouvez modifier vos préférences à tout moment.',
-    bannerBackgroundColor: '#1f4160',
+    bannerBackgroundColor: 'white',
     preferencesDialogTitle: 'Gérer mes préférences',
+    cancelDialogTitle: 'Etes-vous sûr de vouloir annuler ?',
   }
 
   render() {
@@ -94,6 +95,8 @@ export default class ConsentManager extends PureComponent<ConsentManagerProps, {
               lang={lang}
               allowSmallBannerOnClose={allowSmallBannerOnClose}
               showBanner={showBanner}
+              cancelDialogTitle={cancelDialogTitle}
+              cancelDialogContent={cancelDialogContent}
             />
           )
         }}

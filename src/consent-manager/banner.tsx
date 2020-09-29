@@ -9,8 +9,14 @@ const Root = styled('div')<{ backgroundColor: string; textColor: string }>`
   background: ${(props) => props.backgroundColor};
   color: ${(props) => props.textColor};
   text-align: center;
+  padding: 24px;
+  background: white;
+  color: #031b4a;
+  text-align: left;
   font-size: 12px;
-  line-height: 1.3;
+  line-height: 1.6;
+  border-radius: 8px;
+  box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.1);
 `
 
 const SmallContent = styled('div')`
@@ -29,6 +35,10 @@ const Content = styled('div')`
   .link {
     background: transparent;
     border: 0;
+  p {
+    width: calc(100% - 60px);
+  }
+  .link {
     padding: 0;
     color: white;
     font-size: 12px;
@@ -53,6 +63,36 @@ const Content = styled('div')`
     user-select: none;
     text-decoration: none;
     transition: all 0.4s ease;
+    font-size: 12px;
+    text-decoration: underline;
+    cursor: pointer;
+    &:hover {
+      color: white;
+      background: #068c5a;
+      text-decoration: none;
+    }
+  }
+  .button {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    min-width: 50px;
+    padding: 0 14px;
+    border: none;
+    background: #4fb767;
+    color: white;
+    border-radius: 8px;
+    color: white;
+    font: inherit;
+    height: 48px;
+    line-height: 48px;
+    font-weight: 700;
+    text-align: center;
+    display: inline-block;
+    outline: 0;
+    user-select: none;
+    text-decoration: none;
+    transition: all 0.4s ease;
     cursor: pointer;
     &:hover {
       color: white;
@@ -64,18 +104,31 @@ const Content = styled('div')`
 
 const P = styled('p')`
   margin: 0;
-  &:not(:last-child) {
-    margin-bottom: 6px;
-  }
 `
 
 const CloseButton = styled('button')`
-  padding: 8px;
+  float: right;
+  padding: 0 14px;
   border: none;
-  background: none;
-  color: inherit;
+  background: #4fb767;
+  border-radius: 8px;
+  height: 48px;
+  line-height: 48px;
+  color: white;
   font: inherit;
+  font-weight: 700;
+  text-align: center;
+  display: inline-block;
+  outline: 0;
+  user-select: none;
+  text-decoration: none;
+  transition: all 0.4s ease;
   cursor: pointer;
+  &:hover {
+    color: white;
+    background: #068c5a;
+    text-decoration: none;
+  }
 `
 
 interface Props {
@@ -105,6 +158,7 @@ export default class Banner extends PureComponent<Props> {
       backgroundColor,
       textColor,
     } = this.props
+    const { innerRef, onClose, onChangePreferences, backgroundColor, textColor } = this.props
 
     return showBanner === true ? (
       <Root innerRef={innerRef} backgroundColor={backgroundColor} textColor={textColor}>
@@ -136,6 +190,18 @@ export default class Banner extends PureComponent<Props> {
               </CloseButton>
             </P>
           )}
+          <P>
+            Notre site internet utilise des cookies 🍪. Certains ne peuvent être refusés pour le bon
+            fonctionnement du site. Pour les autres, vous pouvez choisir de les paramétrer{' '}
+            <span className="link" onClick={onChangePreferences}>
+              {' '}
+              en cliquant ici
+            </span>
+            .
+          </P>
+          <CloseButton type="button" className="button" onClick={onClose}>
+            Ok
+          </CloseButton>
         </Content>
       </Root>
     ) : (
