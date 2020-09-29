@@ -37,7 +37,7 @@ const Content = styled('div')`
   }
   .button {
     position: relative;
-    margin-left: 15px;
+    margin-left: 14px;
     padding: 0 14px;
     border: none;
     background: #4fb767;
