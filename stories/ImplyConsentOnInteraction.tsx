@@ -7,6 +7,8 @@ import {
   bannerSubContent,
   preferencesDialogContent,
   preferencesDialogTitle,
+  cancelDialogContent,
+  cancelDialogTitle,
 } from './components/common-react'
 
 export const ImplyConsentOnInteraction = () => {
@@ -19,6 +21,8 @@ export const ImplyConsentOnInteraction = () => {
         bannerSubContent={bannerSubContent}
         preferencesDialogTitle={preferencesDialogTitle}
         preferencesDialogContent={preferencesDialogContent}
+        cancelDialogTitle={cancelDialogTitle}
+        cancelDialogContent={cancelDialogContent}
         implyConsentOnInteraction
         lang="fr"
         showBanner={true}

@@ -41,6 +41,8 @@ interface ContainerProps {
   showBanner: boolean
   lang: string
   allowSmallBannerOnClose: boolean
+  cancelDialogTitle: React.ReactNode
+  cancelDialogContent: React.ReactNode
 }
 
 function normalizeDestinations(destinations: Destination[]) {
