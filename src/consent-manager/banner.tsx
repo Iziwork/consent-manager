@@ -158,7 +158,6 @@ export default class Banner extends PureComponent<Props> {
       backgroundColor,
       textColor,
     } = this.props
-    const { innerRef, onClose, onChangePreferences, backgroundColor, textColor } = this.props
 
     return showBanner === true ? (
       <Root innerRef={innerRef} backgroundColor={backgroundColor} textColor={textColor}>
