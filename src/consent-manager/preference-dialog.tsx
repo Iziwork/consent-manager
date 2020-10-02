@@ -175,15 +175,16 @@ interface PreferenceDialogProps {
   preferences: CategoryPreferences
   title: React.ReactNode
   content: React.ReactNode
+  lang: string
 }
 
 export default class PreferenceDialog extends PureComponent<PreferenceDialogProps, {}> {
   static displayName = 'PreferenceDialog'
 
   static defaultProps = {
-    marketingAndAnalytics: false,
-    advertising: false,
-    functional: false,
+    marketingAndAnalytics: null,
+    advertising: null,
+    functional: null,
   }
 
   render() {
@@ -201,13 +202,15 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
       title,
       content,
       preferences,
+      lang,
     } = this.props
+
     const buttons = (
       <div>
         <DefaultButton type="button" onClick={onCancel}>
-          Annuler
+          {lang === 'it' ? 'Annulla ' : 'Annuler'}
         </DefaultButton>
-        <GreenButton type="submit">Sauvegarder</GreenButton>
+        <GreenButton type="submit">{lang === 'it' ? 'Salva' : 'Sauvegarder'}</GreenButton>
       </div>
     )
     return (

@@ -64,6 +64,9 @@ interface CustomCategory {
 export interface ConsentManagerProps {
   writeKey: string
   otherWriteKeys?: string[]
+  lang: string
+  showBanner: boolean
+  allowSmallBannerOnClose: boolean
   shouldRequireConsent?: () => Promise<boolean> | boolean
   implyConsentOnInteraction?: boolean
   cookieDomain?: string
@@ -74,9 +77,9 @@ export interface ConsentManagerProps {
   preferencesDialogTitle?: React.ReactNode
   preferencesDialogContent: React.ReactNode
   onError?: (error: Error | undefined) => void
+  closeBehavior?: CloseBehavior | CloseBehaviorFunction
   cancelDialogTitle?: React.ReactNode
   cancelDialogContent: React.ReactNode
-  closeBehavior?: CloseBehavior | CloseBehaviorFunction
   initialPreferences?: CategoryPreferences
   customCategories?: CustomCategories
 }

@@ -8,7 +8,7 @@ import {
   preferencesDialogContent,
   preferencesDialogTitle,
   cancelDialogContent,
-  cancelDialogTitle
+  cancelDialogTitle,
 } from './components/common-react'
 
 export const ImplyConsentOnInteraction = () => {
@@ -24,6 +24,8 @@ export const ImplyConsentOnInteraction = () => {
         cancelDialogTitle={cancelDialogTitle}
         cancelDialogContent={cancelDialogContent}
         implyConsentOnInteraction
+        lang="fr"
+        showBanner={true}
       />
 
       <Pane marginX={100} marginTop={20}>

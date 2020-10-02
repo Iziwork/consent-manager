@@ -1,8 +1,8 @@
 import EventEmitter from 'events'
+import cookies from 'js-cookie'
 import React from 'react'
 import Banner from './banner'
 import PreferenceDialog from './preference-dialog'
-import CancelDialog from './cancel-dialog'
 import { ADVERTISING_CATEGORIES, FUNCTIONAL_CATEGORIES } from './categories'
 import { Destination, CategoryPreferences, CustomCategories } from '../types'
 
@@ -11,10 +11,10 @@ export function openDialog() {
   emitter.emit('openDialog')
 }
 
-export const enum CloseBehavior {
+export enum CloseBehavior {
   ACCEPT = 'accept',
   DENY = 'deny',
-  DISMISS = 'dismiss'
+  DISMISS = 'dismiss',
 }
 
 export interface CloseBehaviorFunction {
@@ -38,6 +38,9 @@ interface ContainerProps {
   bannerBackgroundColor: string
   preferencesDialogTitle: React.ReactNode
   preferencesDialogContent: React.ReactNode
+  showBanner: boolean
+  lang: string
+  allowSmallBannerOnClose: boolean
   cancelDialogTitle: React.ReactNode
   cancelDialogContent: React.ReactNode
 }
@@ -48,9 +51,9 @@ function normalizeDestinations(destinations: Destination[]) {
   const functionalDestinations: Destination[] = []
 
   for (const destination of destinations) {
-    if (ADVERTISING_CATEGORIES.find(c => c === destination.category)) {
+    if (ADVERTISING_CATEGORIES.find((c) => c === destination.category)) {
       advertisingDestinations.push(destination)
-    } else if (FUNCTIONAL_CATEGORIES.find(c => c === destination.category)) {
+    } else if (FUNCTIONAL_CATEGORIES.find((c) => c === destination.category)) {
       functionalDestinations.push(destination)
     } else {
       // Fallback to marketing
@@ -61,22 +64,20 @@ function normalizeDestinations(destinations: Destination[]) {
   return { marketingDestinations, advertisingDestinations, functionalDestinations }
 }
 
-const Container: React.FC<ContainerProps> = props => {
+const Container: React.FC<ContainerProps> = (props) => {
   const [isDialogOpen, toggleDialog] = React.useState(false)
   const [showBanner, toggleBanner] = React.useState(true)
-  const [isCancelling, toggleCancel] = React.useState(false)
 
   let banner = React.useRef<HTMLElement>(null)
   let preferenceDialog = React.useRef<HTMLElement>(null)
-  let cancelDialog = React.useRef<HTMLElement>(null)
 
   const {
     marketingDestinations,
     advertisingDestinations,
-    functionalDestinations
+    functionalDestinations,
   } = normalizeDestinations(props.destinations)
 
-  const handleBodyClick = e => {
+  const handleBodyClick = (e) => {
     // Do nothing if no new implicit consent needs to be saved
     if (
       !props.isConsentRequired ||
@@ -89,8 +90,7 @@ const Container: React.FC<ContainerProps> = props => {
     // Ignore propogated clicks from inside the consent manager
     if (
       (banner.current && banner.current.contains(e.target)) ||
-      (preferenceDialog.current && preferenceDialog.current.contains(e.target)) ||
-      (cancelDialog.current && cancelDialog.current.contains(e.target))
+      (preferenceDialog.current && preferenceDialog.current.contains(e.target))
     ) {
       return
     }
@@ -101,6 +101,12 @@ const Container: React.FC<ContainerProps> = props => {
   const showDialog = () => toggleDialog(true)
 
   React.useEffect(() => {
+    // If get cookie Tracking preferences, and allowSmallBannerOnClose = true, so show the small banner
+    const COOKIE_KEY = 'tracking-preferences'
+    if (cookies.getJSON(COOKIE_KEY)) {
+      toggleBanner(false)
+    }
+
     emitter.on('openDialog', showDialog)
     if (props.isConsentRequired && props.implyConsentOnInteraction) {
       document.body.addEventListener('click', handleBodyClick, false)
@@ -114,10 +120,12 @@ const Container: React.FC<ContainerProps> = props => {
 
   const onClose = () => {
     if (props.closeBehavior === undefined || props.closeBehavior === CloseBehavior.DISMISS) {
+      props.saveConsent(undefined, false)
       return toggleBanner(false)
     }
 
     if (props.closeBehavior === CloseBehavior.ACCEPT) {
+      toggleBanner(false)
       return props.saveConsent()
     }
 
@@ -140,55 +148,44 @@ const Container: React.FC<ContainerProps> = props => {
 
   const handleCategoryChange = (category: string, value: boolean) => {
     props.setPreferences({
-      [category]: value
+      [category]: value,
     })
   }
 
   const handleSave = () => {
-    toggleDialog(false)
     props.saveConsent()
+    toggleDialog(false)
+    toggleBanner(false)
   }
 
   const handleCancel = () => {
     toggleDialog(false)
+    toggleBanner(true)
     // Only show the cancel confirmation if there's unconsented destinations
-    if (props.newDestinations.length > 0) {
-      toggleCancel(true)
-    } else {
-      props.resetPreferences()
-    }
-  }
-
-  const handleCancelBack = () => {
-    toggleDialog(true)
-    toggleCancel(false)
-  }
-
-  const handleCancelConfirm = () => {
-    toggleCancel(false)
     props.resetPreferences()
   }
 
   return (
     <div>
-      {showBanner && props.isConsentRequired && props.newDestinations.length > 0 && (
-        <Banner
-          innerRef={current => (banner = { current })}
-          onClose={onClose}
-          onChangePreferences={() => toggleDialog(true)}
-          content={props.bannerContent}
-          subContent={props.bannerSubContent}
-          textColor={props.bannerTextColor}
-          backgroundColor={props.bannerBackgroundColor}
-        />
-      )}
+      <Banner
+        innerRef={(current) => (banner = { current })}
+        onClose={onClose}
+        onChangePreferences={() => toggleDialog(true)}
+        content={props.bannerContent}
+        subContent={props.bannerSubContent}
+        textColor={props.bannerTextColor}
+        backgroundColor={props.bannerBackgroundColor}
+        showBanner={showBanner}
+        lang={props.lang}
+        allowSmallBannerOnClose={props.allowSmallBannerOnClose}
+      />
 
       {isDialogOpen && (
         <PreferenceDialog
           customCategories={props.customCategories}
           destinations={props.destinations}
           preferences={props.preferences}
-          innerRef={current => (preferenceDialog = { current })}
+          innerRef={(current) => (preferenceDialog = { current })}
           onCancel={handleCancel}
           onSave={handleSave}
           onChange={handleCategoryChange}
@@ -200,16 +197,7 @@ const Container: React.FC<ContainerProps> = props => {
           functional={props.preferences.functional}
           title={props.preferencesDialogTitle}
           content={props.preferencesDialogContent}
-        />
-      )}
-
-      {isCancelling && (
-        <CancelDialog
-          innerRef={current => (cancelDialog = { current })}
-          onBack={handleCancelBack}
-          onConfirm={handleCancelConfirm}
-          title={props.cancelDialogTitle}
-          content={props.cancelDialogContent}
+          lang={props.lang}
         />
       )}
     </div>

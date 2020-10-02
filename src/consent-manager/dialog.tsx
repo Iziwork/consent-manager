@@ -92,14 +92,12 @@ const Content = styled('div')`
   min-height: 0;
   font-size: 12px;
   line-height: 1.2;
-
   p {
     margin: 0;
     &:not(:last-child) {
       margin-bottom: 0.7em;
     }
   }
-
   a {
     color: #47b881;
     &:hover {
@@ -134,7 +132,7 @@ export default class Dialog extends PureComponent<DialogProps, {}> {
 
   static defaultProps = {
     onCancel: undefined,
-    width: '960px'
+    width: '960px',
   }
 
   constructor(props: DialogProps) {
