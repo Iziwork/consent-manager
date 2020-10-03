@@ -141,7 +141,7 @@ export default class Banner extends PureComponent<Props> {
     ) : (
       showBanner === false && allowSmallBannerOnClose === true && (
         <Root innerRef={innerRef} backgroundColor={backgroundColor} textColor={textColor}>
-          <SmallContent>
+          <SmallContent className="small-banner">
             {lang === 'it' ? (
               <P>
                 Questo sito utilizza i cookies 🍪.{' '}
