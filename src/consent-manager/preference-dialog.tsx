@@ -182,9 +182,9 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
   static displayName = 'PreferenceDialog'
 
   static defaultProps = {
-    marketingAndAnalytics: null,
-    advertising: null,
-    functional: null,
+    marketingAndAnalytics: false,
+    advertising: false,
+    functional: false,
   }
 
   render() {

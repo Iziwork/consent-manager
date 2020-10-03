@@ -5,9 +5,9 @@ import { ADVERTISING_CATEGORIES, FUNCTIONAL_CATEGORIES } from './categories'
 import { CategoryPreferences, Destination, ConsentManagerProps } from '../types'
 
 const zeroValuePreferences: CategoryPreferences = {
-  marketingAndAnalytics: null,
-  advertising: null,
-  functional: null,
+  marketingAndAnalytics: false,
+  advertising: false,
+  functional: false,
 }
 
 export default class ConsentManager extends PureComponent<ConsentManagerProps, {}> {
