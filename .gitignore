@@ -8,3 +8,6 @@
 # IDE
 .vscode/
 *.iml
+
+# Mac
+.DS_Store
