@@ -120,7 +120,12 @@ const Container: React.FC<ContainerProps> = (props) => {
 
   const onClose = () => {
     if (props.closeBehavior === undefined || props.closeBehavior === CloseBehavior.DISMISS) {
-      props.saveConsent(undefined, false)
+      const truePreferences = Object.keys(props.preferences).reduce((acc, category) => {
+        acc[category] = true
+        return acc
+      }, {})
+
+      props.saveConsent(truePreferences, false)
       return toggleBanner(false)
     }
 
