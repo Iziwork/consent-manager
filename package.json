@@ -96,7 +96,7 @@
     "pretty-quick": "3.0.2",
     "prismjs": "1.21.0",
     "raw-loader": "4.0.2",
-    "react": "16.13.1",
+    "react": "16.14.0",
     "react-docgen-typescript-loader": "3.7.2",
     "react-dom": "16.13.1",
     "react-simple-code-editor": "0.11.0",
@@ -111,7 +111,7 @@
     "webpack-cli": "3.3.12"
   },
   "peerDependencies": {
-    "react": "16.13.1",
+    "react": "16.14.0",
     "react-dom": "16.13.1"
   },
   "jest": {
