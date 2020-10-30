@@ -70,7 +70,7 @@
     "@types/nock": "11.1.0",
     "@types/node": "12.12.67",
     "@types/react": "16.9.51",
-    "@types/react-dom": "16.9.8",
+    "@types/react-dom": "16.9.9",
     "@types/segment-analytics": "0.0.32",
     "@types/sinon": "9.0.8",
     "@typescript-eslint/eslint-plugin": "2.34.0",
