@@ -91,7 +91,7 @@
     "lint-staged": "10.4.0",
     "lodash-es": "4.17.15",
     "nock": "13.0.4",
-    "preact": "10.5.4",
+    "preact": "10.5.7",
     "prettier": "2.1.2",
     "pretty-quick": "3.0.2",
     "prismjs": "1.21.0",
