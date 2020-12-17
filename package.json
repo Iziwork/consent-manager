@@ -86,7 +86,7 @@
     "eslint-plugin-react": "7.21.3",
     "evergreen-ui": "4.28.0",
     "file-loader": "6.1.1",
-    "husky": "4.3.0",
+    "husky": "4.3.6",
     "jest": "26.5.2",
     "lint-staged": "10.4.0",
     "lodash-es": "4.17.15",
