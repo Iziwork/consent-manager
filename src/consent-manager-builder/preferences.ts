@@ -6,7 +6,7 @@ import { EventEmitter } from 'events'
 
 const COOKIE_KEY = 'tracking-preferences'
 // TODO: Make cookie expiration configurable
-const COOKIE_EXPIRES = 365
+const COOKIE_EXPIRES = 182
 
 export interface PreferencesManager {
   loadPreferences(): Preferences
@@ -25,7 +25,7 @@ export function loadPreferences(): Preferences {
 
   return {
     destinationPreferences: preferences.destinations as CategoryPreferences,
-    customPreferences: preferences.custom as CategoryPreferences
+    customPreferences: preferences.custom as CategoryPreferences,
   }
 }
 
@@ -47,14 +47,14 @@ export function onPreferencesSaved(listener: (prefs: Preferences) => void) {
 export function savePreferences({
   destinationPreferences,
   customPreferences,
-  cookieDomain
+  cookieDomain,
 }: SavePreferences) {
   const wd = window as WindowWithAJS
 
   if (wd.analytics) {
     wd.analytics.identify({
       destinationTrackingPreferences: destinationPreferences,
-      customTrackingPreferences: customPreferences
+      customTrackingPreferences: customPreferences,
     })
   }
 
@@ -62,16 +62,16 @@ export function savePreferences({
   const value = {
     version: 1,
     destinations: destinationPreferences,
-    custom: customPreferences
+    custom: customPreferences,
   }
 
   cookies.set(COOKIE_KEY, value, {
     expires: COOKIE_EXPIRES,
-    domain
+    domain,
   })
 
   emitter.emit('preferencesSaved', {
     destinationPreferences,
-    customPreferences
+    customPreferences,
   })
 }
