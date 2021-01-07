@@ -63,7 +63,7 @@
     "@types/enzyme": "3.10.7",
     "@types/enzyme-adapter-react-16": "1.0.6",
     "@types/isomorphic-fetch": "0.0.35",
-    "@types/jest": "26.0.14",
+    "@types/jest": "26.0.20",
     "@types/js-cookie": "2.2.6",
     "@types/lodash": "4.14.161",
     "@types/nanoid": "2.1.0",
