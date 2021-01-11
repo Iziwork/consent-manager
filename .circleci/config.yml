@@ -1,50 +1,52 @@
 version: 2.1
 orbs:
-  node: circleci/node@1.1.6
+  node: circleci/node@4.1.0
+
 jobs:
   build-and-test:
     executor:
       name: node/default
+      tag: '14.15'
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run:
-                name: set registry token
-                command: npm config set '//npm.pkg.github.com/:_authToken' $GITHUB_AUTH_TOKEN
-            - run: npm install
-            - run: npm run build
-            - run: npm run lint
-            - run: npm run test
-            - run: npm run size-limit
+      - run:
+          name: set registry token
+          command: npm config set '//npm.pkg.github.com/:_authToken' $GITHUB_AUTH_TOKEN
+      - node/install-packages
+      - run: npm run build
+      - run: npm run lint
+      - run: npm run test
+      - run: npm run size-limit
   build-test-and-publish:
     executor:
       name: node/default
+      tag: '14.15'
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run:
-                name: set registry token
-                command: npm config set '//npm.pkg.github.com/:_authToken' $GITHUB_PUBLISH_AUTH_TOKEN
-            - run: npm install
-            - run: npm run build
-            - run: npm run lint
-            - run: npm run test
-            - run: npm run size-limit
-            - run: npm publish
+      - run:
+          name: set registry token
+          command: npm config set '//npm.pkg.github.com/:_authToken' $GITHUB_AUTH_TOKEN
+      - node/install-packages
+      - run: npm run build
+      - run: npm run lint
+      - run: npm run test
+      - run: npm run size-limit
+      - run: npm publish
+
 workflows:
-    build-and-test:
-      jobs:
-        - build-and-test:
-            filters:
-              branches:
-                ignore:
-                  - master
-                  - gh-pages
-    build-test-and-publish:
-      jobs:
-        - build-test-and-publish:
-            filters:
-              branches:
-                only: master
+  build-and-test:
+    jobs:
+      - build-and-test:
+          context: izi-main-context
+          filters:
+            branches:
+              ignore:
+                - master
+                - gh-pages
+  build-test-and-publish:
+    jobs:
+      - build-test-and-publish:
+          context: izi-main-context
+          filters:
+            branches:
+              only: master
