@@ -1,4 +1,4 @@
-import EventEmitter from 'events'
+import { EventEmitter } from 'events'
 import cookies from 'js-cookie'
 import React from 'react'
 import Banner from './banner'
