@@ -8,8 +8,8 @@ jobs:
     steps:
       - checkout
       - run:
-        name: set registry token
-        command: npm config set '//npm.pkg.github.com/:_authToken' $GITHUB_AUTH_TOKEN
+          name: set registry token
+          command: npm config set '//npm.pkg.github.com/:_authToken' $GITHUB_AUTH_TOKEN
       - node/install:
           lts: true
       - run: npm run build
