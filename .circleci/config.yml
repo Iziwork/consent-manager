@@ -4,6 +4,7 @@ orbs:
 
 jobs:
   build-and-test:
+    executor: node/default
     steps:
       - checkout
       - run:
@@ -16,6 +17,7 @@ jobs:
       - run: npm run test
       - run: npm run size-limit
   build-test-and-publish:
+    executor: node/default
     steps:
       - checkout
       - run:
