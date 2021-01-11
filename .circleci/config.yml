@@ -1,37 +1,34 @@
 version: 2.1
+orbs:
+  node: circleci/node@4.1.0
 
 jobs:
   build-and-test:
-    docker:
-      - image: circleci/node:14.15
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run:
-                name: set registry token
-                command: npm config set '//npm.pkg.github.com/:_authToken' $GITHUB_AUTH_TOKEN
-            - run: npm install
-            - run: npm run build
-            - run: npm run lint
-            - run: npm run test
-            - run: npm run size-limit
+      - run:
+        name: set registry token
+        command: npm config set '//npm.pkg.github.com/:_authToken' $GITHUB_AUTH_TOKEN
+      - node/install:
+          lts: true
+      - run: npm run build
+      - run: npm run lint
+      - run: npm run test
+      - run: npm run size-limit
   build-test-and-publish:
-    docker:
-      - image: circleci/node:14.15
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run:
-                name: set registry token
-                command: npm config set '//npm.pkg.github.com/:_authToken' $GITHUB_AUTH_TOKEN
-            - run: npm install
-            - run: npm run build
-            - run: npm run lint
-            - run: npm run test
-            - run: npm run size-limit
-            - run: npm publish
+      - run:
+          name: set registry token
+          command: npm config set '//npm.pkg.github.com/:_authToken' $GITHUB_AUTH_TOKEN
+      - node/install:
+          lts: true
+      - run: npm run build
+      - run: npm run lint
+      - run: npm run test
+      - run: npm run size-limit
+      - run: npm publish
+
 workflows:
   build-and-test:
     jobs:
