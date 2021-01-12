@@ -255,27 +255,29 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                     <InputCell>
                       <label>
                         <input
+                          className="true"
                           type="radio"
                           name="functional"
                           value="true"
                           checked={functional === true}
                           onChange={this.handleChange}
-                          aria-label={'Activer le suivi fonctionnel'}
+                          aria-label="Activer le suivi fonctionnel"
                           required
-                        />{' '}
-                        {lang === 'it' ? 'Si' : 'Oui'}
+                        />
+                        <span className="checkmark" />
                       </label>
                       <label>
                         <input
+                          className="false"
                           type="radio"
                           name="functional"
                           value="false"
                           checked={functional === false}
                           onChange={this.handleChange}
-                          aria-label={'Désactiver le suivi fonctionnel'}
+                          aria-label="Désactiver le suivi fonctionnel"
                           required
-                        />{' '}
-                        {lang === 'it' ? 'No' : 'Non'}
+                        />
+                        <span className="checkmark" />
                       </label>
                     </InputCell>
                     {lang === 'it' ? (
@@ -313,6 +315,7 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                     <InputCell>
                       <label>
                         <input
+                          className="true"
                           type="radio"
                           name="marketingAndAnalytics"
                           value="true"
@@ -320,11 +323,12 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                           onChange={this.handleChange}
                           aria-label={"Activer le suivi marketing et d'analyse"}
                           required
-                        />{' '}
-                        {lang === 'it' ? 'Si' : 'Oui'}
+                        />
+                        <span className="checkmark" />
                       </label>
                       <label>
                         <input
+                          className="false"
                           type="radio"
                           name="marketingAndAnalytics"
                           value="false"
@@ -332,8 +336,8 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                           onChange={this.handleChange}
                           aria-label={"Désactiver le suvi marketing et d'analyse"}
                           required
-                        />{' '}
-                        {lang === 'it' ? 'No' : 'Non'}
+                        />
+                        <span className="checkmark" />
                       </label>
                     </InputCell>
                     {lang === 'it' ? (
@@ -373,6 +377,7 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                     <InputCell>
                       <label>
                         <input
+                          className="true"
                           type="radio"
                           name="advertising"
                           value="true"
@@ -380,11 +385,12 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                           onChange={this.handleChange}
                           aria-label={'Activer le suivi publicitaire'}
                           required
-                        />{' '}
-                        {lang === 'it' ? 'Si' : 'Oui'}
+                        />
+                        <span className="checkmark" />
                       </label>
                       <label>
                         <input
+                          className="false"
                           type="radio"
                           name="advertising"
                           value="false"
@@ -392,8 +398,8 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                           onChange={this.handleChange}
                           aria-label={'Désactiver le suivi publicitaire'}
                           required
-                        />{' '}
-                        {lang === 'it' ? 'No' : 'Non'}
+                        />
+                        <span className="checkmark" />
                       </label>
                     </InputCell>
                     {lang === 'it' ? (
@@ -436,6 +442,7 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                       <InputCell>
                         <label>
                           <input
+                            className="true"
                             type="radio"
                             name={categoryName}
                             value="true"
@@ -443,11 +450,12 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                             onChange={this.handleChange}
                             aria-label={`Autoriser le suivi "${categoryName}"`}
                             required
-                          />{' '}
-                          {lang === 'it' ? 'Si' : 'Oui'}
+                          />
+                          <span className="checkmark" />
                         </label>
                         <label>
                           <input
+                            className="false"
                             type="radio"
                             name={categoryName}
                             value="false"
@@ -455,8 +463,8 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
                             onChange={this.handleChange}
                             aria-label={`Désactiver le suivi "${categoryName}"`}
                             required
-                          />{' '}
-                          {lang === 'it' ? 'No' : 'Non'}
+                          />
+                          <span className="checkmark" />
                         </label>
                       </InputCell>
                       <RowHeading scope="row">{categoryName}</RowHeading>
