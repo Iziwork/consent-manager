@@ -8,6 +8,7 @@
 # IDE
 .vscode/
 *.iml
+ncu.sh
 
 # Mac
 .DS_Store
