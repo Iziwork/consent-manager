@@ -11,7 +11,8 @@ const baseStyles = css`
   font-weight: 700;
   line-height: 1;
   cursor: pointer;
-  outline: none;
+  outline: 0;
+  user-select: none;
   transition: all 0.5s ease-in-out;
 `
 
