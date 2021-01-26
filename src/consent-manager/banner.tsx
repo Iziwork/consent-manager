@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent, ReactNode } from 'react'
 import styled from 'react-emotion'
 import fontStyles from './font-styles'
 
@@ -86,7 +86,7 @@ interface Props {
 export default class Banner extends PureComponent<Props> {
   static displayName = 'Banner'
 
-  render() {
+  render(): ReactNode {
     const {
       innerRef,
       onClose,
