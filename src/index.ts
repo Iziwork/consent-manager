@@ -5,7 +5,7 @@ export { openDialog as openConsentManager } from './consent-manager/container'
 export {
   loadPreferences,
   savePreferences,
-  onPreferencesSaved
+  onPreferencesSaved,
 } from './consent-manager-builder/preferences'
 
 export const ConsentManagerBuilder = CMB
@@ -16,8 +16,7 @@ type Nav = Navigator & {
 }
 
 export function doNotTrack(): boolean | null {
-  
-  if (typeof window !== 'undefined' && (window.navigator || navigator)) { 
+  if (typeof window !== 'undefined' && (window.navigator || navigator)) {
     const nav = navigator as Nav
 
     let doNotTrackValue = nav.doNotTrack || window.doNotTrack || nav.msDoNotTrack
