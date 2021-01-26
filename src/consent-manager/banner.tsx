@@ -13,25 +13,8 @@ const Root = styled('div')<{ backgroundColor: string; textColor: string }>`
   line-height: 1.3;
 `
 
-const SmallContent = styled('div')`
-  .link {
-    background: transparent;
-    border: 0;
-    padding: 0;
-    color: white;
-    font-size: 12px;
-    text-decoration: underline;
-    cursor: pointer;
-  }
-`
-
 const Content = styled('div')`
   .link {
-    background: transparent;
-    border: 0;
-    padding: 0;
-    color: white;
-    font-size: 12px;
     text-decoration: underline;
     cursor: pointer;
   }
@@ -59,23 +42,32 @@ const Content = styled('div')`
       background: #068c5a;
       text-decoration: none;
     }
+    &.personnalize {
+      color: #031b4a;
+      background-color: #f7f9fa;
+      &:hover {
+        background-color: #f2f4f6;
+      }
+      &:focus {
+        background-color: #f2f4f6;
+      }
+      &:active {
+        background-color: #f2f4f6;
+      }
+    }
   }
 `
 
 const P = styled('p')`
   margin: 0;
-  &:not(:last-child) {
-    margin-bottom: 6px;
+  strong {
+    font-size: 14px;
   }
-`
-
-const CloseButton = styled('button')`
-  padding: 8px;
-  border: none;
-  background: none;
-  color: inherit;
-  font: inherit;
-  cursor: pointer;
+  a {
+    color: white;
+    font-size: 12px;
+    text-decoration: underline;
+  }
 `
 
 interface Props {
@@ -107,57 +99,80 @@ export default class Banner extends PureComponent<Props> {
     } = this.props
 
     return showBanner === true ? (
-      <Root innerRef={innerRef} backgroundColor={backgroundColor} textColor={textColor}>
+      <Root
+        className={lang}
+        innerRef={innerRef}
+        backgroundColor={backgroundColor}
+        textColor={textColor}
+      >
         <Content>
           {lang === 'it' ? (
             <P>
-              Questo sito utilizza i cookies 🍪. I cookie di questo tipo sono necessari per il
-              corretto funzionamento di alcune aree del sito e non possono essere rimossi durante la
-              navigazione. Altri invece, possono essere impostati e gestiti secondo le proprie
-              preferenze{' '}
-              <button type="button" className="link" onClick={onChangePreferences}>
-                cliccando qui
+              <strong>Informativa</strong>
+              <br />
+              Il presente sito web utilizza cookie tecnici e, previo Suo consenso, cookie di
+              profilazione e analitici per inviare messaggi pubblicitari in linea con le preferenze
+              manifestate nell’ambito dell’utilizzo delle funzionalità e della navigazione in rete e
+              allo scopo di effettuare analisi e monitoraggio dei comportamenti dei visitatori.
+              Ulteriori informazioni sono disponibili{' '}
+              <a
+                className="link"
+                href="https://www.iziwork.com/it/informativa-sulla-privacy/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                qui
+              </a>
+              . Per impostare le Sue preferenze{' '}
+              <a className="link" onClick={onChangePreferences}>
+                clicchi qui
+              </a>
+              . Cliccando su “Accetto” acconsente all’installazione di tutti i cookie.
+              <button type="button" className="button personnalize" onClick={onChangePreferences}>
+                Scegli e personnalizza
               </button>
-              .
-              <CloseButton type="button" className="button" onClick={onClose}>
-                Ok
-              </CloseButton>
+              <button type="button" className="button" onClick={onClose}>
+                Accetto
+              </button>
             </P>
           ) : (
             <P>
               Notre site internet utilise des cookies 🍪. Certains ne peuvent être refusés pour le
               bon fonctionnement du site. Pour les autres, vous pouvez choisir de les paramétrer{' '}
-              <button type="button" className="link" onClick={onChangePreferences}>
+              <a className="link" onClick={onChangePreferences}>
                 en cliquant ici
-              </button>
+              </a>
               .
-              <CloseButton type="button" className="button" onClick={onClose}>
+              <button type="button" className="button" onClick={onClose}>
                 Ok
-              </CloseButton>
+              </button>
             </P>
           )}
         </Content>
       </Root>
     ) : (
       showBanner === false && allowSmallBannerOnClose === true && (
-        <Root innerRef={innerRef} backgroundColor={backgroundColor} textColor={textColor}>
-          <SmallContent className="small-banner">
-            {lang === 'it' ? (
-              <P>
-                Questo sito utilizza i cookies 🍪.{' '}
-                <button type="button" className="link" onClick={onChangePreferences}>
-                  Preferenze
-                </button>
-              </P>
-            ) : (
-              <P>
-                Notre site internet utilise des cookies 🍪.{' '}
-                <button type="button" className="link" onClick={onChangePreferences}>
-                  Paramètres
-                </button>
-              </P>
-            )}
-          </SmallContent>
+        <Root
+          className={`${lang} ${' small-banner'}`}
+          innerRef={innerRef}
+          backgroundColor={backgroundColor}
+          textColor={textColor}
+        >
+          {lang === 'it' ? (
+            <P>
+              Il presente sito web utilizza cookie tecnici 🍪.{' '}
+              <a type="button" className="link" onClick={onChangePreferences}>
+                Preferenze
+              </a>
+            </P>
+          ) : (
+            <P>
+              Notre site internet utilise des cookies 🍪.{' '}
+              <a type="button" className="link" onClick={onChangePreferences}>
+                Paramètres
+              </a>
+            </P>
+          )}
         </Root>
       )
     )
