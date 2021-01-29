@@ -153,7 +153,7 @@ export default class Banner extends PureComponent<Props> {
     ) : (
       showBanner === false && allowSmallBannerOnClose === true && (
         <Root
-          className={`${lang} ${' small-banner'}`}
+          className={`${lang} small-banner`}
           innerRef={innerRef}
           backgroundColor={backgroundColor}
           textColor={textColor}
