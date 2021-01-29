@@ -129,7 +129,7 @@ export default class Banner extends PureComponent<Props> {
               </a>
               . Cliccando su “Accetto” acconsente all’installazione di tutti i cookie.
               <button type="button" className="button personnalize" onClick={onChangePreferences}>
-                Scegli e personnalizza
+                Scegli e personalizza
               </button>
               <button type="button" className="button" onClick={onClose}>
                 Accetto
@@ -153,7 +153,7 @@ export default class Banner extends PureComponent<Props> {
     ) : (
       showBanner === false && allowSmallBannerOnClose === true && (
         <Root
-          className={`${lang} ${' small-banner'}`}
+          className={`${lang} small-banner`}
           innerRef={innerRef}
           backgroundColor={backgroundColor}
           textColor={textColor}
