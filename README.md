@@ -493,7 +493,7 @@ export default function () {
 
 consent-manager is released under the MIT license.
 
-Copyright © 2018, Segment.io, Inc.
+Copyright © 2021, Segment.io, Inc.
 
 [analytics.js snippet]: https://segment.com/docs/sources/website/analytics.js/quickstart/#step-1-copy-the-snippet
 [preact]: https://preactjs.com
