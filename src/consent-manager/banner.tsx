@@ -131,19 +131,32 @@ export default class Banner extends PureComponent<Props> {
               <button type="button" className="button personnalize" onClick={onChangePreferences}>
                 Scegli e personalizza
               </button>
-              <button type="button" className="button" onClick={onClose}>
+              <button type="button" className="button" id="accept" onClick={onClose}>
                 Accetto
               </button>
             </P>
           ) : (
             <P>
-              Notre site internet utilise des cookies 🍪. Certains ne peuvent être refusés pour le
-              bon fonctionnement du site. Pour les autres, vous pouvez choisir de les paramétrer{' '}
-              <a className="link" onClick={onChangePreferences}>
-                en cliquant ici
+              <strong>Votre vie privée 🍪</strong>
+              <br />
+              Nous utilisons des cookies et d'autres technologies similaires afin de personnaliser
+              notre contenu, mesurer l'efficacité de nos publicités et améliorer leur pertinence,
+              ainsi que proposer une meilleure expérience. En cliquant sur OK ou en activant une
+              option dans Préférences de cookies, vous acceptez les conditions énoncées dans notre{' '}
+              <a
+                className="link"
+                href="https://www.iziwork.com/fr/charte-de-confidentialite/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Politique en matière de cookies
               </a>
-              .
-              <button type="button" className="button" onClick={onClose}>
+              . Pour modifier vos préférences ou retirer votre consentement, vous devez mettre à
+              jour vos Préférences de cookies.{' '}
+              <button type="button" className="button personnalize" onClick={onChangePreferences}>
+                Préférences de cookies
+              </button>
+              <button type="button" className="button" id="accept" onClick={onClose}>
                 Ok
               </button>
             </P>
