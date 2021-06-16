@@ -9,6 +9,7 @@
 .vscode/
 *.iml
 ncu.sh
+.idea/
 
 # Mac
 .DS_Store
