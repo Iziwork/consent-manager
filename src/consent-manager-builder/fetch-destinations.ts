@@ -4,7 +4,6 @@ import { Destination } from '../types'
 
 async function fetchDestinationForWriteKey(writeKey: string): Promise<Destination[]> {
   let destinations: Destination[] = []
-
   try {
     const res = await fetch(`https://cdn.segment.com/v1/projects/${writeKey}/integrations`)
 
