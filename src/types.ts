@@ -39,7 +39,7 @@ export interface Preferences {
 export interface Destination {
   id: string
   name: string
-  creationName: string
+  creationName?: string
   description: string
   website: string
   category: string
