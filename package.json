@@ -71,7 +71,7 @@
     "@types/lodash": "4.14.177",
     "@types/nanoid": "2.1.0",
     "@types/node": "16.11.10",
-    "@types/react": "16.14.21",
+    "@types/react": "17.0.37",
     "@types/react-dom": "16.9.14",
     "@types/segment-analytics": "0.0.34",
     "@types/sinon": "9.0.11",
