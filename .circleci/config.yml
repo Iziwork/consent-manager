@@ -1,12 +1,12 @@
 version: 2.1
 orbs:
-  node: circleci/node@4.1.0
+  node: circleci/node@4.7.0
 
 jobs:
   build-and-test:
     executor:
       name: node/default
-      tag: '14.15'
+      tag: '16.10'
     steps:
       - checkout
       - run:
@@ -20,7 +20,7 @@ jobs:
   build-test-and-publish:
     executor:
       name: node/default
-      tag: '14.15'
+      tag: '16.10'
     steps:
       - checkout
       - run:
