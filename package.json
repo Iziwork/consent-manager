@@ -72,7 +72,7 @@
     "@types/nanoid": "2.1.0",
     "@types/node": "16.11.10",
     "@types/react": "16.14.21",
-    "@types/react-dom": "16.9.14",
+    "@types/react-dom": "17.0.11",
     "@types/segment-analytics": "0.0.34",
     "@types/sinon": "9.0.11",
     "@typescript-eslint/eslint-plugin": "4.33.0",
