@@ -21,32 +21,34 @@
     "esm",
     "standalone"
   ],
+  "engines": {
+    "node": "16.10.0",
+    "npm": "please-use-yarn"
+  },
+  "packageManager": "yarn@3.1.0",
   "scripts": {
     "test": "jest src/__tests__",
-    "prepublishOnly": "npm run clean && npm run build",
-    "postpublish": "npm run build-storybook && npm run deploy-storybook -- --existing-output-dir=storybook-static",
-    "dev": "concurrently 'npm run build-standalone --watch' 'npm run storybook -s ./ -p 9009'",
+    "prepublishOnly": "yarn run clean && yarn run build",
+    "postpublish": "yarn build-storybook && yarn deploy-storybook -- --existing-output-dir=storybook-static",
+    "dev": "concurrently 'yarn build-standalone --watch' 'yarn start-storybook -s ./ -p 9009'",
     "build-commonjs": "tsc --outDir commonjs --module CommonJS --inlineSourceMap",
     "build-esm": "tsc --module es2015 --outDir esm --inlineSourceMap",
     "build-standalone": "webpack",
-    "build": "concurrently --names 'commonjs,esm,standalone' 'npm run build-commonjs' 'npm run build-esm' 'npm run build-standalone'",
-    "clean": "rm -rf commonjs esm standalone storybook-static",
-    "clean:all": "rm -rf node_modules/ .eslintcache && npm run clean",
+    "build": "concurrently --names 'commonjs,esm,standalone' 'yarn run build-commonjs' 'yarn run build-esm' 'yarn run build-standalone'",
+    "clean": "rm -rf commonjs esm standalone storybook-static types",
+    "clean:all": "rm -rf node_modules/ .eslintcache && yarn run clean",
     "deploy-storybook": "storybook-to-ghpages",
     "standalone-hash": "shasum -b -a 256 standalone/consent-manager.js | xxd -r -p | base64",
-    "build-storybook": "npm run build-standalone && build-storybook && cp -r ./standalone ./storybook-static/standalone",
+    "build-storybook": "yarn build-standalone && build-storybook && cp -r ./standalone ./storybook-static/standalone",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
-    "setup": "npm run clean:all && npm install",
-    "storybook": "start-storybook",
-    "size-limit": "size-limit"
+    "setup": "yarn run clean:all && yarn install"
   },
   "dependencies": {
     "@segment/in-regions": "1.2.2",
     "@segment/top-domain": "3.0.1",
     "emotion": "9.2.12",
     "isomorphic-fetch": "3.0.0",
-    "js-cookie": "2.2.1",
-    "lodash": "4.17.21",
+    "js-cookie": "3.0.1",
     "nanoid": "3.1.30",
     "prop-types": "15.7.2",
     "react-emotion": "9.2.12"
@@ -67,11 +69,10 @@
     "@types/enzyme-adapter-react-16": "1.0.6",
     "@types/isomorphic-fetch": "0.0.35",
     "@types/jest": "26.0.24",
-    "@types/js-cookie": "2.2.7",
-    "@types/lodash": "4.14.177",
+    "@types/js-cookie": "3.0.1",
+    "@types/lodash-es": "4.17.5",
     "@types/nanoid": "2.1.0",
     "@types/node": "16.11.10",
-    "@types/react": "16.14.21",
     "@types/react-dom": "16.9.14",
     "@types/segment-analytics": "0.0.34",
     "@types/sinon": "9.0.11",
@@ -112,6 +113,7 @@
     "webpack-cli": "4.9.1"
   },
   "peerDependencies": {
+    "lodash-es": "^4",
     "react": "^16 || ^17",
     "react-dom": "^16 || ^17"
   },
@@ -134,7 +136,7 @@
   ],
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged"
+      "pre-commit": "pretty-quick --pattern \"**/*.*(ts|tsx)\" --staged"
     }
   },
   "prettier": {
@@ -147,5 +149,8 @@
     "gitUsername": "GitHub Pages Bot",
     "gitEmail": "friends@iziwork.com",
     "commitMessage": "Deploy Storybook to GitHub Pages [ci skip]"
+  },
+  "resolutions": {
+    "@types/react": "16.14.21"
   }
 }

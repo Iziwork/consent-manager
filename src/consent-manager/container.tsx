@@ -71,11 +71,8 @@ const Container: React.FC<ContainerProps> = (props) => {
   let banner = React.useRef<HTMLElement>(null)
   let preferenceDialog = React.useRef<HTMLElement>(null)
 
-  const {
-    marketingDestinations,
-    advertisingDestinations,
-    functionalDestinations,
-  } = normalizeDestinations(props.destinations)
+  const { marketingDestinations, advertisingDestinations, functionalDestinations } =
+    normalizeDestinations(props.destinations)
 
   const handleBodyClick = (e) => {
     // Do nothing if no new implicit consent needs to be saved
@@ -103,7 +100,7 @@ const Container: React.FC<ContainerProps> = (props) => {
   React.useEffect(() => {
     // If get cookie Tracking preferences, and allowSmallBannerOnClose = true, so show the small banner
     const COOKIE_KEY = 'tracking-preferences'
-    if (cookies.getJSON(COOKIE_KEY)) {
+    if (cookies.get(COOKIE_KEY)) {
       toggleBanner(false)
     }
 
