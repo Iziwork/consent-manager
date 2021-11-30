@@ -33,7 +33,7 @@ jobs:
       - run: yarn run lint
       - run: yarn run test
       - run: yarn run size-limit
-      - run: yarn publish
+      - run: yarn npm publish
 
 workflows:
   build-and-test:
