@@ -12,11 +12,12 @@ jobs:
       - run:
           name: set registry token
           command: npm config set '//npm.pkg.github.com/:_authToken' $GITHUB_AUTH_TOKEN
-      - node/install-packages
-      - run: npm run build
-      - run: npm run lint
-      - run: npm run test
-      - run: npm run size-limit
+      - node/install-packages:
+          pkg-manager: yarn
+      - run: yarn run build
+      - run: yarn run lint
+      - run: yarn run test
+      - run: yarn run size-limit
   build-test-and-publish:
     executor:
       name: node/default
@@ -26,12 +27,13 @@ jobs:
       - run:
           name: set registry token
           command: npm config set '//npm.pkg.github.com/:_authToken' $GITHUB_AUTH_TOKEN
-      - node/install-packages
-      - run: npm run build
-      - run: npm run lint
-      - run: npm run test
-      - run: npm run size-limit
-      - run: npm publish
+      - node/install-packages:
+          pkg-manager: yarn
+      - run: yarn run build
+      - run: yarn run lint
+      - run: yarn run test
+      - run: yarn run size-limit
+      - run: yarn publish
 
 workflows:
   build-and-test:
