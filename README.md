@@ -8,9 +8,9 @@
 
 1. Generate a GitHub Personnal access token (Settings > Developer settings > Personal access tokens) with `read:packages` scope
 2. Clone this repo
-3. Run `npm config set '//npm.pkg.github.com/:_authToken' $GITHUB_AUTH_TOKEN`
-4. Run `npm run setup`
-5. Run `npm run storybook`
+3. Set your environment variable `$GITHUB_AUTH_TOKEN`
+4. Run `yarn`
+5. Run `yarn start-storybook`
 
 ## Segment Consent Manager
 
