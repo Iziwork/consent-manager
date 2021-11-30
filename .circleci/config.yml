@@ -34,6 +34,7 @@ jobs:
       - run: yarn run test
       - run: yarn run size-limit
       - run: yarn npm publish
+      - run: yarn run postpublish
 
 workflows:
   build-and-test:
