@@ -40,8 +40,7 @@
     "deploy-storybook": "storybook-to-ghpages",
     "standalone-hash": "shasum -b -a 256 standalone/consent-manager.js | xxd -r -p | base64",
     "build-storybook": "yarn build-standalone && build-storybook && cp -r ./standalone ./storybook-static/standalone",
-    "lint": "eslint 'src/**/*.{ts,tsx}'",
-    "setup": "yarn run clean:all && yarn install"
+    "lint": "eslint 'src/**/*.{ts,tsx}'"
   },
   "dependencies": {
     "@segment/in-regions": "~1.2.2",
