@@ -118,6 +118,9 @@
   "jest": {
     "preset": "ts-jest/presets/js-with-ts",
     "testEnvironment": "jsdom",
+    "transformIgnorePatterns": [
+      "node_modules/(?!lodash-es)"
+    ],
     "setupFiles": [
       "./test/setupTests.ts"
     ]
