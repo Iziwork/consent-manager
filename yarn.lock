@@ -1823,8 +1823,8 @@ __metadata:
   dependencies:
     "@babel/core": 7.16.0
     "@segment/in-eu": 0.3.0
-    "@segment/in-regions": 1.2.2
-    "@segment/top-domain": 3.0.1
+    "@segment/in-regions": ~1.2.2
+    "@segment/top-domain": ~3.0.1
     "@size-limit/preset-small-lib": 4.12.0
     "@storybook/addon-actions": 6.1.21
     "@storybook/addon-info": 5.3.21
@@ -1849,7 +1849,7 @@ __metadata:
     "@typescript-eslint/parser": 4.33.0
     babel-loader: 8.2.3
     concurrently: 6.4.0
-    emotion: 9.2.12
+    emotion: ~9.2.12
     enzyme: 3.11.0
     enzyme-adapter-react-16: 1.15.6
     eslint: 7.32.0
@@ -1860,23 +1860,22 @@ __metadata:
     evergreen-ui: 5.1.2
     file-loader: 6.2.0
     husky: 4.3.8
-    isomorphic-fetch: 3.0.0
+    isomorphic-fetch: ~3.0.0
     jest: 26.6.3
-    js-cookie: 3.0.1
+    js-cookie: ~3.0.1
     lint-staged: 10.5.4
     lodash-es: 4.17.21
-    nanoid: 3.1.30
+    nanoid: ~3.1.30
     nock: 13.2.1
     preact: 10.6.1
     prettier: 2.5.0
     pretty-quick: 3.1.2
     prismjs: 1.25.0
-    prop-types: 15.7.2
     raw-loader: 4.0.2
     react: 16.14.0
     react-docgen-typescript-loader: 3.7.2
     react-dom: 16.14.0
-    react-emotion: 9.2.12
+    react-emotion: ~9.2.12
     react-syntax-highlighter: 15.4.5
     sinon: 9.2.4
     size-limit: 4.12.0
@@ -2237,7 +2236,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@segment/in-regions@npm:1.2.2":
+"@segment/in-regions@npm:~1.2.2":
   version: 1.2.2
   resolution: "@segment/in-regions@npm:1.2.2"
   dependencies:
@@ -2250,7 +2249,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@segment/top-domain@npm:3.0.1":
+"@segment/top-domain@npm:~3.0.1":
   version: 3.0.1
   resolution: "@segment/top-domain@npm:3.0.1"
   dependencies:
@@ -3348,7 +3347,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:16.11.10":
+"@types/node@npm:*":
+  version: 16.11.11
+  resolution: "@types/node@npm:16.11.11"
+  checksum: 1c472bd63f23ca0e4effc96e6e0c693b83b027f613a1f41b6d1bd7791f65ce171a351e0a5c92575cb59e84ad0a930875397bfbbb91a7c925ddbbb558f7461af8
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:16.11.10":
   version: 16.11.10
   resolution: "@types/node@npm:16.11.10"
   checksum: 9c79419c5c3d92d5825bffa30f3668533f598d8b63a73ea7fc24e47f162bdbed92b0f8e4f4261cc3314b39cee050e303366d2aa154abc95c63a572a110b8c160
@@ -3510,9 +3516,9 @@ __metadata:
   linkType: hard
 
 "@types/sinonjs__fake-timers@npm:*":
-  version: 8.1.0
-  resolution: "@types/sinonjs__fake-timers@npm:8.1.0"
-  checksum: 02d8f5a2c821b42d2efb74d9733d66cb85140cc53a12c97175d1e12c5320953a111ae903da1147c49701c1ad1cbc45bb98d9f653547b78321d8032c7fee22e87
+  version: 8.1.1
+  resolution: "@types/sinonjs__fake-timers@npm:8.1.1"
+  checksum: ca09d54d47091d87020824a73f026300fa06b17cd9f2f9b9387f28b549364b141ef194ee28db762f6588de71d8febcd17f753163cb7ea116b8387c18e80ebd5c
   languageName: node
   linkType: hard
 
@@ -7395,7 +7401,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"emotion@npm:9.2.12":
+"emotion@npm:~9.2.12":
   version: 9.2.12
   resolution: "emotion@npm:9.2.12"
   dependencies:
@@ -10424,16 +10430,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isomorphic-fetch@npm:3.0.0":
-  version: 3.0.0
-  resolution: "isomorphic-fetch@npm:3.0.0"
-  dependencies:
-    node-fetch: ^2.6.1
-    whatwg-fetch: ^3.4.1
-  checksum: e5ab79a56ce5af6ddd21265f59312ad9a4bc5a72cebc98b54797b42cb30441d5c5f8d17c5cd84a99e18101c8af6f90c081ecb8d12fd79e332be1778d58486d75
-  languageName: node
-  linkType: hard
-
 "isomorphic-fetch@npm:^2.1.1":
   version: 2.2.1
   resolution: "isomorphic-fetch@npm:2.2.1"
@@ -10441,6 +10437,16 @@ __metadata:
     node-fetch: ^1.0.1
     whatwg-fetch: ">=0.10.0"
   checksum: bb5daa7c3785d6742f4379a81e55b549a469503f7c9bf9411b48592e86632cf5e8fe8ea878dba185c0f33eb7c510c23abdeb55aebfdf5d3c70f031ced68c5424
+  languageName: node
+  linkType: hard
+
+"isomorphic-fetch@npm:~3.0.0":
+  version: 3.0.0
+  resolution: "isomorphic-fetch@npm:3.0.0"
+  dependencies:
+    node-fetch: ^2.6.1
+    whatwg-fetch: ^3.4.1
+  checksum: e5ab79a56ce5af6ddd21265f59312ad9a4bc5a72cebc98b54797b42cb30441d5c5f8d17c5cd84a99e18101c8af6f90c081ecb8d12fd79e332be1778d58486d75
   languageName: node
   linkType: hard
 
@@ -11005,7 +11011,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-cookie@npm:3.0.1":
+"js-cookie@npm:~3.0.1":
   version: 3.0.1
   resolution: "js-cookie@npm:3.0.1"
   checksum: bb48de67e2a6bd1ae3dfd6b2d5a167c33dd0c5a37e909206161eb0358c98f17cb55acd55827a58e9eea3630d89444e7479f7938ef4420dda443218b8c434a4c3
@@ -12171,7 +12177,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanoid@npm:3.1.30, nanoid@npm:^3.1.23, nanoid@npm:^3.1.30":
+"nanoid@npm:^3.1.23, nanoid@npm:^3.1.30, nanoid@npm:~3.1.30":
   version: 3.1.30
   resolution: "nanoid@npm:3.1.30"
   bin:
@@ -14064,7 +14070,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:15.7.2, prop-types@npm:^15.0.0, prop-types@npm:^15.5.10, prop-types@npm:^15.5.7, prop-types@npm:^15.6.0, prop-types@npm:^15.6.1, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2":
+"prop-types@npm:^15.0.0, prop-types@npm:^15.5.10, prop-types@npm:^15.5.7, prop-types@npm:^15.6.0, prop-types@npm:^15.6.1, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2":
   version: 15.7.2
   resolution: "prop-types@npm:15.7.2"
   dependencies:
@@ -14496,7 +14502,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-emotion@npm:9.2.12":
+"react-emotion@npm:~9.2.12":
   version: 9.2.12
   resolution: "react-emotion@npm:9.2.12"
   dependencies:
