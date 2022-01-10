@@ -1,5 +1,7 @@
 import fetch from 'isomorphic-fetch'
-import { flatten, sortedUniqBy, sortBy } from 'lodash-es'
+import flatten from 'lodash.flatten'
+import sortedUniqBy from 'lodash.sorteduniqby'
+import sortBy from 'lodash.sortby'
 import { Destination } from '../types'
 
 async function fetchDestinationForWriteKey(writeKey: string): Promise<Destination[]> {
