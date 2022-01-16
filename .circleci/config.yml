@@ -5,10 +5,7 @@ orbs:
 jobs:
   build-and-test:
     docker:
-      - image: 'cimg/base:stable'
-    executor:
-      name: node/default
-      tag: '16.10'
+      - image: 'cimg/node:16.10'
     steps:
       - checkout
       - run:
@@ -22,10 +19,7 @@ jobs:
       - run: yarn run size-limit
   build-test-and-publish:
     docker:
-      - image: 'cimg/base:stable'
-    executor:
-      name: node/default
-      tag: '16.10'
+      - image: 'cimg/node:16.10'
     steps:
       - checkout
       - run:
