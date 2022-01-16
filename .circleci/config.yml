@@ -1,9 +1,11 @@
 version: 2.1
 orbs:
-  node: circleci/node@4.7.0
+  node: circleci/node@5.0.0
 
 jobs:
   build-and-test:
+    docker:
+      - image: 'cimg/base:stable'
     executor:
       name: node/default
       tag: '16.10'
@@ -19,6 +21,8 @@ jobs:
       - run: yarn run test
       - run: yarn run size-limit
   build-test-and-publish:
+    docker:
+      - image: 'cimg/base:stable'
     executor:
       name: node/default
       tag: '16.10'
