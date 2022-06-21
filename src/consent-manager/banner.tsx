@@ -1,4 +1,4 @@
-import React, { PureComponent, ReactNode } from 'react'
+import React, {PureComponent, ReactNode} from 'react'
 import styled from 'react-emotion'
 import fontStyles from './font-styles'
 
@@ -108,57 +108,73 @@ export default class Banner extends PureComponent<Props> {
         <Content>
           {lang === 'it' ? (
             <P>
-              <strong>Informativa</strong>
-              <br />
-              Il presente sito web utilizza cookie tecnici e, previo Suo consenso, cookie di
-              profilazione e analitici per inviare messaggi pubblicitari in linea con le preferenze
-              manifestate nell’ambito dell’utilizzo delle funzionalità e della navigazione in rete e
-              allo scopo di effettuare analisi e monitoraggio dei comportamenti dei visitatori.
-              Ulteriori informazioni sono disponibili{' '}
-              <a
-                className="link"
-                href="https://www.iziwork.com/it/informativa-sulla-privacy/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                qui
-              </a>
-              . Per impostare le Sue preferenze{' '}
-              <a className="link" onClick={onChangePreferences}>
-                clicchi qui
-              </a>
-              . Cliccando su “Accetto” acconsente all’installazione di tutti i cookie.
-              <button type="button" className="button personnalize" onClick={onChangePreferences}>
-                Scegli e personalizza
-              </button>
-              <button type="button" className="button" id="accept" onClick={onClose}>
-                Accetto
-              </button>
+              <P>
+                <strong>Informativa</strong>
+                <br/>
+                Il presente sito web utilizza cookie tecnici e, previo Suo consenso, cookie di
+                profilazione e analitici per inviare messaggi pubblicitari in linea con le preferenze
+                manifestate nell’ambito dell’utilizzo delle funzionalità e della navigazione in rete e
+                allo scopo di effettuare analisi e monitoraggio dei comportamenti dei visitatori.
+                Ulteriori informazioni sono disponibili{' '}
+                <a
+                  className="link"
+                  href="https://www.iziwork.com/it/informativa-sulla-privacy/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  qui
+                </a>
+                . Per impostare le Sue preferenze{' '}
+                <a className="link" onClick={onChangePreferences}>
+                  clicchi qui
+                </a>
+                . Cliccando su “Accetto” acconsente all’installazione di tutti i cookie.
+              </P>
+              <br/>
+              <P>
+                <button type="button" className="button personnalize" onClick={onChangePreferences}>
+                  Scegli e personalizza
+                </button>
+                <button type="button" className="button personnalize" id="deny" onClick={onClose}>
+                  Rifiuto
+                </button>
+                <button type="button" className="button" id="accept" onClick={onClose}>
+                  Accetto
+                </button>
+              </P>
             </P>
           ) : (
             <P>
-              <strong>Votre vie privée 🍪</strong>
-              <br />
-              Nous utilisons des cookies et d'autres technologies similaires afin de personnaliser
-              notre contenu, mesurer l'efficacité de nos publicités et améliorer leur pertinence,
-              ainsi que proposer une meilleure expérience. En cliquant sur OK ou en activant une
-              option dans Préférences de cookies, vous acceptez les conditions énoncées dans notre{' '}
-              <a
-                className="link"
-                href="https://www.iziwork.com/fr/charte-de-confidentialite/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Politique en matière de cookies
-              </a>
-              . Pour modifier vos préférences ou retirer votre consentement, vous devez mettre à
-              jour vos Préférences de cookies.{' '}
-              <button type="button" className="button personnalize" onClick={onChangePreferences}>
-                Préférences de cookies
-              </button>
-              <button type="button" className="button" id="accept" onClick={onClose}>
-                Ok
-              </button>
+              <P>
+                <strong>Votre vie privée 🍪</strong>
+                <br/>
+                Nous utilisons des cookies et d'autres technologies similaires afin de personnaliser
+                notre contenu, mesurer l'efficacité de nos publicités et améliorer leur pertinence,
+                ainsi que proposer une meilleure expérience. En cliquant sur OK ou en activant une
+                option dans Préférences de cookies, vous acceptez les conditions énoncées dans notre{' '}
+                <a
+                  className="link"
+                  href="https://www.iziwork.com/fr/charte-de-confidentialite/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Politique en matière de cookies
+                </a>
+                . Pour modifier vos préférences ou retirer votre consentement, vous devez mettre à
+                jour vos Préférences de cookies.{' '}
+              </P>
+              <br/>
+              <P>
+                <button type="button" className="button personnalize" onClick={onChangePreferences}>
+                  Préférences de cookies
+                </button>
+                <button type="button" className="button personnalize" id="deny" onClick={onClose}>
+                  Tout refuser
+                </button>
+                <button type="button" className="button" id="accept" onClick={onClose}>
+                  Accepter et poursuivre
+                </button>
+              </P>
             </P>
           )}
         </Content>
