@@ -1,4 +1,5 @@
-import { doNotTrack } from '../'
+import { doNotTrack } from '../';
+import { expect } from 'vitest';
 
 describe('doNotTrack', () => {
   beforeEach(() => {

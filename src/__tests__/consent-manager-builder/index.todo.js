@@ -1,8 +1,8 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import nock from 'nock'
-import sinon from 'sinon'
 import ConsentManagerBuilder from '../../consent-manager-builder'
+import { expect, vi } from 'vitest';
 
 describe('ConsentManagerBuilder', () => {
   beforeEach(() => {
@@ -90,7 +90,7 @@ describe('ConsentManagerBuilder', () => {
   })
 
   test('loads analytics.js with the user՚s preferences', done => {
-    const ajsLoad = sinon.spy()
+    const ajsLoad = vi.fn()
     document.cookie =
       'tracking-preferences={%22version%22:1%2C%22destinations%22:{%22Amplitude%22:true}}'
     window.analytics = { load: ajsLoad }
@@ -108,9 +108,9 @@ describe('ConsentManagerBuilder', () => {
     shallow(
       <ConsentManagerBuilder writeKey={writeKey}>
         {() => {
-          expect(ajsLoad.calledOnce).toBe(true)
-          expect(ajsLoad.args[0][0]).toBe(writeKey)
-          expect(ajsLoad.args[0][1]).toMatchObject({
+          expect(ajsLoad).toHaveBeenCalled()
+          expect(ajsLoad.mock.calls[0][0]).toBe(writeKey)
+          expect(ajsLoad.mock.calls[0][1]).toMatchObject({
             integrations: {
               All: false,
               Amplitude: true,

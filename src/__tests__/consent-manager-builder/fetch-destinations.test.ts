@@ -1,5 +1,7 @@
 import nock from 'nock'
 import fetchDestinations from '../../consent-manager-builder/fetch-destinations'
+import { expect } from 'vitest';
+
 
 describe('fetchDestinations', () => {
   test('Returns destinations for a writekey', async () => {

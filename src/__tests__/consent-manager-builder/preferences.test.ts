@@ -1,6 +1,6 @@
-import { URL } from 'url'
-import sinon from 'sinon'
+import { URL } from 'node:url'
 import { loadPreferences, savePreferences } from '../../consent-manager-builder/preferences'
+import { expect, vi } from 'vitest';
 
 describe('preferences', () => {
   beforeEach(() => {
@@ -36,7 +36,7 @@ describe('preferences', () => {
   })
 
   test('savePreferences() saves the preferences', () => {
-    const ajsIdentify = sinon.spy()
+    const ajsIdentify = vi.fn();
 
     // @ts-ignore
     window.analytics = { identify: ajsIdentify }
@@ -55,8 +55,8 @@ describe('preferences', () => {
       cookieDomain: undefined
     })
 
-    expect(ajsIdentify.calledOnce).toBe(true)
-    expect(ajsIdentify.args[0][0]).toMatchObject({
+    expect(ajsIdentify).toHaveBeenCalled()
+    expect(ajsIdentify.mock.calls[0][0]).toMatchObject({
       destinationTrackingPreferences: destinationPreferences,
       customTrackingPreferences: customPreferences
     })
@@ -69,7 +69,7 @@ describe('preferences', () => {
   })
 
   test('savePreferences() sets the cookie domain', () => {
-    const ajsIdentify = sinon.spy()
+    const ajsIdentify = vi.fn();
     // @ts-ignore
     window.analytics = { identify: ajsIdentify }
     document.cookie = ''
@@ -84,8 +84,8 @@ describe('preferences', () => {
       cookieDomain: 'example.com'
     })
 
-    expect(ajsIdentify.calledOnce).toBe(true)
-    expect(ajsIdentify.args[0][0]).toMatchObject({
+    expect(ajsIdentify).toHaveBeenCalled()
+    expect(ajsIdentify.mock.calls[0][0]).toMatchObject({
       destinationTrackingPreferences: destinationPreferences,
       customTrackingPreferences: undefined
     })

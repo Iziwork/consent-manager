@@ -1,13 +1,13 @@
-import React, { PureComponent } from 'react'
-import ReactDOM from 'react-dom'
-import styled, { keyframes } from 'react-emotion'
+import React, {FC, useEffect, useRef} from 'react'
+import styled, { keyframes } from 'styled-components'
 import { nanoid } from 'nanoid'
 import fontStyles from './font-styles'
+import { createPortal } from 'react-dom'
 
 const ANIMATION_DURATION = '200ms'
 const ANIMATION_EASING = 'cubic-bezier(0.0, 0.0, 0.2, 1)'
 
-const Overlay = styled('div')`
+const Overlay = styled.div`
   position: fixed;
   left: 0;
   right: 0;
@@ -31,7 +31,7 @@ const openAnimation = keyframes`
   }
 `
 
-const Root = styled('section')<{ width: number | string | undefined }>`
+const Root = styled.section<{ width: number | string | undefined }>`
   ${fontStyles};
   display: flex;
   flex-direction: column;
@@ -45,7 +45,7 @@ const Root = styled('section')<{ width: number | string | undefined }>`
   animation: ${openAnimation} ${ANIMATION_DURATION} ${ANIMATION_EASING} both;
 `
 
-const Form = styled('form')`
+const Form = styled.form`
   margin-top: -20px;
   display: flex;
   flex-direction: column;
@@ -53,7 +53,7 @@ const Form = styled('form')`
   padding: 5px 10px;
 `
 
-const Header = styled('div')`
+const Header = styled.div`
   flex: 1 0 auto;
   display: flex;
   align-items: center;
@@ -62,7 +62,7 @@ const Header = styled('div')`
   border-bottom: 0;
 `
 
-const Title = styled('h2')`
+const Title = styled.h2`
   position: relative;
   margin: 0;
   color: #031b4a;
@@ -71,7 +71,7 @@ const Title = styled('h2')`
   line-height: 24px;
 `
 
-const HeaderCancelButton = styled('button')`
+const HeaderCancelButton = styled.button`
   padding: 8px 0;
   border: none;
   background: none;
@@ -84,7 +84,7 @@ const HeaderCancelButton = styled('button')`
   color: #031b4a;
 `
 
-const Content = styled('div')`
+const Content = styled.div`
   -ms-overflow-style: none;
   overflow-y: auto;
   padding: 20px 16px 16px;
@@ -109,119 +109,99 @@ const Content = styled('div')`
   }
 `
 
-const Buttons = styled('div')`
+const Buttons = styled.div`
   padding: 16px;
   text-align: right;
 `
 
-interface DialogProps {
+type Props = {
+  children: React.ReactNode
   innerRef: (element: HTMLElement | null) => void
   onCancel?: () => void
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void
   title: React.ReactNode
   buttons: React.ReactNode
   width?: string
-}
+};
 
-export default class Dialog extends PureComponent<DialogProps, {}> {
-  static displayName = 'Dialog'
-  private titleId: string
-  private container: HTMLElement
-  private root: HTMLElement
-  private form: HTMLFormElement
+const container = document.createElement('div');
 
-  static defaultProps = {
-    onCancel: undefined,
-    width: '960px',
-  }
+const Dialog: FC<Props> = ({ onCancel = undefined, onSubmit, title, innerRef, children, buttons, width = '960px' }) => {
+  const titleId = nanoid();
+  const rootRef = useRef<HTMLDListElement>(null);
+  let form: HTMLFormElement;
 
-  constructor(props: DialogProps) {
-    super(props)
 
-    this.titleId = nanoid()
-    this.container = document.createElement('div')
-    this.container.setAttribute('data-consent-manager-dialog', '')
+  useEffect(() => {
+    container.setAttribute('data-consent-manager-dialog', '');
+    document.body.appendChild(container);
+  }, [container]);
 
-    document.body.appendChild(this.container)
-  }
-
-  render() {
-    const { onCancel, onSubmit, title, children, buttons, width } = this.props
-
-    const dialog = (
-      <Overlay onClick={this.handleOverlayClick}>
-        <Root
-          innerRef={this.handleRootRef}
-          role="dialog"
-          aria-modal
-          aria-labelledby={this.titleId}
-          width={width}
-        >
-          <Header>
-            <Title id={this.titleId}>{title}</Title>
-            {onCancel && (
-              <HeaderCancelButton onClick={onCancel} title="Cancel" aria-label="Cancel">
-                ✕
-              </HeaderCancelButton>
-            )}
-          </Header>
-
-          <Form innerRef={this.handleFormRef} onSubmit={onSubmit}>
-            <Content>{children}</Content>
-
-            <Buttons>{buttons}</Buttons>
-          </Form>
-        </Root>
-      </Overlay>
-    )
-
-    return ReactDOM.createPortal(dialog, this.container)
-  }
-
-  componentDidMount() {
-    const { innerRef } = this.props
-
-    if (this.form) {
-      const input: HTMLInputElement | null = this.form.querySelector('input,button')
-      if (input) {
-        input.focus()
-      }
+  useEffect(() => {
+    if (form) {
+      const input: HTMLInputElement | null = form.querySelector('input,button')
+      if (input) input.focus()
     }
 
-    document.body.addEventListener('keydown', this.handleEsc, false)
+    document.body.addEventListener('keydown', handleEsc, false)
     document.body.style.overflow = 'hidden'
-    innerRef(this.container)
+    innerRef(container)
+
+    return () => {
+        document.body.removeEventListener('keydown', handleEsc, false)
+        document.body.style.overflow = ''
+        document.body.removeChild(container)
+        innerRef(null)
+    }
+  }, [container]);
+
+  const handleFormRef = (node: HTMLFormElement) => {
+    form = node
   }
 
-  componentWillUnmount() {
-    const { innerRef } = this.props
-    document.body.removeEventListener('keydown', this.handleEsc, false)
-    document.body.style.overflow = ''
-    document.body.removeChild(this.container)
-    innerRef(null)
-  }
-
-  handleRootRef = (node: HTMLElement) => {
-    this.root = node
-  }
-
-  handleFormRef = (node: HTMLFormElement) => {
-    this.form = node
-  }
-
-  handleOverlayClick = (e) => {
-    const { onCancel } = this.props
+  const handleOverlayClick = (e) => {
     // Ignore propogated clicks from inside the dialog
-    if (onCancel && this.root && !this.root.contains(e.target)) {
+    if (onCancel && rootRef && !rootRef.current?.contains(e.target)) {
       onCancel()
     }
   }
 
-  handleEsc = (e: KeyboardEvent) => {
-    const { onCancel } = this.props
+  const handleEsc = (e: KeyboardEvent) => {
     // Esc key
     if (onCancel && e.keyCode === 27) {
       onCancel()
     }
   }
+
+
+  const dialog = (
+    <Overlay onClick={handleOverlayClick}>
+      <Root
+        ref={rootRef}
+        role="dialog"
+        aria-modal
+        aria-labelledby={titleId}
+        width={width}
+      >
+        <Header>
+          <Title id={titleId}>{title}</Title>
+          {onCancel && (
+            <HeaderCancelButton onClick={onCancel} title="Cancel" aria-label="Cancel">
+              ✕
+            </HeaderCancelButton>
+          )}
+        </Header>
+
+        <Form ref={handleFormRef} onSubmit={onSubmit}>
+          <Content>{children}</Content>
+
+          <Buttons>{buttons}</Buttons>
+        </Form>
+      </Root>
+    </Overlay>
+  )
+
+  return createPortal(dialog, container)
 }
+
+export default Dialog

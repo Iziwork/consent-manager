@@ -1,4 +1,4 @@
-import styled, { css } from 'react-emotion'
+import styled, { css } from 'styled-components'
 
 const baseStyles = css`
   height: 48px;
@@ -16,7 +16,7 @@ const baseStyles = css`
   transition: all 0.5s ease-in-out;
 `
 
-export const DefaultButton = styled('button')`
+export const DefaultButton = styled.button`
   ${baseStyles};
   margin-right: 16px;
   background-color: #f7f9fa;
@@ -31,7 +31,7 @@ export const DefaultButton = styled('button')`
   }
 `
 
-export const GreenButton = styled('button')`
+export const GreenButton = styled.button`
   ${baseStyles};
   background-color: #4fb767;
   color: #fff;
@@ -46,7 +46,7 @@ export const GreenButton = styled('button')`
   }
 `
 
-export const RedButton = styled('button')`
+export const RedButton = styled.button`
   ${baseStyles};
   background-color: #f36331;
   background-image: linear-gradient(to top, #f4541d, #f36331);

@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom/client'
 import inEU from '@segment/in-eu'
 import inRegions from '@segment/in-regions'
 import { ConsentManager, openConsentManager, doNotTrack } from '.'
@@ -71,4 +71,5 @@ if (!container) {
   throw new Error('ConsentManager: container not found')
 }
 
-ReactDOM.render(<ConsentManager {...(props as ConsentManagerProps)} />, container)
+const root = ReactDOM.createRoot(container);
+root.render(<ConsentManager {...(props as ConsentManagerProps)} />)

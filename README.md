@@ -117,9 +117,6 @@ All the options are supported. The callback function also receives these exports
     var preferencesDialogTitle = 'Website Data Collection Preferences'
     var preferencesDialogContent =
       'We use data collected by cookies and JavaScript libraries to improve your browsing experience, analyze site traffic, deliver personalized advertisements, and increase the overall performance of our site.'
-    var cancelDialogTitle = 'Are you sure you want to cancel?'
-    var cancelDialogContent =
-      'Your preferences have not been saved. By continuing to use our website, you՚re agreeing to our Website Data Collection Policy.'
 
     return {
       container: '#target-container',
@@ -129,8 +126,6 @@ All the options are supported. The callback function also receives these exports
       bannerSubContent: bannerSubContent,
       preferencesDialogTitle: preferencesDialogTitle,
       preferencesDialogContent: preferencesDialogContent,
-      cancelDialogTitle: cancelDialogTitle,
-      cancelDialogContent: cancelDialogContent,
     }
   }
 </script>
@@ -246,19 +241,6 @@ Type: `PropTypes.node`
 
 The top descriptive content of the preferences dialog.
 
-##### cancelDialogTitle
-
-Type: `PropTypes.node`<br>
-Default: `Are you sure you want to cancel?`
-
-The title of the cancel dialog.
-
-##### cancelDialogContent
-
-Type: `PropTypes.node`
-
-The content of the cancel dialog.
-
 ##### customCategories
 
 Type: `PropTypes.object`<br>
@@ -299,9 +281,6 @@ export default function () {
   const preferencesDialogTitle = 'Website Data Collection Preferences'
   const preferencesDialogContent =
     'We use data collected by cookies and JavaScript libraries to improve your browsing experience, analyze site traffic, deliver personalized advertisements, and increase the overall performance of our site.'
-  const cancelDialogTitle = 'Are you sure you want to cancel?'
-  const cancelDialogContent =
-    'Your preferences have not been saved. By continuing to use our website, you՚re agreeing to our Website Data Collection Policy.'
 
   return (
     <div>
@@ -312,8 +291,6 @@ export default function () {
         bannerSubContent={bannerSubContent}
         preferencesDialogTitle={preferencesDialogTitle}
         preferencesDialogContent={preferencesDialogContent}
-        cancelDialogTitle={cancelDialogTitle}
-        cancelDialogContent={cancelDialogContent}
       />
 
       <button type="button" onClick={openConsentManager}>
