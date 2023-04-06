@@ -59,7 +59,7 @@ describe('ConsentManagerBuilder', () => {
   test('provides a list of newly added destinations', done => {
     document.cookie =
       'tracking-preferences={%22version%22:1%2C%22destinations%22:{%22Amplitude%22:true}}'
-    window.analytics = { load() {} }
+    window.analytics = { load() { /* nothing */ } }
 
     nock('https://cdn.segment.com')
       .get('/v1/projects/123/integrations')
@@ -126,7 +126,7 @@ describe('ConsentManagerBuilder', () => {
   test('provides an object containing the WIP preferences', done => {
     document.cookie =
       'tracking-preferences={%22version%22:1%2C%22destinations%22:{%22Amplitude%22:true}}'
-    window.analytics = { load() {} }
+    window.analytics = { load() { /* nothing */ } }
 
     nock('https://cdn.segment.com')
       .get('/v1/projects/123/integrations')

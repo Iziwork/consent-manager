@@ -197,13 +197,13 @@ const ConsentManagerBuilder: FC<Props> = ({
     setPreferences(preferences);
     setIsConsentRequired(isConsentRequired);
     } catch(e) {
-      if (onError && typeof onError === 'function') onError(e)
+      if (onError && typeof onError === 'function') await onError(e as Error);
       else throw e
     }
   }
 
   useEffect(() => {
-      initialise()
+    initialise().catch((e) => { console.error(e)})
   }, []);
 
   if (isLoading) {
@@ -241,7 +241,7 @@ const mergePreferences = ( { destinations, existingPreferences, newPreferences }
       ...newPreferences
     }
   } else {
-    preferences = existingPreferences!
+    preferences = existingPreferences as CategoryPreferences;
   }
 
   return preferences

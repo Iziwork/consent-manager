@@ -3,16 +3,16 @@ import conditionallyLoadAnalytics from '../../consent-manager-builder/analytics'
 import { expect, vi } from 'vitest';
 
 describe('analytics', () => {
-  let wd
+  let wd: WindowWithAJS;
 
   beforeEach(() => {
     window = {} as WindowWithAJS
-    wd = window
+    wd = window as WindowWithAJS
   })
 
   test('loads analytics.js with preferences', () => {
     const ajsLoad = vi.fn()
-    wd.analytics = { load: ajsLoad }
+    wd.analytics = { load: ajsLoad } as unknown as WindowWithAJS['analytics']
     const writeKey = '123'
     const destinations = [{ id: 'Amplitude' } as Destination]
     const destinationPreferences = {
@@ -39,7 +39,7 @@ describe('analytics', () => {
 
   test('doesn՚t load analytics.js when there are no preferences', () => {
     const ajsLoad = vi.fn()
-    wd.analytics = { load: ajsLoad }
+    wd.analytics = { load: ajsLoad } as unknown as WindowWithAJS['analytics']
     const writeKey = '123'
     const destinations = [{ id: 'Amplitude' } as Destination]
     const destinationPreferences = null
@@ -56,7 +56,7 @@ describe('analytics', () => {
 
   test('doesn՚t load analytics.js when all preferences are false', () => {
     const ajsLoad = vi.fn()
-    wd.analytics = { load: ajsLoad }
+    wd.analytics = { load: ajsLoad } as unknown as WindowWithAJS['analytics']
     const writeKey = '123'
     const destinations = [{ id: 'Amplitude' } as Destination]
     const destinationPreferences = {
@@ -76,9 +76,9 @@ describe('analytics', () => {
   test('reloads the page when analytics.js has already been initialised', () => {
     wd.analytics = {
       load() {
-        this.initialized = true
+        (this as WindowWithAJS['analytics']).initialized = true
       },
-    }
+    } as unknown as WindowWithAJS['analytics']
     Object.defineProperty(window, 'location', {
       writable: true,
       value: { reload: vi.fn() },
@@ -110,10 +110,10 @@ describe('analytics', () => {
     const reload = vi.fn()
     wd.analytics = {
       load() {
-        this.initialized = true
+        (this as WindowWithAJS['analytics']).initialized = true
       },
-    }
-    wd.location = { reload }
+    } as unknown as WindowWithAJS['analytics']
+    wd.location = { reload } as unknown as WindowWithAJS['location']
     const writeKey = '123'
     const destinations = [{ id: 'Amplitude' } as Destination]
     const destinationPreferences = {
@@ -139,7 +139,7 @@ describe('analytics', () => {
 
   test('loads analytics.js normally when consent isn՚t required', () => {
     const ajsLoad = vi.fn()
-    wd.analytics = { load: ajsLoad }
+    wd.analytics = { load: ajsLoad } as unknown as WindowWithAJS['analytics']
     const writeKey = '123'
     const destinations = [{ id: 'Amplitude' } as Destination]
     const destinationPreferences = null
@@ -158,7 +158,7 @@ describe('analytics', () => {
 
   test('still applies preferences when consent isn՚t required', () => {
     const ajsLoad = vi.fn()
-    wd.analytics = { load: ajsLoad }
+    wd.analytics = { load: ajsLoad } as unknown as WindowWithAJS['analytics']
     const writeKey = '123'
     const destinations = [{ id: 'Amplitude' } as Destination]
     const destinationPreferences = {

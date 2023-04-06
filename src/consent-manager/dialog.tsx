@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useRef} from 'react'
+import React, {MouseEventHandler, FC, useEffect, useRef} from 'react'
 import styled, { keyframes } from 'styled-components'
 import { nanoid } from 'nanoid'
 import fontStyles from './font-styles'
@@ -159,9 +159,9 @@ const Dialog: FC<Props> = ({ onCancel = undefined, onSubmit, title, innerRef, ch
     form = node
   }
 
-  const handleOverlayClick = (e) => {
+  const handleOverlayClick: MouseEventHandler<HTMLDivElement> = (e) => {
     // Ignore propogated clicks from inside the dialog
-    if (onCancel && rootRef && !rootRef.current?.contains(e.target)) {
+    if (onCancel && rootRef && !rootRef.current?.contains(e.target as HTMLDivElement)) {
       onCancel()
     }
   }

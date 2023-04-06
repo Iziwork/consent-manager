@@ -1,4 +1,5 @@
 import { URL } from 'node:url'
+import { WindowWithAJS } from '../../types'
 import { loadPreferences, savePreferences } from '../../consent-manager-builder/preferences'
 import { expect, vi } from 'vitest';
 
@@ -8,7 +9,7 @@ describe('preferences', () => {
       location: {
         href: 'http://localhost/'
       }
-    } as Window & typeof globalThis
+    } as WindowWithAJS & typeof globalThis
 
     document = {
       createElement(type: string) {
@@ -38,8 +39,7 @@ describe('preferences', () => {
   test('savePreferences() saves the preferences', () => {
     const ajsIdentify = vi.fn();
 
-    // @ts-ignore
-    window.analytics = { identify: ajsIdentify }
+    window.analytics = { identify: ajsIdentify } as unknown as WindowWithAJS['analytics']
     document.cookie = ''
 
     const destinationPreferences = {
@@ -70,8 +70,7 @@ describe('preferences', () => {
 
   test('savePreferences() sets the cookie domain', () => {
     const ajsIdentify = vi.fn();
-    // @ts-ignore
-    window.analytics = { identify: ajsIdentify }
+    window.analytics = { identify: ajsIdentify } as unknown as WindowWithAJS['analytics']
     document.cookie = ''
 
     const destinationPreferences = {

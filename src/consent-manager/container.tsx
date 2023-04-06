@@ -90,7 +90,7 @@ const Container: React.FC<ContainerProps> = ({
   const { marketingDestinations, advertisingDestinations, functionalDestinations } =
     normalizeDestinations(destinations)
 
-  const handleBodyClick = (e) => {
+  const handleBodyClick = (e: Event) => {
     // Do nothing if no new implicit consent needs to be saved
     if (!isConsentRequired || !implyConsentOnInteraction || newDestinations.length === 0 ) {
       return
@@ -98,8 +98,8 @@ const Container: React.FC<ContainerProps> = ({
 
     // Ignore propogated clicks from inside the consent manager
     if (
-      (banner.current && banner.current.contains(e.target)) ||
-      (preferenceDialog.current && preferenceDialog.current.contains(e.target))
+      (banner.current && banner.current.contains(e.target as HTMLElement)) ||
+      (preferenceDialog.current && preferenceDialog.current.contains(e.target as HTMLElement))
     ) {
       return
     }

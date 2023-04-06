@@ -51,8 +51,8 @@ const ConsentManager: FC<ConsentManagerProps> = ({
     }
 
     const handleMapCustomPreferences = (destinations: Destination[], preferences: CategoryPreferences) => {
-      const destinationPreferences = {}
-      const customPreferences = {}
+      const destinationPreferences: Record<string, boolean | null | undefined> = {}
+      const customPreferences: Record<string, boolean> = {}
 
       if (customCategories) {
         for (const preferenceName of Object.keys(customCategories)) {
