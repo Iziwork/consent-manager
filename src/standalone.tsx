@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom/client'
 import inEU from '@segment/in-eu'
 import inRegions from '@segment/in-regions'
 import { ConsentManager, openConsentManager, doNotTrack } from '.'
@@ -7,8 +7,10 @@ import { ConsentManagerProps, WindowWithConsentManagerConfig, ConsentManagerInpu
 import { CloseBehavior } from './consent-manager/container'
 import * as preferences from './consent-manager-builder/preferences'
 
+const typedInEU = inEU as  () => boolean;
+
 export const version = process.env.VERSION
-export { openConsentManager, doNotTrack, inEU, preferences }
+export { openConsentManager, doNotTrack, typedInEU as inEU, preferences }
 
 let props: Partial<ConsentManagerInput> = {}
 let containerRef: string | undefined
@@ -21,7 +23,7 @@ if (localWindow.consentManagerConfig && typeof localWindow.consentManagerConfig 
     version,
     openConsentManager,
     doNotTrack,
-    inEU,
+    inEU: typedInEU,
     preferences,
     inRegions,
   })
@@ -62,7 +64,7 @@ if (props.closeBehavior !== undefined && typeof props.closeBehavior === 'string'
   ]
 
   if (!options.includes(props.closeBehavior)) {
-    throw new Error(`ConsentManager: closeBehavior should be one of ${options}`)
+    throw new Error(`ConsentManager: closeBehavior should be one of ${options.join(', ')}`)
   }
 }
 
@@ -71,4 +73,5 @@ if (!container) {
   throw new Error('ConsentManager: container not found')
 }
 
-ReactDOM.render(<ConsentManager {...(props as ConsentManagerProps)} />, container)
+const root = ReactDOM.createRoot(container);
+root.render(<ConsentManager {...(props as ConsentManagerProps)} />)

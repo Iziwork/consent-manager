@@ -1,4 +1,5 @@
-import { doNotTrack } from '../'
+import { doNotTrack } from '../';
+import { expect } from 'vitest';
 
 describe('doNotTrack', () => {
   beforeEach(() => {
@@ -7,62 +8,43 @@ describe('doNotTrack', () => {
   })
 
   test('doNotTrack() supports standard API', () => {
-    // @ts-ignore
-    navigator.doNotTrack = '1'
+    navigator = { doNotTrack : '1'}  as Navigator
     expect(doNotTrack()).toBe(true)
 
-    // @ts-ignore
-    navigator.doNotTrack = '0'
+    navigator = { doNotTrack : '0'}  as Navigator
     expect(doNotTrack()).toBe(false)
 
-    // @ts-ignore
-    navigator.doNotTrack = 'unspecified'
+    navigator = { doNotTrack : 'unspecified'}  as Navigator
     expect(doNotTrack()).toBe(null)
   })
 
   test('doNotTrack() supports window', () => {
-    // @ts-ignore
-    navigator.doNotTrack = undefined
-
-    // @ts-ignore
-    window.doNotTrack = '1'
+    window = { doNotTrack : '1'} as Window & typeof globalThis & Navigator
     expect(doNotTrack()).toBe(true)
 
-    // @ts-ignore
-    window.doNotTrack = '0'
+    window = { doNotTrack : '0'} as Window & typeof globalThis & Navigator
     expect(doNotTrack()).toBe(false)
 
-    // @ts-ignore
-    window.doNotTrack = 'unspecified'
+    window = { doNotTrack : 'unspecified'} as Window & typeof globalThis & Navigator
     expect(doNotTrack()).toBeNull()
   })
 
   test('doNotTrack() support yes/no', () => {
-    // @ts-ignore
-    navigator.doNotTrack = 'yes'
+    navigator = { doNotTrack : 'yes'}  as Navigator
     expect(doNotTrack()).toBe(true)
 
-    // @ts-ignore
-    navigator.doNotTrack = 'no'
+    navigator = { doNotTrack : 'no'}  as Navigator
     expect(doNotTrack()).toBe(false)
   })
 
   test('doNotTrack() supports ms prefix', () => {
-    // @ts-ignore
-    navigator.doNotTrack = undefined
-    // @ts-ignore
-    window.doNotTrack = undefined
-
-    // @ts-ignore
-    navigator.msDoNotTrack = '1'
+    navigator = { msDoNotTrack : '1'} as Navigator & { msDoNotTrack : string };
     expect(doNotTrack()).toBe(true)
 
-    // @ts-ignore
-    navigator.msDoNotTrack = '0'
+    navigator = { msDoNotTrack : '0'} as Navigator & { msDoNotTrack : string };
     expect(doNotTrack()).toBe(false)
 
-    // @ts-ignore
-    navigator.msDoNotTrack = 'unspecified'
+    navigator = { msDoNotTrack : 'unspecified'} as Navigator & { msDoNotTrack : string };
     expect(doNotTrack()).toBeNull()
   })
 })

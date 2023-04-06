@@ -49,20 +49,6 @@ const preferencesDialogContent = (
     </p>
   </div>
 )
-const cancelDialogTitle = 'Are you sure you want to cancel?'
-const cancelDialogContent = (
-  <div>
-    Your preferences have not been saved. By continuing to use our website, you’re agreeing to our{' '}
-    <a
-      href="https://segment.com/docs/legal/website-data-collection-policy/"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Website Data Collection Policy
-    </a>
-    .
-  </div>
-)
 
 const ConsentManagerExample = (props: { closeBehavior: CloseBehavior | CloseBehaviorFunction }) => {
   const [prefs, updatePrefs] = React.useState<Preferences>(loadPreferences())
@@ -86,8 +72,6 @@ const ConsentManagerExample = (props: { closeBehavior: CloseBehavior | CloseBeha
         bannerSubContent={bannerSubContent}
         preferencesDialogTitle={preferencesDialogTitle}
         preferencesDialogContent={preferencesDialogContent}
-        cancelDialogTitle={cancelDialogTitle}
-        cancelDialogContent={cancelDialogContent}
         closeBehavior={props.closeBehavior}
         customCategories={{
           'Do Not Sell': {

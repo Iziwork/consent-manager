@@ -1,26 +1,28 @@
-import React, { PureComponent } from 'react'
-import styled, { css } from 'react-emotion'
+import React, { FC, ChangeEvent } from 'react'
+import styled, { createGlobalStyle } from 'styled-components'
 import Dialog from './dialog'
 import { DefaultButton, GreenButton } from './buttons'
 import { Destination, CustomCategories, CategoryPreferences } from '../types'
 
-const hideOnMobile = css`
-  @media (max-width: 600px) {
+const GlobalHideOnMobile = createGlobalStyle`
+  .hideOnMobile {
+    @media (max-width: 600px) {
     display: none;
+  }
   }
 `
 
-const TableScroll = styled('div')`
+const TableScroll = styled.div`
   overflow-x: auto;
   margin-top: 16px;
 `
 
-const Table = styled('table')`
+const Table = styled.table`
   border-collapse: collapse;
   font-size: 12px;
 `
 
-const ColumnHeading = styled('th')`
+const ColumnHeading = styled.th`
   color: #031b4a;
   font-weight: 700;
   text-align: left;
@@ -28,13 +30,13 @@ const ColumnHeading = styled('th')`
   word-break: normal;
 `
 
-const RowHeading = styled('th')`
+const RowHeading = styled.th`
   font-weight: normal;
   text-align: left;
   word-break: normal;
 `
 
-const Row = styled('tr')`
+const Row = styled.tr`
   th,
   td {
     vertical-align: top;
@@ -63,14 +65,14 @@ const Row = styled('tr')`
 `
 
 // Simulate of a checkbox : reverse of radio button styles, display: block one, when the other is display: none
-const InputCell = styled('td')`
+const InputCell = styled.td`
   label {
     position: relative;
-    top 50%;
+    top: 50%;
     display: block;
     margin-bottom: 4px;
     white-space: nowrap;
-    background: transparent
+    background: transparent;
     cursor: pointer;
   }
   label input {
@@ -159,7 +161,7 @@ const InputCell = styled('td')`
   }
 `
 
-interface PreferenceDialogProps {
+type Props = {
   innerRef: (element: HTMLElement | null) => void
   onCancel: () => void
   onSave: () => void
@@ -178,361 +180,29 @@ interface PreferenceDialogProps {
   lang: string
 }
 
-export default class PreferenceDialog extends PureComponent<PreferenceDialogProps, {}> {
-  static displayName = 'PreferenceDialog'
-
-  static defaultProps = {
-    marketingAndAnalytics: false,
-    advertising: false,
-    functional: false,
-  }
-
-  render() {
-    const {
-      innerRef,
-      onCancel,
-      marketingDestinations,
-      advertisingDestinations,
-      functionalDestinations,
-      marketingAndAnalytics,
-      advertising,
-      functional,
-      customCategories,
-      destinations,
-      title,
-      content,
-      preferences,
-      lang,
-    } = this.props
-
-    const buttons = (
-      <div>
-        <DefaultButton type="button" onClick={onCancel}>
-          {lang === 'it' ? 'Annulla ' : 'Annuler'}
-        </DefaultButton>
-        <GreenButton type="submit">{lang === 'it' ? 'Salva' : 'Sauvegarder'}</GreenButton>
-      </div>
-    )
-
-    return (
-      <Dialog
-        innerRef={innerRef}
-        title={title}
-        buttons={buttons}
-        onCancel={onCancel}
-        onSubmit={this.handleSubmit}
-      >
-        {content}
-
-        <TableScroll>
-          <Table>
-            <thead>
-              {lang === 'it' ? (
-                <Row>
-                  <ColumnHeading scope="col">Autorizza</ColumnHeading>
-                  <ColumnHeading scope="col">Categoria</ColumnHeading>
-                  <ColumnHeading scope="col">Obiettivo</ColumnHeading>
-                  <ColumnHeading scope="col" className={hideOnMobile}>
-                    Strumenti
-                  </ColumnHeading>
-                </Row>
-              ) : (
-                <Row>
-                  <ColumnHeading scope="col">Autoriser</ColumnHeading>
-                  <ColumnHeading scope="col">Catégorie</ColumnHeading>
-                  <ColumnHeading scope="col">But</ColumnHeading>
-                  <ColumnHeading scope="col" className={hideOnMobile}>
-                    Outils
-                  </ColumnHeading>
-                </Row>
-              )}
-            </thead>
-
-            <tbody>
-              {!customCategories && (
-                <>
-                  <Row>
-                    <InputCell>
-                      <label>
-                        <input
-                          className="true"
-                          type="radio"
-                          name="functional"
-                          value="true"
-                          checked={functional === true}
-                          onChange={this.handleChange}
-                          aria-label="Activer le suivi fonctionnel"
-                          required
-                        />
-                        <span className="checkmark" />
-                      </label>
-                      <label>
-                        <input
-                          className="false"
-                          type="radio"
-                          name="functional"
-                          value="false"
-                          checked={functional === false}
-                          onChange={this.handleChange}
-                          aria-label="Désactiver le suivi fonctionnel"
-                          required
-                        />
-                        <span className="checkmark" />
-                      </label>
-                    </InputCell>
-                    {lang === 'it' ? (
-                      <RowHeading scope="row">Funzionale</RowHeading>
-                    ) : (
-                      <RowHeading scope="row">Fonctionnel</RowHeading>
-                    )}
-                    {lang === 'it' ? (
-                      <td>
-                        <p>
-                          Per monitorare l’andamento del sito e migliorare l’esperienza di
-                          navigazione degli utenti. Ad esempio, per comunicare via chat.
-                        </p>
-                        <p className={hideOnMobile}>
-                          Ad esempio, per comunicare con te tramite una chat.
-                        </p>
-                      </td>
-                    ) : (
-                      <td>
-                        <p>
-                          Pour surveilleer la performance de notre site et améliorer votre
-                          expérience de navigation.
-                        </p>
-                        <p className={hideOnMobile}>
-                          Par exemple, pour communiquer avec vous via un chat.
-                        </p>
-                      </td>
-                    )}
-                    <td className={hideOnMobile}>
-                      {functionalDestinations.map((d) => d.name).join(', ')}
-                    </td>
-                  </Row>
-
-                  <Row>
-                    <InputCell>
-                      <label>
-                        <input
-                          className="true"
-                          type="radio"
-                          name="marketingAndAnalytics"
-                          value="true"
-                          checked={marketingAndAnalytics === true}
-                          onChange={this.handleChange}
-                          aria-label={"Activer le suivi marketing et d'analyse"}
-                          required
-                        />
-                        <span className="checkmark" />
-                      </label>
-                      <label>
-                        <input
-                          className="false"
-                          type="radio"
-                          name="marketingAndAnalytics"
-                          value="false"
-                          checked={marketingAndAnalytics === false}
-                          onChange={this.handleChange}
-                          aria-label={"Désactiver le suvi marketing et d'analyse"}
-                          required
-                        />
-                        <span className="checkmark" />
-                      </label>
-                    </InputCell>
-                    {lang === 'it' ? (
-                      <RowHeading scope="row">Marketing e analisi</RowHeading>
-                    ) : (
-                      <RowHeading scope="row">Marketing et analyse</RowHeading>
-                    )}
-                    {lang === 'it' ? (
-                      <td>
-                        <p>
-                          Per comprendere al meglio il comportamento degli utenti e fornire
-                          un’esperienza personalizzata.
-                        </p>
-                        <p className={hideOnMobile}>
-                          Ad esempio, raccogliamo le informazioni sulle pagine consultate per
-                          fornire un contenuto più adatto alle tue ricerche.
-                        </p>
-                      </td>
-                    ) : (
-                      <td>
-                        <p>
-                          Pour mieux comprendre le comportement de nos utilisateur et fournir une
-                          expérience personnalisée.
-                        </p>
-                        <p className={hideOnMobile}>
-                          Par exemple, nous collectons des informations sur les pages que vous
-                          visitez pour vous fournir du contenu plus pertinent.
-                        </p>
-                      </td>
-                    )}
-                    <td className={hideOnMobile}>
-                      {marketingDestinations.map((d) => d.name).join(', ')}
-                    </td>
-                  </Row>
-
-                  <Row>
-                    <InputCell>
-                      <label>
-                        <input
-                          className="true"
-                          type="radio"
-                          name="advertising"
-                          value="true"
-                          checked={advertising === true}
-                          onChange={this.handleChange}
-                          aria-label={'Activer le suivi publicitaire'}
-                          required
-                        />
-                        <span className="checkmark" />
-                      </label>
-                      <label>
-                        <input
-                          className="false"
-                          type="radio"
-                          name="advertising"
-                          value="false"
-                          checked={advertising === false}
-                          onChange={this.handleChange}
-                          aria-label={'Désactiver le suivi publicitaire'}
-                          required
-                        />
-                        <span className="checkmark" />
-                      </label>
-                    </InputCell>
-                    {lang === 'it' ? (
-                      <RowHeading scope="row">Essenziale</RowHeading>
-                    ) : (
-                      <RowHeading scope="row">Publicité</RowHeading>
-                    )}
-                    {lang === 'it' ? (
-                      <td>
-                        <p>Questo sito fa uso di cookies essenziali per il suo funzionamento.</p>
-                        <p className={hideOnMobile}>
-                          Ad esempio, memorizziamo le preferenze di raccolta dati personali per gli
-                          accessi futuri. È possibile disattivare i cookies nelle impostazioni del
-                          browser, compromettendo però il corretto funzionamento del sito.
-                        </p>
-                      </td>
-                    ) : (
-                      <td>
-                        <p>
-                          Pour personnaliser et mesurer l'efficacité de la publicité sur notre site
-                          et des sites tiers.
-                        </p>
-                        <p className={hideOnMobile}>
-                          Par exemple, nous pouvons afficher une publicité basée sur les pages que
-                          vous avez visitées sur notre site.
-                        </p>
-                      </td>
-                    )}
-                    <td className={hideOnMobile}>
-                      {advertisingDestinations.map((d) => d.name).join(', ')}
-                    </td>
-                  </Row>
-                </>
-              )}
-
-              {customCategories &&
-                Object.entries(customCategories).map(
-                  ([categoryName, { integrations, purpose }]) => (
-                    <Row key={categoryName}>
-                      <InputCell>
-                        <label>
-                          <input
-                            className="true"
-                            type="radio"
-                            name={categoryName}
-                            value="true"
-                            checked={preferences[categoryName] === true}
-                            onChange={this.handleChange}
-                            aria-label={`Autoriser le suivi "${categoryName}"`}
-                            required
-                          />
-                          <span className="checkmark" />
-                        </label>
-                        <label>
-                          <input
-                            className="false"
-                            type="radio"
-                            name={categoryName}
-                            value="false"
-                            checked={preferences[categoryName] === false}
-                            onChange={this.handleChange}
-                            aria-label={`Désactiver le suivi "${categoryName}"`}
-                            required
-                          />
-                          <span className="checkmark" />
-                        </label>
-                      </InputCell>
-                      <RowHeading scope="row">{categoryName}</RowHeading>
-                      <td>
-                        <p>{purpose}</p>
-                      </td>
-                      <td className={hideOnMobile}>
-                        {destinations
-                          .filter((d) => integrations.includes(d.id))
-                          .map((d) => d.name)
-                          .join(', ')}
-                      </td>
-                    </Row>
-                  )
-                )}
-
-              <Row>
-                <td>N/A</td>
-                {lang === 'it' ? (
-                  <RowHeading scope="row">Essenziale</RowHeading>
-                ) : (
-                  <RowHeading scope="row">Essentiel</RowHeading>
-                )}
-                {lang === 'it' ? (
-                  <td>
-                    <p>Utilizziamo cookie essenziali per il funzionamento del nostro sito.</p>
-                    <p>
-                      Ad esempio, salviamo le tue preferenze di raccolta dati dati personali al fine
-                      di rispettarli per le vostre future visite. Puoi disabilitare i cookie nelle
-                      preferenze del tuo browser ma il sito potrebbe non funzionare correttamente.
-                    </p>
-                  </td>
-                ) : (
-                  <td>
-                    <p>
-                      Nous utilisons des cookies essentiels pour le fonctionnement de notre site.
-                    </p>
-                    <p>
-                      Par exemple, nous sauvegardons vos préférences de collecte de données
-                      personnelles afin de les respecter pour vos visites futures. Vous pouvez
-                      désactiver les cookies dans les préférences de votre navigateur mais le site
-                      pourrait ne pas fonctionner correctement.
-                    </p>
-                  </td>
-                )}
-                <td className={hideOnMobile} />
-              </Row>
-            </tbody>
-          </Table>
-        </TableScroll>
-      </Dialog>
-    )
-  }
-
-  handleChange = (e) => {
-    const { onChange } = this.props
+const PreferenceDialog: FC<Props> = ({
+  innerRef,
+  onCancel,
+  onChange,
+  onSave,
+  marketingDestinations,
+  advertisingDestinations,
+  functionalDestinations,
+  marketingAndAnalytics = false,
+  advertising = false,
+  functional = false,
+  customCategories,
+  destinations,
+  title,
+  content,
+  preferences,
+  lang,
+}) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.name, e.target.value === 'true')
   }
 
-  handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    const {
-      onSave,
-      preferences,
-      marketingAndAnalytics,
-      advertising,
-      functional,
-      customCategories,
-    } = this.props
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     // Safe guard against browsers that don't prevent the
     // submission of invalid forms (Safari < 10.1)
@@ -552,4 +222,322 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
     }
     onSave()
   }
+
+  const buttons = (
+    <div>
+      <DefaultButton type="button" onClick={onCancel}>
+        {lang === 'it' ? 'Annulla ' : 'Annuler'}
+      </DefaultButton>
+      <GreenButton type="submit">{lang === 'it' ? 'Salva' : 'Sauvegarder'}</GreenButton>
+    </div>
+  )
+
+  return (
+    <>
+    <GlobalHideOnMobile />
+    <Dialog
+      innerRef={innerRef}
+      title={title}
+      buttons={buttons}
+      onCancel={onCancel}
+      onSubmit={handleSubmit}
+    >
+      {content}
+
+      <TableScroll>
+        <Table>
+          <thead>
+            {lang === 'it' ? (
+              <Row>
+                <ColumnHeading scope="col">Autorizza</ColumnHeading>
+                <ColumnHeading scope="col">Categoria</ColumnHeading>
+                <ColumnHeading scope="col">Obiettivo</ColumnHeading>
+                <ColumnHeading scope="col" className="hideOnMobile">
+                  Strumenti
+                </ColumnHeading>
+              </Row>
+            ) : (
+              <Row>
+                <ColumnHeading scope="col">Autoriser</ColumnHeading>
+                <ColumnHeading scope="col">Catégorie</ColumnHeading>
+                <ColumnHeading scope="col">But</ColumnHeading>
+                <ColumnHeading scope="col" className="hideOnMobile">
+                  Outils
+                </ColumnHeading>
+              </Row>
+            )}
+          </thead>
+
+          <tbody>
+            {!customCategories && (
+              <>
+                <Row>
+                  <InputCell>
+                    <label>
+                      <input
+                        className="true"
+                        type="radio"
+                        name="functional"
+                        value="true"
+                        checked={functional === true}
+                        onChange={handleChange}
+                        aria-label="Activer le suivi fonctionnel"
+                        required
+                      />
+                      <span className="checkmark" />
+                    </label>
+                    <label>
+                      <input
+                        className="false"
+                        type="radio"
+                        name="functional"
+                        value="false"
+                        checked={functional === false}
+                        onChange={handleChange}
+                        aria-label="Désactiver le suivi fonctionnel"
+                        required
+                      />
+                      <span className="checkmark" />
+                    </label>
+                  </InputCell>
+                  {lang === 'it' ? (
+                    <RowHeading scope="row">Funzionale</RowHeading>
+                  ) : (
+                    <RowHeading scope="row">Fonctionnel</RowHeading>
+                  )}
+                  {lang === 'it' ? (
+                    <td>
+                      <p>
+                        Per monitorare l’andamento del sito e migliorare l’esperienza di
+                        navigazione degli utenti. Ad esempio, per comunicare via chat.
+                      </p>
+                      <p className="hideOnMobile">
+                        Ad esempio, per comunicare con te tramite una chat.
+                      </p>
+                    </td>
+                  ) : (
+                    <td>
+                      <p>
+                        Pour surveilleer la performance de notre site et améliorer votre
+                        expérience de navigation.
+                      </p>
+                      <p className="hideOnMobile">
+                        Par exemple, pour communiquer avec vous via un chat.
+                      </p>
+                    </td>
+                  )}
+                  <td className="hideOnMobile">
+                    {functionalDestinations.map((d) => d.name).join(', ')}
+                  </td>
+                </Row>
+
+                <Row>
+                  <InputCell>
+                    <label>
+                      <input
+                        className="true"
+                        type="radio"
+                        name="marketingAndAnalytics"
+                        value="true"
+                        checked={marketingAndAnalytics === true}
+                        onChange={handleChange}
+                        aria-label={"Activer le suivi marketing et d'analyse"}
+                        required
+                      />
+                      <span className="checkmark" />
+                    </label>
+                    <label>
+                      <input
+                        className="false"
+                        type="radio"
+                        name="marketingAndAnalytics"
+                        value="false"
+                        checked={marketingAndAnalytics === false}
+                        onChange={handleChange}
+                        aria-label={"Désactiver le suvi marketing et d'analyse"}
+                        required
+                      />
+                      <span className="checkmark" />
+                    </label>
+                  </InputCell>
+                  {lang === 'it' ? (
+                    <RowHeading scope="row">Marketing e analisi</RowHeading>
+                  ) : (
+                    <RowHeading scope="row">Marketing et analyse</RowHeading>
+                  )}
+                  {lang === 'it' ? (
+                    <td>
+                      <p>
+                        Per comprendere al meglio il comportamento degli utenti e fornire
+                        un’esperienza personalizzata.
+                      </p>
+                      <p className="hideOnMobile">
+                        Ad esempio, raccogliamo le informazioni sulle pagine consultate per
+                        fornire un contenuto più adatto alle tue ricerche.
+                      </p>
+                    </td>
+                  ) : (
+                    <td>
+                      <p>
+                        Pour mieux comprendre le comportement de nos utilisateur et fournir une
+                        expérience personnalisée.
+                      </p>
+                      <p className="hideOnMobile">
+                        Par exemple, nous collectons des informations sur les pages que vous
+                        visitez pour vous fournir du contenu plus pertinent.
+                      </p>
+                    </td>
+                  )}
+                  <td className="hideOnMobile">
+                    {marketingDestinations.map((d) => d.name).join(', ')}
+                  </td>
+                </Row>
+
+                <Row>
+                  <InputCell>
+                    <label>
+                      <input
+                        className="true"
+                        type="radio"
+                        name="advertising"
+                        value="true"
+                        checked={advertising === true}
+                        onChange={handleChange}
+                        aria-label={'Activer le suivi publicitaire'}
+                        required
+                      />
+                      <span className="checkmark" />
+                    </label>
+                    <label>
+                      <input
+                        className="false"
+                        type="radio"
+                        name="advertising"
+                        value="false"
+                        checked={advertising === false}
+                        onChange={handleChange}
+                        aria-label={'Désactiver le suivi publicitaire'}
+                        required
+                      />
+                      <span className="checkmark" />
+                    </label>
+                  </InputCell>
+                  {lang === 'it' ? (
+                    <RowHeading scope="row">Essenziale</RowHeading>
+                  ) : (
+                    <RowHeading scope="row">Publicité</RowHeading>
+                  )}
+                  {lang === 'it' ? (
+                    <td>
+                      <p>Questo sito fa uso di cookies essenziali per il suo funzionamento.</p>
+                      <p className="hideOnMobile">
+                        Ad esempio, memorizziamo le preferenze di raccolta dati personali per gli
+                        accessi futuri. È possibile disattivare i cookies nelle impostazioni del
+                        browser, compromettendo però il corretto funzionamento del sito.
+                      </p>
+                    </td>
+                  ) : (
+                    <td>
+                      <p>
+                        Pour personnaliser et mesurer l'efficacité de la publicité sur notre site
+                        et des sites tiers.
+                      </p>
+                      <p className="hideOnMobile">
+                        Par exemple, nous pouvons afficher une publicité basée sur les pages que
+                        vous avez visitées sur notre site.
+                      </p>
+                    </td>
+                  )}
+                  <td className="hideOnMobile">
+                    {advertisingDestinations.map((d) => d.name).join(', ')}
+                  </td>
+                </Row>
+              </>
+            )}
+
+            {customCategories &&
+              Object.entries(customCategories).map(
+                ([categoryName, { integrations, purpose }]) => (
+                  <Row key={categoryName}>
+                    <InputCell>
+                      <label>
+                        <input
+                          className="true"
+                          type="radio"
+                          name={categoryName}
+                          value="true"
+                          checked={preferences[categoryName] === true}
+                          onChange={handleChange}
+                          aria-label={`Autoriser le suivi "${categoryName}"`}
+                          required
+                        />
+                        <span className="checkmark" />
+                      </label>
+                      <label>
+                        <input
+                          className="false"
+                          type="radio"
+                          name={categoryName}
+                          value="false"
+                          checked={preferences[categoryName] === false}
+                          onChange={handleChange}
+                          aria-label={`Désactiver le suivi "${categoryName}"`}
+                          required
+                        />
+                        <span className="checkmark" />
+                      </label>
+                    </InputCell>
+                    <RowHeading scope="row">{categoryName}</RowHeading>
+                    <td>
+                      <p>{purpose}</p>
+                    </td>
+                    <td className="hideOnMobile">
+                      {destinations
+                        .filter((d) => integrations.includes(d.id))
+                        .map((d) => d.name)
+                        .join(', ')}
+                    </td>
+                  </Row>
+                )
+              )}
+
+            <Row>
+              <td>N/A</td>
+              {lang === 'it' ? (
+                <RowHeading scope="row">Essenziale</RowHeading>
+              ) : (
+                <RowHeading scope="row">Essentiel</RowHeading>
+              )}
+              {lang === 'it' ? (
+                <td>
+                  <p>Utilizziamo cookie essenziali per il funzionamento del nostro sito.</p>
+                  <p>
+                    Ad esempio, salviamo le tue preferenze di raccolta dati dati personali al fine
+                    di rispettarli per le vostre future visite. Puoi disabilitare i cookie nelle
+                    preferenze del tuo browser ma il sito potrebbe non funzionare correttamente.
+                  </p>
+                </td>
+              ) : (
+                <td>
+                  <p>
+                    Nous utilisons des cookies essentiels pour le fonctionnement de notre site.
+                  </p>
+                  <p>
+                    Par exemple, nous sauvegardons vos préférences de collecte de données
+                    personnelles afin de les respecter pour vos visites futures. Vous pouvez
+                    désactiver les cookies dans les préférences de votre navigateur mais le site
+                    pourrait ne pas fonctionner correctement.
+                  </p>
+                </td>
+              )}
+              <td className="hideOnMobile" />
+            </Row>
+          </tbody>
+        </Table>
+      </TableScroll>
+    </Dialog>
+    </>
+  )
 }
+
+export default PreferenceDialog;

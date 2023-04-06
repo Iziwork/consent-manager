@@ -1,18 +1,18 @@
-import sinon from 'sinon'
 import { WindowWithAJS, Destination } from '../../types'
 import conditionallyLoadAnalytics from '../../consent-manager-builder/analytics'
+import { expect, vi } from 'vitest';
 
 describe('analytics', () => {
-  let wd
+  let wd: WindowWithAJS;
 
   beforeEach(() => {
     window = {} as WindowWithAJS
-    wd = window
+    wd = window as WindowWithAJS
   })
 
   test('loads analytics.js with preferences', () => {
-    const ajsLoad = sinon.spy()
-    wd.analytics = { load: ajsLoad }
+    const ajsLoad = vi.fn()
+    wd.analytics = { load: ajsLoad } as unknown as WindowWithAJS['analytics']
     const writeKey = '123'
     const destinations = [{ id: 'Amplitude' } as Destination]
     const destinationPreferences = {
@@ -26,9 +26,9 @@ describe('analytics', () => {
       isConsentRequired: true,
     })
 
-    expect(ajsLoad.calledOnce).toBe(true)
-    expect(ajsLoad.args[0][0]).toBe(writeKey)
-    expect(ajsLoad.args[0][1]).toMatchObject({
+    expect(ajsLoad).toHaveBeenCalled()
+    expect(ajsLoad.mock.calls[0][0]).toBe(writeKey)
+    expect(ajsLoad.mock.calls[0][1]).toMatchObject({
       integrations: {
         All: false,
         Amplitude: true,
@@ -38,8 +38,8 @@ describe('analytics', () => {
   })
 
   test('doesn՚t load analytics.js when there are no preferences', () => {
-    const ajsLoad = sinon.spy()
-    wd.analytics = { load: ajsLoad }
+    const ajsLoad = vi.fn()
+    wd.analytics = { load: ajsLoad } as unknown as WindowWithAJS['analytics']
     const writeKey = '123'
     const destinations = [{ id: 'Amplitude' } as Destination]
     const destinationPreferences = null
@@ -51,12 +51,12 @@ describe('analytics', () => {
       isConsentRequired: true,
     })
 
-    expect(ajsLoad.notCalled).toBe(true)
+    expect(ajsLoad).not.toHaveBeenCalled()
   })
 
   test('doesn՚t load analytics.js when all preferences are false', () => {
-    const ajsLoad = sinon.spy()
-    wd.analytics = { load: ajsLoad }
+    const ajsLoad = vi.fn()
+    wd.analytics = { load: ajsLoad } as unknown as WindowWithAJS['analytics']
     const writeKey = '123'
     const destinations = [{ id: 'Amplitude' } as Destination]
     const destinationPreferences = {
@@ -70,18 +70,18 @@ describe('analytics', () => {
       isConsentRequired: true,
     })
 
-    expect(ajsLoad.notCalled).toBe(true)
+    expect(ajsLoad).not.toHaveBeenCalled()
   })
 
   test('reloads the page when analytics.js has already been initialised', () => {
     wd.analytics = {
       load() {
-        this.initialized = true
+        (this as WindowWithAJS['analytics']).initialized = true
       },
-    }
+    } as unknown as WindowWithAJS['analytics']
     Object.defineProperty(window, 'location', {
       writable: true,
-      value: { reload: jest.fn() },
+      value: { reload: vi.fn() },
     })
 
     const writeKey = '123'
@@ -107,13 +107,13 @@ describe('analytics', () => {
   })
 
   test('should allow the reload behvaiour to be disabled', () => {
-    const reload = sinon.spy()
+    const reload = vi.fn()
     wd.analytics = {
       load() {
-        this.initialized = true
+        (this as WindowWithAJS['analytics']).initialized = true
       },
-    }
-    wd.location = { reload }
+    } as unknown as WindowWithAJS['analytics']
+    wd.location = { reload } as unknown as WindowWithAJS['location']
     const writeKey = '123'
     const destinations = [{ id: 'Amplitude' } as Destination]
     const destinationPreferences = {
@@ -134,12 +134,12 @@ describe('analytics', () => {
       shouldReload: false,
     })
 
-    expect(reload.calledOnce).toBe(false)
+    expect(reload).not.toHaveBeenCalled()
   })
 
   test('loads analytics.js normally when consent isn՚t required', () => {
-    const ajsLoad = sinon.spy()
-    wd.analytics = { load: ajsLoad }
+    const ajsLoad = vi.fn()
+    wd.analytics = { load: ajsLoad } as unknown as WindowWithAJS['analytics']
     const writeKey = '123'
     const destinations = [{ id: 'Amplitude' } as Destination]
     const destinationPreferences = null
@@ -151,14 +151,14 @@ describe('analytics', () => {
       isConsentRequired: false,
     })
 
-    expect(ajsLoad.calledOnce).toBe(true)
-    expect(ajsLoad.args[0][0]).toBe(writeKey)
-    expect(ajsLoad.args[0][1]).toBeUndefined()
+    expect(ajsLoad).toHaveBeenCalled()
+    expect(ajsLoad.mock.calls[0][0]).toBe(writeKey)
+    expect(ajsLoad.mock.calls[0][1]).toBeUndefined()
   })
 
   test('still applies preferences when consent isn՚t required', () => {
-    const ajsLoad = sinon.spy()
-    wd.analytics = { load: ajsLoad }
+    const ajsLoad = vi.fn()
+    wd.analytics = { load: ajsLoad } as unknown as WindowWithAJS['analytics']
     const writeKey = '123'
     const destinations = [{ id: 'Amplitude' } as Destination]
     const destinationPreferences = {
@@ -172,9 +172,9 @@ describe('analytics', () => {
       isConsentRequired: false,
     })
 
-    expect(ajsLoad.calledOnce).toBe(true)
-    expect(ajsLoad.args[0][0]).toBe(writeKey)
-    expect(ajsLoad.args[0][1]).toMatchObject({
+    expect(ajsLoad).toHaveBeenCalled()
+    expect(ajsLoad.mock.calls[0][0]).toBe(writeKey)
+    expect(ajsLoad.mock.calls[0][1]).toMatchObject({
       integrations: {
         All: false,
         Amplitude: true,

@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { loadPreferences, savePreferences } from './preferences'
 import fetchDestinations from './fetch-destinations'
 import conditionallyLoadAnalytics from './analytics'
@@ -21,7 +21,7 @@ function getNewDestinations(destinations: Destination[], preferences: CategoryPr
   return newDestinations
 }
 
-interface Props {
+type Props = {
   /** Your Segment Write key for your website */
   writeKey: string
 
@@ -64,7 +64,7 @@ interface Props {
   onError?: (err: Error) => void | Promise<void>
 }
 
-interface RenderProps {
+type RenderProps = {
   destinations: Destination[]
   newDestinations: Destination[]
   preferences: CategoryPreferences
@@ -73,75 +73,89 @@ interface RenderProps {
   setPreferences: (newPreferences: CategoryPreferences) => void
   resetPreferences: () => void
   saveConsent: (newPreferences?: CategoryPreferences | boolean, shouldReload?: boolean) => void
-}
+};
 
-interface State {
-  isLoading: boolean
-  destinations: Destination[]
-  newDestinations: Destination[]
-  preferences?: CategoryPreferences
-  isConsentRequired: boolean
-}
 
-export default class ConsentManagerBuilder extends Component<Props, State> {
-  static displayName = 'ConsentManagerBuilder'
+const ConsentManagerBuilder: FC<Props> = ({
+  children,
+  cookieDomain,
+  customCategories,
+  initialPreferences= {},
+  mapCustomPreferences,
+  onError = undefined,
+  otherWriteKeys =[],
+  shouldRequireConsent =() => true,
+  writeKey
+}) => {
+  const [destinations, setDestinations] = useState<Destination[]>([]);
+  const [newDestinations, setNewDestinations] = useState<Destination[]>([]);
+  const [preferences, setPreferences] = useState<CategoryPreferences>({});
+  const [isConsentRequired, setIsConsentRequired] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  static defaultProps = {
-    otherWriteKeys: [],
-    onError: undefined,
-    shouldRequireConsent: () => true,
-    initialPreferences: {}
-  }
-
-  state = {
-    isLoading: true,
-    destinations: [],
-    newDestinations: [],
-    preferences: {},
-    isConsentRequired: true
-  }
-
-  render() {
-    const { children, customCategories } = this.props
-    const { isLoading, destinations, preferences, newDestinations, isConsentRequired } = this.state
-
-    if (isLoading) {
-      return null
-    }
-
-    return children({
+  const handleSetPreferences = (newPreferences: CategoryPreferences) => {
+    setPreferences(existingPreferences => mergePreferences({
       destinations,
-      customCategories,
-      newDestinations,
-      preferences,
-      isConsentRequired,
-      setPreferences: this.handleSetPreferences,
-      resetPreferences: this.handleResetPreferences,
-      saveConsent: this.handleSaveConsent
-    })
+      newPreferences,
+      existingPreferences
+    }));
   }
 
-  async componentDidMount() {
-    const { onError } = this.props
-    if (onError && typeof onError === 'function') {
-      try {
-        await this.initialise()
-      } catch (e) {
-        await onError(e)
-      }
+  const handleResetPreferences = () => {
+    const { destinationPreferences, customPreferences } = loadPreferences()
+
+    let preferences: CategoryPreferences | undefined
+    if (mapCustomPreferences) {
+      preferences = customPreferences || initialPreferences
     } else {
-      await this.initialise()
+      preferences = destinationPreferences || initialPreferences
     }
+
+    setPreferences(preferences);
   }
 
-  initialise = async () => {
-    const {
-      writeKey,
-      otherWriteKeys = ConsentManagerBuilder.defaultProps.otherWriteKeys,
-      shouldRequireConsent = ConsentManagerBuilder.defaultProps.shouldRequireConsent,
-      initialPreferences,
-      mapCustomPreferences
-    } = this.props
+  const handleSaveConsent = (newPreferences: CategoryPreferences | undefined, shouldReload: boolean) => {
+      let preferencesToSet = mergePreferences({
+        destinations,
+        newPreferences,
+        existingPreferences: preferences
+      })
+
+      let destinationPreferences: CategoryPreferences
+      let customPreferences: CategoryPreferences | undefined
+
+      if (mapCustomPreferences) {
+        const custom = mapCustomPreferences(destinations, preferencesToSet)
+        destinationPreferences = custom.destinationPreferences
+        customPreferences = custom.customPreferences
+
+        if (customPreferences) {
+          // Allow the customPreferences to be updated from mapCustomPreferences
+          preferencesToSet = customPreferences
+        } else {
+          // Make returning the customPreferences from mapCustomPreferences optional
+          customPreferences = preferencesToSet
+        }
+      } else {
+        destinationPreferences = preferencesToSet
+      }
+
+      const newDestinations = getNewDestinations(destinations, destinationPreferences)
+
+      savePreferences({ destinationPreferences, customPreferences, cookieDomain })
+      conditionallyLoadAnalytics({
+        writeKey,
+        destinations,
+        destinationPreferences,
+        isConsentRequired,
+        shouldReload
+      })
+      setPreferences(preferencesToSet)
+      setNewDestinations(newDestinations)
+  }
+
+  const initialise = async () => {
+    try{
     // TODO: add option to run mapCustomPreferences on load so that the destination preferences automatically get updated
     let { destinationPreferences, customPreferences } = loadPreferences()
 
@@ -177,111 +191,60 @@ export default class ConsentManagerBuilder extends Component<Props, State> {
       isConsentRequired
     })
 
-    this.setState({
-      isLoading: false,
-      destinations,
-      newDestinations,
-      preferences,
-      isConsentRequired
-    })
-  }
-
-  handleSetPreferences = (newPreferences: CategoryPreferences) => {
-    this.setState(prevState => {
-      const { destinations, preferences: existingPreferences } = prevState
-      const preferences = this.mergePreferences({
-        destinations,
-        newPreferences,
-        existingPreferences
-      })
-      return { ...prevState, preferences }
-    })
-  }
-
-  handleResetPreferences = () => {
-    const { initialPreferences, mapCustomPreferences } = this.props
-    const { destinationPreferences, customPreferences } = loadPreferences()
-
-    let preferences: CategoryPreferences | undefined
-    if (mapCustomPreferences) {
-      preferences = customPreferences || initialPreferences
-    } else {
-      preferences = destinationPreferences || initialPreferences
+    setIsLoading(false);
+    setDestinations(destinations);
+    setNewDestinations(newDestinations);
+    setPreferences(preferences);
+    setIsConsentRequired(isConsentRequired);
+    } catch(e) {
+      if (onError && typeof onError === 'function') await onError(e as Error);
+      else throw e
     }
-
-    this.setState({ preferences })
   }
 
-  handleSaveConsent = (newPreferences: CategoryPreferences | undefined, shouldReload: boolean) => {
-    const { writeKey, cookieDomain, mapCustomPreferences } = this.props
+  useEffect(() => {
+    initialise().catch((e) => { console.error(e)})
+  }, []);
 
-    this.setState(prevState => {
-      const { destinations, preferences: existingPreferences, isConsentRequired } = prevState
-
-      let preferences = this.mergePreferences({
-        destinations,
-        newPreferences,
-        existingPreferences
-      })
-
-      let destinationPreferences: CategoryPreferences
-      let customPreferences: CategoryPreferences | undefined
-
-      if (mapCustomPreferences) {
-        const custom = mapCustomPreferences(destinations, preferences)
-        destinationPreferences = custom.destinationPreferences
-        customPreferences = custom.customPreferences
-
-        if (customPreferences) {
-          // Allow the customPreferences to be updated from mapCustomPreferences
-          preferences = customPreferences
-        } else {
-          // Make returning the customPreferences from mapCustomPreferences optional
-          customPreferences = preferences
-        }
-      } else {
-        destinationPreferences = preferences
-      }
-
-      const newDestinations = getNewDestinations(destinations, destinationPreferences)
-
-      savePreferences({ destinationPreferences, customPreferences, cookieDomain })
-      conditionallyLoadAnalytics({
-        writeKey,
-        destinations,
-        destinationPreferences,
-        isConsentRequired,
-        shouldReload
-      })
-
-      return { ...prevState, destinationPreferences, preferences, newDestinations }
-    })
+  if (isLoading) {
+    return null
   }
 
-  mergePreferences = (args: {
-    destinations: Destination[]
-    existingPreferences?: CategoryPreferences
-    newPreferences?: CategoryPreferences
-  }) => {
-    const { destinations, existingPreferences, newPreferences } = args
-
-    let preferences: CategoryPreferences
-
-    if (typeof newPreferences === 'boolean') {
-      const destinationPreferences = {}
-      for (const destination of destinations) {
-        destinationPreferences[destination.id] = newPreferences
-      }
-      preferences = destinationPreferences
-    } else if (newPreferences) {
-      preferences = {
-        ...existingPreferences,
-        ...newPreferences
-      }
-    } else {
-      preferences = existingPreferences!
-    }
-
-    return preferences
-  }
+  return children({
+    destinations,
+    customCategories,
+    newDestinations,
+    preferences,
+    isConsentRequired,
+    setPreferences: handleSetPreferences,
+    resetPreferences: handleResetPreferences,
+    saveConsent: handleSaveConsent
+  })
 }
+
+const mergePreferences = ( { destinations, existingPreferences, newPreferences }: {
+  destinations: Destination[]
+  existingPreferences?: CategoryPreferences
+  newPreferences?: CategoryPreferences
+}) => {
+  let preferences: CategoryPreferences
+
+  if (typeof newPreferences === 'boolean') {
+    const destinationPreferences = {}
+    for (const destination of destinations) {
+      destinationPreferences[destination.id] = newPreferences
+    }
+    preferences = destinationPreferences
+  } else if (newPreferences) {
+    preferences = {
+      ...existingPreferences,
+      ...newPreferences
+    }
+  } else {
+    preferences = existingPreferences as CategoryPreferences;
+  }
+
+  return preferences
+}
+
+export default ConsentManagerBuilder;

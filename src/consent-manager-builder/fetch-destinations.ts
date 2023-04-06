@@ -23,7 +23,7 @@ async function fetchDestinationForWriteKey(writeKey: string): Promise<Destinatio
       delete destination.creationName
     }
   } catch (e) {
-    console.warn(`Failed to fetch integrations: ${e.message}`)
+    console.warn(`Failed to fetch integrations: ${(e as Error)?.message}`)
   }
 
   return destinations

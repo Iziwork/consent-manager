@@ -35,8 +35,6 @@ const preferencesDialogContent = (
     </p>
   </div>
 )
-const cancelDialogTitle = 'Êtes-vous sûr de vouloir annuler ?'
-const cancelDialogContent = <div>Vos préférences n’ont pas été sauvegardées.</div>
 
 const ConsentManagerExample = (props: { closeBehavior: CloseBehavior | CloseBehaviorFunction }) => {
   const [prefs, updatePrefs] = React.useState<Preferences>(loadPreferences())

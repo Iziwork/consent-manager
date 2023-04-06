@@ -1,4 +1,4 @@
-import { css } from 'react-emotion'
+import { css } from 'styled-components'
 
 export default css`
   font-family: Montserrat, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,

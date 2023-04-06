@@ -40,17 +40,3 @@ export const preferencesDialogContent = (
     </p>
   </div>
 )
-export const cancelDialogTitle = 'Are you sure you want to cancel?'
-export const cancelDialogContent = (
-  <div>
-    Your preferences have not been saved. By continuing to use our website, you’re agreeing to our{' '}
-    <a
-      href="https://segment.com/docs/legal/website-data-collection-policy/"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Website Data Collection Policy
-    </a>
-    .
-  </div>
-)

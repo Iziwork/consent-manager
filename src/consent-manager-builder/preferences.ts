@@ -8,6 +8,8 @@ const COOKIE_KEY = 'tracking-preferences'
 // TODO: Make cookie expiration configurable
 const COOKIE_EXPIRES = 182
 
+const topDomainTyped = topDomain as (arg: string) => string;
+
 export interface PreferencesManager {
   loadPreferences(): Preferences
   onPreferencesSaved(listener: (prefs: Preferences) => void): void
@@ -18,15 +20,15 @@ export interface PreferencesManager {
 // TODO: harden against different versions of cookies
 export function loadPreferences(): Preferences {
   const cookie = cookies.get(COOKIE_KEY)
-  const preferences = cookie ? JSON.parse(cookie) : undefined
+  const preferences = cookie ? JSON.parse(cookie) as {destinations: CategoryPreferences, custom: CategoryPreferences}  : undefined
 
   if (!preferences) {
     return {}
   }
 
   return {
-    destinationPreferences: preferences.destinations as CategoryPreferences,
-    customPreferences: preferences.custom as CategoryPreferences,
+    destinationPreferences: preferences.destinations ,
+    customPreferences: preferences.custom ,
   }
 }
 
@@ -59,7 +61,7 @@ export function savePreferences({
     })
   }
 
-  const domain = cookieDomain || topDomain(window.location.href)
+  const domain = cookieDomain || topDomainTyped(window.location.href)
   const value = {
     version: 1,
     destinations: destinationPreferences,
