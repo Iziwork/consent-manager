@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, FC, useEffect, useRef } from 'react'
+import React, { MouseEventHandler, FC, useEffect, useRef, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { nanoid } from 'nanoid'
 import fontStyles from './font-styles'
@@ -133,13 +133,14 @@ const Dialog: FC<Props> = ({
   buttons,
   width = '960px',
 }) => {
-  let container: HTMLDivElement | undefined
+  const [container, setContainer] = useState<HTMLDivElement>()
+
   const titleId = nanoid()
   const rootRef = useRef<HTMLDListElement>(null)
   let form: HTMLFormElement
 
   useEffect(() => {
-    container = document.createElement('div')
+    setContainer(document.createElement('div'))
   }, [])
 
   useEffect(() => {
@@ -163,6 +164,7 @@ const Dialog: FC<Props> = ({
       document.body.removeEventListener('keydown', handleEsc, false)
       document.body.style.overflow = ''
       container && document.body.removeChild(container)
+      setContainer(undefined)
       innerRef(null)
     }
   }, [container])
