@@ -1,4 +1,4 @@
-import React, {MouseEventHandler, FC, useEffect, useRef} from 'react'
+import React, { MouseEventHandler, FC, useEffect, useRef, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { nanoid } from 'nanoid'
 import fontStyles from './font-styles'
@@ -122,22 +122,35 @@ type Props = {
   title: React.ReactNode
   buttons: React.ReactNode
   width?: string
-};
+}
 
-const container = document.createElement('div');
+const Dialog: FC<Props> = ({
+  onCancel = undefined,
+  onSubmit,
+  title,
+  innerRef,
+  children,
+  buttons,
+  width = '960px',
+}) => {
+  const [container, setContainer] = useState<HTMLDivElement>()
 
-const Dialog: FC<Props> = ({ onCancel = undefined, onSubmit, title, innerRef, children, buttons, width = '960px' }) => {
-  const titleId = nanoid();
-  const rootRef = useRef<HTMLDListElement>(null);
-  let form: HTMLFormElement;
-
+  const titleId = nanoid()
+  const rootRef = useRef<HTMLDListElement>(null)
+  let form: HTMLFormElement
 
   useEffect(() => {
-    container.setAttribute('data-consent-manager-dialog', '');
-    document.body.appendChild(container);
-  }, [container]);
+    setContainer(document.createElement('div'))
+  }, [])
 
   useEffect(() => {
+    if (!container) return
+    container.setAttribute('data-consent-manager-dialog', '')
+    document.body.appendChild(container)
+  }, [container])
+
+  useEffect(() => {
+    if (!container) return
     if (form) {
       const input: HTMLInputElement | null = form.querySelector('input,button')
       if (input) input.focus()
@@ -148,12 +161,13 @@ const Dialog: FC<Props> = ({ onCancel = undefined, onSubmit, title, innerRef, ch
     innerRef(container)
 
     return () => {
-        document.body.removeEventListener('keydown', handleEsc, false)
-        document.body.style.overflow = ''
-        document.body.removeChild(container)
-        innerRef(null)
+      document.body.removeEventListener('keydown', handleEsc, false)
+      document.body.style.overflow = ''
+      container && document.body.removeChild(container)
+      setContainer(undefined)
+      innerRef(null)
     }
-  }, [container]);
+  }, [container])
 
   const handleFormRef = (node: HTMLFormElement) => {
     form = node
@@ -173,16 +187,9 @@ const Dialog: FC<Props> = ({ onCancel = undefined, onSubmit, title, innerRef, ch
     }
   }
 
-
   const dialog = (
     <Overlay onClick={handleOverlayClick}>
-      <Root
-        ref={rootRef}
-        role="dialog"
-        aria-modal
-        aria-labelledby={titleId}
-        width={width}
-      >
+      <Root ref={rootRef} role="dialog" aria-modal aria-labelledby={titleId} width={width}>
         <Header>
           <Title id={titleId}>{title}</Title>
           {onCancel && (
@@ -201,7 +208,7 @@ const Dialog: FC<Props> = ({ onCancel = undefined, onSubmit, title, innerRef, ch
     </Overlay>
   )
 
-  return createPortal(dialog, container)
+  return container ? createPortal(dialog, container) : null
 }
 
 export default Dialog

@@ -52,7 +52,7 @@
     "lodash.flatten": "4.4.0",
     "lodash.sortby": "4.7.0",
     "lodash.sorteduniqby": "4.7.0",
-    "nanoid": "~4.0.1"
+    "nanoid": "3.3.7"
   },
   "devDependencies": {
     "@babel/core": "7.20.12",
