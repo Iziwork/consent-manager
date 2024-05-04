@@ -2251,7 +2251,6 @@ __metadata:
     lodash.flatten: "npm:4.4.0"
     lodash.sortby: "npm:4.7.0"
     lodash.sorteduniqby: "npm:4.7.0"
-    nanoid: "npm:4.0.2"
     nock: "npm:13.5.4"
     preact: "npm:10.21.0"
     prettier: "npm:2.8.8"
@@ -12886,15 +12885,6 @@ __metadata:
   dependencies:
     node-gyp: "npm:latest"
   checksum: 10/b97f680753113bcd803cb174e40baa01e04aa4cb95ee62b48841336d9c48b278a2eeff71a4a0d7315b8f639fb1e38049925d3be1c6e266c158dc8f7d95d67eaa
-  languageName: node
-  linkType: hard
-
-"nanoid@npm:4.0.2":
-  version: 4.0.2
-  resolution: "nanoid@npm:4.0.2"
-  bin:
-    nanoid: bin/nanoid.js
-  checksum: 10/8c0c267de44cddcad79c3361d2cbd281694c36bf7ab6a163f36dd8f6e6ee43e9783561302c55fab2986a2fa847e7a6b30fedabd1e117fdb8aecc5ab21555428d
   languageName: node
   linkType: hard
 
