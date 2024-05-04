@@ -5,7 +5,7 @@ orbs:
 jobs:
   build-and-test:
     docker:
-      - image: cimg/node:18.13.0
+      - image: cimg/node:20.12.2
     steps:
       - checkout
       - run:
@@ -19,7 +19,7 @@ jobs:
       - run: yarn run size-limit
   build-test-and-publish:
     docker:
-      - image: cimg/node:18.13.0
+      - image: cimg/node:20.12.2
     steps:
       - checkout
       - run:
