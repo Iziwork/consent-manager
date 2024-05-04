@@ -49,8 +49,7 @@
     "js-cookie": "3.0.5",
     "lodash.flatten": "4.4.0",
     "lodash.sortby": "4.7.0",
-    "lodash.sorteduniqby": "4.7.0",
-    "nanoid": "4.0.2"
+    "lodash.sorteduniqby": "4.7.0"
   },
   "devDependencies": {
     "@babel/core": "7.24.5",

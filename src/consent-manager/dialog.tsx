@@ -1,6 +1,5 @@
 import React, { MouseEventHandler, FC, useEffect, useRef, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
-import { nanoid } from 'nanoid'
 import fontStyles from './font-styles'
 import { createPortal } from 'react-dom'
 
@@ -135,7 +134,6 @@ const Dialog: FC<Props> = ({
 }) => {
   const [container, setContainer] = useState<HTMLDivElement>()
 
-  const titleId = nanoid()
   const rootRef = useRef<HTMLDListElement>(null)
   let form: HTMLFormElement
 
@@ -189,9 +187,9 @@ const Dialog: FC<Props> = ({
 
   const dialog = (
     <Overlay onClick={handleOverlayClick}>
-      <Root ref={rootRef} role="dialog" aria-modal aria-labelledby={titleId} width={width}>
+      <Root ref={rootRef} role="dialog" aria-modal width={width}>
         <Header>
-          <Title id={titleId}>{title}</Title>
+          <Title>{title}</Title>
           {onCancel && (
             <HeaderCancelButton onClick={onCancel} title="Cancel" aria-label="Cancel">
               ✕
