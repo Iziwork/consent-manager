@@ -89,7 +89,7 @@
     "eslint-plugin-react": "7.34.1",
     "evergreen-ui": "7.1.9",
     "file-loader": "6.2.0",
-    "jsdom": "24.0.0",
+    "jsdom": "24.1.0",
     "lint-staged": "13.3.0",
     "nock": "13.5.4",
     "preact": "10.21.0",
