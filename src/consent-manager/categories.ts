@@ -9,10 +9,10 @@ export const MARKETING_AND_ANALYTICS_CATEGORIES = [
   'Tableaux de bord',
   'Référents',
   'Sondages',
-  'Vidéo'
+  'Vidéo',
 ]
 
-export const ADVERTISING_CATEGORIES = ['Publicité', 'Gestionnaires de tag']
+export const ADVERTISING_CATEGORIES = ['Advertising', 'Publicité', 'Gestionnaires de tag']
 
 export const FUNCTIONAL_CATEGORIES = [
   'Gestion de la relation client',
@@ -23,5 +23,5 @@ export const FUNCTIONAL_CATEGORIES = [
   'Surveillance de la performance',
   'Personnalisation',
   'Notifications Push & SMS',
-  'Sécurité & fraude'
+  'Sécurité & fraude',
 ]

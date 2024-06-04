@@ -318,7 +318,7 @@ const PreferenceDialog: FC<Props> = ({
                   ) : (
                     <td>
                       <p>
-                        Pour surveilleer la performance de notre site et améliorer votre
+                        Pour surveiller la performance de notre site et améliorer votre
                         expérience de navigation.
                       </p>
                       <p className="hideOnMobile">
