@@ -188,7 +188,8 @@ const ConsentManagerBuilder: FC<Props> = ({
       writeKey,
       destinations,
       destinationPreferences,
-      isConsentRequired
+      isConsentRequired,
+      shouldReload: false
     })
 
     setIsLoading(false);
