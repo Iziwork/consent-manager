@@ -140,7 +140,7 @@ const Banner: FC<Props> = ({
             option dans Préférences de cookies, vous acceptez les conditions énoncées dans notre{' '}
             <a
               className="link"
-              href="https://www.iziwork.com/fr/charte-de-confidentialite/"
+              href="https://www.iziwork.com/fr/politique-de-confidentialite/"
               target="_blank"
               rel="noopener noreferrer"
             >
